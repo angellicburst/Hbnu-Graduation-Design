@@ -1,5 +1,5 @@
 @charset "utf-8";
-@import "../../lib/layui/css/layui.css";
+@import "/lib/layui/css/layui.css";
 * {
   margin: 0px;
   padding: 0px;
@@ -16,4 +16,72 @@ html {
 body {
   width: 100%;
   min-height: 100%;
+}
+/*分页*/
+.page {
+  margin-top: 20px;
+  text-align: center;
+}
+.page a {
+  display: inline-block;
+  background: #fff 0 0 no-repeat;
+  color: #888;
+  padding: 10px;
+  min-width: 15px;
+  border: 1px solid #E2E2E2;
+}
+.page span {
+  display: inline-block;
+  padding: 10px;
+  min-width: 15px;
+  border: 1px solid #E2E2E2;
+}
+.page span.current {
+  display: inline-block;
+  background: #009688 0 0 no-repeat;
+  color: #fff;
+  padding: 10px;
+  min-width: 15px;
+  border: 1px solid #009688;
+}
+.page .pagination li {
+  display: inline-block;
+  margin-right: 5px;
+  text-align: center;
+}
+.page .pagination li.active span {
+  background: #009688 0 0 no-repeat;
+  color: #fff;
+  border: 1px solid #009688;
+}
+/*表单样式*/
+.weadmin-body {
+  padding: 20px;
+}
+.weadmin-nav {
+  padding: 0 20px;
+  position: relative;
+  z-index: 99;
+  border-bottom: 1px solid #e5e5e5;
+  line-height: 39px;
+  height: 39px;
+  overflow: hidden;
+}
+.weadmin-block {
+  display: block;
+  margin-bottom: 10px;
+  padding: 5px;
+  line-height: 22px;
+  border-radius: 0 2px 2px 0;
+  background-color: #f2f2f2;
+}
+.we-search {
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+.we-search input.layui-input {
+  width: 190px;
+}
+.we-red {
+  color: red;
 }

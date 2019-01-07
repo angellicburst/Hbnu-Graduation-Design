@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!doctype html>
 <html lang="en">
 
 	<head>
@@ -9,7 +9,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
 		<meta http-equiv="Cache-Control" content="no-siteapp" />
 		<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
-		<link rel="stylesheet" href="./css/font.css">
+		<link rel="stylesheet" href="/css/font.css">
 		<link rel="stylesheet" href="/css/common.css" />
 		<link rel="stylesheet" href="/css/login.css" />
 	</head>
@@ -124,9 +124,8 @@
 
 		</div>
 
-		<script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
-		<!--		<script type="text/javascript" src="static/js/three.min.js"></script>
--->
+		<script type="text/javascript" src="/lib/layui/layui.js" charset="utf-8"></script>
+		<script type="text/javascript" src="/js/three.min.js"></script>
 		<script type="text/javascript">
 			//动态背景
 			var SEPARATION = 100,
@@ -296,7 +295,7 @@
 
 		<script type="text/javascript">
 			layui.extend({
-				admin: '{/}./js/admin'
+				admin: '{/}js/admin'
 			});
 			layui.use(['form', 'admin'], function() {
 				var form = layui.form,

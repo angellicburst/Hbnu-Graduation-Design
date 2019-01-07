@@ -1,5 +1,7 @@
 package com.hbnu.gradesign.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +16,13 @@ public class TestServiceImpl implements TestService {
 	private TestMapper tm;
 	
 	@Override
-	public Test test() {
+	public List<Test> test() {
 		return tm.selectTest();
+	}
+
+	@Override
+	public Integer getCount() {
+		return tm.getCount();
 	}
 	
 }

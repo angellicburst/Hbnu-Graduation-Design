@@ -9,19 +9,67 @@
  * +----------------------------------------------------------------------
  */
 layui.extend({
-	admin: '{/}../../static/js/admin'
+	admin: '{/}../../js/admin'
 });
-layui.use(['laydate', 'jquery', 'admin'], function() {
+layui.use(['laydate', 'jquery', 'admin', 'table'], function() {
 	var laydate = layui.laydate,
 		$ = layui.jquery,
-		admin = layui.admin;
+		admin = layui.admin,
+		table = layui.table;
 	//执行一个laydate实例
 	laydate.render({
-		elem: '#start' //指定元素
+		elem : '#start' // 指定元素
 	});
-	//执行一个laydate实例
+	// 执行一个laydate实例
 	laydate.render({
-		elem: '#end' //指定元素
+		elem : '#end' // 指定元素
+	});
+	table.render({
+		elem : '#memberList',
+		url : '/json',
+		cols : [ [ {
+			field : 'id',
+			title : 'ID',
+			width : 80,
+			fixed : 'left',
+			unresize : true,
+			sort : true
+		}, {
+			field : 'username',
+			title : '用户名',
+			width : 100,
+			sort : true
+		}, {
+			field : 'gender',
+			title : '性别',
+			width : 80,
+		}, {
+			field : 'phone',
+			title : '电话',
+			width : 160
+		}, {
+			field : 'email',
+			title : '邮箱',
+			width : 200
+		}, {
+			field : 'address',
+			title : '地址',
+			width : 300
+		}, {
+			field : 'createDate',
+			title : '创建时间',
+			width : 150
+		}, {
+			field : 'status',
+			title : '状态',
+			width : 80
+		}, {
+			fixed: 'right', 
+			title:'操作', 
+			toolbar: '#barDemo', 
+			width:150
+		} ] ],
+		page : true
 	});
 	/*用户-停用*/
 	window.member_stop = function (obj, id) {

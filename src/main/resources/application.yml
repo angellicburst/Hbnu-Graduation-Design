@@ -8,7 +8,9 @@ spring:
     view:
       prefix: /pages/
       suffix: .html
-    
+  resources:
+    static-locations:
+    - classpath:/static/ 
 mybatis:
   mapper-locations:
   - classpath*:mappers/*.xml
