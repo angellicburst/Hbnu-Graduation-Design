@@ -1,6 +1,8 @@
 package com.hbnu.gradesign.bean;
 
-import java.sql.Date;
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Test {
 	private Integer id;
@@ -14,7 +16,8 @@ public class Test {
 	private String email;
 	
 	private String address;
-	
+
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date createDate;
 	
 	private Integer status;
@@ -66,7 +69,8 @@ public class Test {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-
+	
+	@JsonFormat(pattern="yyyy-MM-dd")
 	public Date getCreateDate() {
 		return createDate;
 	}

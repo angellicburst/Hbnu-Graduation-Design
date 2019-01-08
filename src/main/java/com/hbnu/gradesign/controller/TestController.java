@@ -1,13 +1,18 @@
 package com.hbnu.gradesign.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hbnu.gradesign.bean.Test;
 import com.hbnu.gradesign.bean.TestData;
 import com.hbnu.gradesign.service.TestService;
+
+import java.util.List;
 
 @Controller
 public class TestController {
@@ -17,20 +22,22 @@ public class TestController {
 	
 	@RequestMapping("/test")
 	public String test() {
-		for (Test t : ts.test()) {
-			System.out.println(t);
-		}
 		return "index";
 	}
 	
 	@ResponseBody
 	@RequestMapping("/json")
-	public TestData<Test> JSONTest() {
+	public TestData<Test> JSONTest(@RequestParam(value = "page",defaultValue = "1") String pageIndex,
+								   @RequestParam(value = "limit",defaultValue = "10") String pageSize) {
+		PageHelper.startPage(Integer.parseInt(pageIndex),Integer.parseInt(pageSize));
+		List<Test> tests = ts.test();
+		PageInfo<Test> pageInfo = new PageInfo<Test>(tests);
+
 		TestData<Test> td = new TestData<Test>();
 		td.setCode(0);
 		td.setMsg("成功");
-		td.setCount(ts.getCount());
-		td.setData(ts.test());
+		td.setCount((int) pageInfo.getTotal());
+		td.setData(pageInfo.getList());
 		return td;
 	}
 }

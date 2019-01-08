@@ -2,7 +2,9 @@ package com.hbnu.gradesign;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
+import com.github.pagehelper.PageHelper;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -50,6 +52,22 @@ public class GraDesignApplication extends SpringBootServletInitializer {
 		//将convert添加到converters中
 		HttpMessageConverter<?> converter = fastConverter;
 		return new HttpMessageConverters(converter);
+	}
+
+	/**
+	 * PagerHelper配置
+	 * @return
+	 */
+	@Bean
+	public PageHelper pageHelper(){
+		PageHelper pageHelper = new PageHelper();
+		Properties properties = new Properties();
+		properties.setProperty("offsetAsPageNum","true");
+		properties.setProperty("rowBoundsWithCount","true");
+		properties.setProperty("reasonable","true");
+		properties.setProperty("dialect","mysql");
+		pageHelper.setProperties(properties);
+		return pageHelper;
 	}
 
 	public static void main(String[] args) {
