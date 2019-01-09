@@ -29,7 +29,7 @@ public class GraDesignApplication extends SpringBootServletInitializer {
 	}
 
 	/**
-	 * JackJSON配置
+	 * FastJSON配置
 	 * 1.需要先定义一个convert转换消息的对象；
 	 * 2.添加fastjson的配置信息，比如是否要格式化返回的json数据
 	 * 3.在convert中添加配置信息

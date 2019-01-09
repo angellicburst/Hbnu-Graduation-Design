@@ -1,9 +1,43 @@
 spring:
   datasource:
+    driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/gradesign?characterEncoding=utf8&useSSL=false
-    driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: 123456
+    platform: mysql
+    ############################# alibaba druid配置信息 ###################################
+    type: com.alibaba.druid.pool.DruidDataSource
+    # 初始化连接大小
+    initialSize: 5
+    # 最小连接池数量
+    minIdle: 5
+    # 最大连接池数量
+    maxActive: 20
+    # 配置获取连接等待超时的时间
+    maxWait: 60000
+    # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+    timeBetweenEvictionRunsMillis: 60000
+    # 配置一个连接在池中最小生存的时间，单位是毫秒
+    minEvictableIdleTimeMillis: 30000
+    # 测试连接
+    validationQuery: SELECT 1 FROM DUAL
+    # 申请连接的时候检测，建议配置为true，不影响性能，并且保证安全性
+    testWhileIdle: true
+    # 获取连接时执行检测，建议关闭，影响性能
+    testOnBorrow: false
+    # 归还连接时执行检测，建议关闭，影响性能
+    testOnReturn: false
+    # 是否开启PSCache，并且指定每个连接上PSCache的大小,PSCache对支持游标的数据库性能提升巨大，oracle建议开启，mysql下建议关闭
+    poolPreparedStatements: false
+    # 开启poolPreparedStatements后生效
+    maxPoolPreparedStatementPerConnectionSize: 20
+    # 配置扩展插件，常用的插件有=>stat:监控统计  log4j:日志  wall:防御sql注入
+    filters: stat,wall,slf4j
+    logSlowSql: true
+    # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    # 合并多个DruidDataSource的监控数据
+    useGlobalDataSourceStat: true
   mvc:
     view:
       prefix: /pages/
