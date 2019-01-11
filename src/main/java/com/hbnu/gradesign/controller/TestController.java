@@ -16,20 +16,21 @@ import java.util.List;
 
 @Controller
 public class TestController {
-	
+
 	@Autowired
 	private TestService ts;
-	
+
 	@RequestMapping("/test")
 	public String test() {
 		return "index";
 	}
-	
+
+
 	@ResponseBody
 	@RequestMapping("/json")
-	public TestData<Test> JSONTest(@RequestParam(value = "page",defaultValue = "1") String pageIndex,
-								   @RequestParam(value = "limit",defaultValue = "10") String pageSize) {
-		PageHelper.startPage(Integer.parseInt(pageIndex),Integer.parseInt(pageSize));
+	public TestData<Test> JSONTest(@RequestParam(value = "page", defaultValue = "1") String pageIndex,
+								   @RequestParam(value = "limit", defaultValue = "10") String pageSize) {
+		PageHelper.startPage(Integer.parseInt(pageIndex), Integer.parseInt(pageSize));
 		List<Test> tests = ts.test();
 		PageInfo<Test> pageInfo = new PageInfo<Test>(tests);
 
