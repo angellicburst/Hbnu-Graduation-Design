@@ -46,19 +46,21 @@ spring:
         statement-close-after-log-enabled: false
         result-set-open-after-log-enabled: false
         result-set-close-after-log-enabled: false
+  # 视图解析器
   mvc:
     view:
       prefix: /pages/
       suffix: .html
+  # 静态资源
   resources:
     static-locations:
     - classpath:/static/
+  # 需要设置proxy-target-class="true" 否则无法依赖注入
+  aop:
+    proxy-target-class: true
 
 # mybatis配置
 mybatis:
   mapper-locations:
   - classpath*:mappers/*.xml
   type-aliases-package: com.hbnu.gradesign.bean
-
-# 去掉不需要的CONDITIONS EVALUATION REPORT
-logging:level.org.springframework.boot.autoconfigure: ERROR
