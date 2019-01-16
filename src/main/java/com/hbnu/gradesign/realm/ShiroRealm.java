@@ -43,7 +43,7 @@ public class ShiroRealm extends AuthorizingRealm {
 	//定义如何获取用户的角色和权限的逻辑，给shiro做权限判断
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-		//null usernames are invalid
+		//null username are invalid
 		if (principals == null) {
 			throw new AuthorizationException("PrincipalCollection method argument cannot be null.");
 		}

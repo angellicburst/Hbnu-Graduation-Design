@@ -11,15 +11,19 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class ShiroConfiguration  {
-	//注入自定义的realm，告诉shiro如何获取用户信息来做登录或权限控制
+public class ShiroConfiguration {
+	/**
+	 * 注入自定义的realm，告诉shiro如何获取用户信息来做登录或权限控制
+	 */
 	@Bean
 	public Realm realm() {
 		return new ShiroRealm();
 	}
 
+
 	/**
 	 * springboot shiro开启注释
+	 *
 	 * @param securityManager
 	 * @return
 	 */
@@ -48,7 +52,7 @@ public class ShiroConfiguration  {
 	@Bean
 	public ShiroFilterChainDefinition shiroFilterChainDefinition() {
 		DefaultShiroFilterChainDefinition chain = new DefaultShiroFilterChainDefinition();
-		// 由于demo1展示统一使用注解做访问控制，所以这里配置所有请求路径都可以匿名访问
+		// 由于统一使用注解做访问控制，所以这里配置所有请求路径都可以匿名访问
 		chain.addPathDefinition("/**", "anon"); // all paths are managed via annotations
 
 		// 这另一种配置方式。但是还是用上面那种吧，容易理解一点。
@@ -56,4 +60,33 @@ public class ShiroConfiguration  {
 		// chainDefinition.addPathDefinition("/**", "authcBasic[permissive]");
 		return chain;
 	}
+
+//	/**
+//	 * 配置shiro过滤器
+//	 *
+//	 * @param securityManager
+//	 * @return
+//	 */
+//	@Bean
+//	public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
+//		//1.定义shiroFactoryBean
+//		ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
+//		//2.设置securityManager
+//		shiroFilterFactoryBean.setSecurityManager(securityManager);
+//		//3.LinkedHashMap是有序的，进行顺序拦截器配置
+//		Map<String, String> filterChainMap = new LinkedHashMap<String, String>();
+//		//4.配置logout过滤器
+//		filterChainMap.put("/logout", "logout");
+//		//5.所有url必须通过认证才可以访问
+//		filterChainMap.put("/**", "authc");
+//		//6.设置默认登录的url
+//		shiroFilterFactoryBean.setLoginUrl("/login");
+//		//7.设置成功之后要跳转的链接
+//		shiroFilterFactoryBean.setSuccessUrl("/index");
+//		//8.设置未授权界面
+//		shiroFilterFactoryBean.setUnauthorizedUrl("/403");
+//		//9.设置shiroFilterFactoryBean的FilterChainDefinitionMap
+//		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainMap);
+//		return shiroFilterFactoryBean;
+//	}
 }
