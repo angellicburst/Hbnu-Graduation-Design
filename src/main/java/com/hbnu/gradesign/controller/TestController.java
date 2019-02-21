@@ -2,15 +2,16 @@ package com.hbnu.gradesign.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.hbnu.gradesign.entity.Test;
+import com.hbnu.gradesign.entity.TestData;
+import com.hbnu.gradesign.entity.User;
+import com.hbnu.gradesign.service.TestService;
+import com.hbnu.gradesign.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.hbnu.gradesign.bean.Test;
-import com.hbnu.gradesign.bean.TestData;
-import com.hbnu.gradesign.service.TestService;
 
 import java.util.List;
 
@@ -20,9 +21,18 @@ public class TestController {
 	@Autowired
 	private TestService ts;
 
+	@Autowired
+	private UserService us;
+
 	@RequestMapping("/test")
 	public String test() {
 		return "index";
+	}
+
+	@ResponseBody
+	@RequestMapping("/user")
+	public User user() {
+		return us.findUserByUsername("admin");
 	}
 
 

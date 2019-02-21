@@ -85,7 +85,7 @@
 								<a onclick="WeAdminShow('切换帐号','./login.html')">切换帐号</a>
 							</dd>
 							<dd>
-								<a class="loginout" href="../login.html">退出</a>
+								<a class="loginout" href="login.html">退出</a>
 							</dd>
 						</dl>
 					</li>
@@ -353,13 +353,13 @@
 				var login = JSON.parse(localStorage.getItem("login"));
 				if(login) {
 					if(login = 0) {
-						window.location.href = '../login.html';
+						window.location.href = 'login.html';
 						return false;
 					} else {
 						return false;
 					}
 				} else {
-					window.location.href = '../login.html';
+					window.location.href = 'login.html';
 					return false;
 				}
 			});

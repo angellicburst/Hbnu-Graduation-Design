@@ -1,10 +1,7 @@
 package com.hbnu.gradesign.controller;
 
 import com.hbnu.gradesign.service.RoleService;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.annotation.*;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,72 +53,72 @@ public class ShiroController {
 	// 要求登录的用户具有mvn:build权限才能访问
 	// 由于UserService模拟返回的用户信息中有该权限，所以这个接口可以访问
 	// 如果没有登录，UnauthenticatedException
-	@RequiresPermissions("mvn:install")
-	@GetMapping("/mvnInstall")
+	@RequiresPermissions("add")
+	@GetMapping("/add")
 	public String mvnInstall() {
-		return "mvn:install";
+		return "add";
 	}
 
 	// 要求登录的用户具有mvn:build权限才能访问
 	// 由于UserService模拟返回的用户信息中【没有】该权限，所以这个接口【不可以】访问
 	// 如果没有登录，UnauthenticatedException
 	// 如果登录了，但是没有这个权限，会报错UnauthorizedException
-	@RequiresPermissions("gradleBuild")
-	@GetMapping("/gradleBuild")
+	@RequiresPermissions("acdemic")
+	@GetMapping("/acdemic")
 	public String gradleBuild() {
-		return "gradleBuild";
+		return "acdemic";
 	}
 
 	// 要求登录的用户具有js角色才能访问
 	// 由于UserService模拟返回的用户信息中有该角色，所以这个接口可访问
 	// 如果没有登录，UnauthenticatedException
-	@RequiresRoles("js")
-	@GetMapping("/js")
+	@RequiresRoles("teacher")
+	@GetMapping("/teacher")
 	public String js() {
-		return "js programmer";
+		return "js teacher";
 	}
 
 	// 要求登录的用户具有python角色才能访问
 	// 由于UserService模拟返回的用户信息中有该角色，所以这个接口可访问
 	// 如果没有登录，UnauthenticatedException
 	// 如果登录了，但是没有该角色，会抛出UnauthorizedException
-	@RequiresRoles("python")
-	@GetMapping("/python")
+	@RequiresRoles("student")
+	@GetMapping("/student")
 	public String python() {
-		return "python programmer";
+		return "student";
 	}
 
-	/**
-	 * 登陆
-	 * @param username 用户名
-	 * @param password 密码
-	 */
-	@GetMapping(value = "/login")
-	public String login(String username, String password) {
-		// 从SecurityUtils里边创建一个 subject
-		Subject subject = SecurityUtils.getSubject();
-		// 在认证提交前准备 token（令牌）
-		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
-		// 执行认证登陆
-		subject.login(token);
-		//根据权限，指定返回数据
-		boolean role = rs.getRolesByUserId(1).contains("java");
-
-		if (role == true) {
-			return "success";
-		} else {
-			return "fail";
-		}
-	}
-
-	/**
-	 * 退出登录
-	 * @return
-	 */
-	@RequestMapping("/logout")
-	public String logout() {
-		Subject subject = SecurityUtils.getSubject();
-		subject.logout();
-		return "logout success";
-	}
+//	/**
+//	 * 登陆
+//	 * @param username 用户名
+//	 * @param password 密码
+//	 */
+//	@GetMapping(value = "/login")
+//	public String login(String username, String password) {
+//		// 从SecurityUtils里边创建一个 subject
+//		Subject subject = SecurityUtils.getSubject();
+//		// 在认证提交前准备 token（令牌）
+//		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+//		// 执行认证登陆
+//		subject.login(token);
+//		//根据权限，指定返回数据
+//		boolean role = rs.getRolesByUserId(1).contains("java");
+//
+//		if (role == true) {
+//			return "success";
+//		} else {
+//			return "fail";
+//		}
+//	}
+//
+//	/**
+//	 * 退出登录
+//	 * @return
+//	 */
+//	@RequestMapping("/logout")
+//	public String logout() {
+//		Subject subject = SecurityUtils.getSubject();
+//		subject.logout();
+//		return "logout success";
+//	}
 }

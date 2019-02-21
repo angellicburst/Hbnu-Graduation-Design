@@ -1,13 +1,12 @@
 package com.hbnu.gradesign.service.impl;
 
-import java.util.List;
-
+import com.hbnu.gradesign.entity.Test;
+import com.hbnu.gradesign.dao.TestMapper;
+import com.hbnu.gradesign.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.hbnu.gradesign.bean.Test;
-import com.hbnu.gradesign.dao.TestMapper;
-import com.hbnu.gradesign.service.TestService;
+import java.util.List;
 
 @Service
 public class TestServiceImpl implements TestService {
@@ -17,6 +16,7 @@ public class TestServiceImpl implements TestService {
 	
 	@Override
 	public List<Test> test() {
+		System.out.println(tm);
 		return tm.selectTest();
 	}
 

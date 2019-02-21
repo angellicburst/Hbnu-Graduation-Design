@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hbnu.gradesign.dao.RoleMapper">
+    <resultMap id="BaseResultMap" type="com.hbnu.gradesign.entity.Role">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="role" jdbcType="VARCHAR" property="role"/>
+    </resultMap>
+    <select id="getRolesByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+            *
+        FROM
+            role
+        WHERE
+            id IN ( SELECT role_id FROM user_role WHERE user_id = (select id from `user` where username= #{username}) );
+	</select>
+</mapper>

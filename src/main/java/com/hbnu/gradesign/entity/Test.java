@@ -1,4 +1,4 @@
-package com.hbnu.gradesign.bean;
+package com.hbnu.gradesign.entity;
 
 import java.util.Date;
 
