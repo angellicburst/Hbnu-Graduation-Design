@@ -10,11 +10,13 @@
 
 	<context id="DB2Tables" targetRuntime="MyBatis3">
 
-		<commentGenerator>
-			<property name="suppressDate" value="true"/>
-			<!--&lt;!&ndash; 是否去除自动生成的注释 true：是 ： false:否 &ndash;&gt;-->
-			<property name="suppressAllComments" value="false"/>
-		</commentGenerator>
+		<commentGenerator type="com.hbnu.gradesign.config.MySQLCommentGenerator">
+		<!--<property name="suppressDate" value="true"/>-->
+		<!--&lt;!&ndash;&lt;!&ndash; 是否去除自动生成的注释 true：是 ： false:否 &ndash;&gt;&ndash;&gt;-->
+		<!--<property name="suppressAllComments" value="false"/>-->
+		<property name="author" value="Orange"/>
+		<property name="dateFormat" value="yyyy/MM/dd"/>
+	</commentGenerator>
 
 		<!--数据库链接URL，用户名、密码 -->
 		<jdbcConnection driverClass="${driver-class-name}" connectionURL="${url}"
