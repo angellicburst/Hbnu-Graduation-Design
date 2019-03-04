@@ -119,12 +119,12 @@ public class ShiroRealm extends AuthorizingRealm {
 	@Override
 	public  boolean isPermitted(PrincipalCollection principals, String permission){
 		User user = (User) principals.getPrimaryPrincipal();
-		return userService.isAdmin(user.getType())||super.isPermitted(principals,permission);
+		return roleService.isAdmin(user.getId())||super.isPermitted(principals,permission);
 	}
 	@Override
 	public boolean hasRole(PrincipalCollection principals, String roleIdentifier) {
 		User user = (User) principals.getPrimaryPrincipal();
-		return userService.isAdmin(user.getType())||super.hasRole(principals,roleIdentifier);
+		return roleService.isAdmin(user.getId())||super.hasRole(principals,roleIdentifier);
 	}
 
 }

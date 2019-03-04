@@ -4,6 +4,4 @@ import com.hbnu.gradesign.entity.User;
 
 public interface UserService {
 	User findUserByUsername(String Username);
-
-	boolean isAdmin(Integer type);
 }

@@ -1,5 +1,7 @@
 package com.hbnu.gradesign.service.impl;
 
+import com.hbnu.gradesign.dao.RoleMapper;
+import com.hbnu.gradesign.entity.Role;
 import com.hbnu.gradesign.entity.User;
 import com.hbnu.gradesign.dao.UserMapper;
 import com.hbnu.gradesign.service.UserService;
@@ -21,16 +23,5 @@ public class UserServiceImpl implements UserService {
 	public User findUserByUsername(String username) {
 		System.out.println(um);
 		return um.findUserByUsername(username);
-	}
-
-	/**
-	 * 判断是不是超级管理员
-	 * @param type
-	 * @return
-	 */
-	@Override
-	public boolean isAdmin(Integer type) {
-		if (type == 0) return true;
-		else return false;
 	}
 }

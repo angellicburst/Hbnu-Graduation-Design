@@ -13,4 +13,13 @@
         WHERE
             id IN ( SELECT role_id FROM user_role WHERE user_id = (select id from `user` where username= #{username}) );
 	</select>
+
+    <select id="getUserRole" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT
+            *
+        FROM
+            role
+        WHERE
+            id IN ( SELECT role_id FROM user_role WHERE user_id = #{userId} );
+	</select>
 </mapper>

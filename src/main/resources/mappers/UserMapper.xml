@@ -9,6 +9,6 @@
 		<result column="type" jdbcType="INTEGER" property="type" />
 	</resultMap>
 	<select id="findUserByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
-		select * from `user` where username = #{username};
+		SELECT * FROM `user` WHERE username = #{username};
 	</select>
 </mapper>

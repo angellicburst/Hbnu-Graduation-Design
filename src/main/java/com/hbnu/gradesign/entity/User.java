@@ -1,69 +1,79 @@
 package com.hbnu.gradesign.entity;
 
 /**
- * 用户
+ * 用户表
+ * user
+ * @author Fynce
+ * @date 2019/03/04
  */
 public class User {
+    private Integer id;
 
-	private Integer id;	//ID
+    /**
+     * 用户名
+     * username
+     */
+    private String username;
 
-	private String username;	//用户名
+    /**
+     * 密码
+     * password
+     */
+    private String password;
 
-	private String password;	//密码
+    /**
+     * 盐值
+     * salt
+     */
+    private String salt;
 
-	private String salt;	//盐值
+    /**
+     * 状态
+            0--启用
+            1--停用
+     * status
+     */
+    private Integer status;
 
-	private Integer status;	//状态
+    public Integer getId() {
+        return id;
+    }
 
-	private Integer type;	//类型
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public void setUsername(String username) {
+        this.username = username == null ? null : username.trim();
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public String getSalt() {
+        return salt;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setSalt(String salt) {
+        this.salt = salt == null ? null : salt.trim();
+    }
 
-	public String getSalt() {
-		return salt;
-	}
+    public Integer getStatus() {
+        return status;
+    }
 
-	public void setSalt(String salt) {
-		this.salt = salt;
-	}
-
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
-
-	public Integer getType() {
-		return type;
-	}
-
-	public void setType(Integer type) {
-		this.type = type;
-	}
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 
 	@Override
 	public String toString() {
@@ -73,7 +83,6 @@ public class User {
 				", password='" + password + '\'' +
 				", salt='" + salt + '\'' +
 				", status=" + status +
-				", type=" + type +
 				'}';
 	}
 }

@@ -14,7 +14,12 @@ public class RoleServiceImpl implements RoleService {
 	
 	@Autowired
 	private RoleMapper rm;
-	
+
+	/**
+	 * 通过用户名查询用户角色
+	 * @param username
+	 * @return
+	 */
 	@Override
 	public Set<String> getRolesByUsername(String username) {
 		Set<String> roles = new HashSet<>();
@@ -22,5 +27,17 @@ public class RoleServiceImpl implements RoleService {
 			roles.add(role.getRole());
 		}
 		return roles;
+	}
+
+	/**
+	 * 判断是不是超级管理员
+	 * @param userId
+	 * @return
+	 */
+	@Override
+	public boolean isAdmin(Integer userId) {
+		Role role = rm.getUserRole(userId);
+		if (role.getId() == 1) return true;
+		else return false;
 	}
 }
