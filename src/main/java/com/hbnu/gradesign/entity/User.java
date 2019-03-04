@@ -1,17 +1,21 @@
 package com.hbnu.gradesign.entity;
 
+/**
+ * 用户
+ */
 public class User {
-	private Integer id;
 
-	private String username;
+	private Integer id;	//ID
 
-	private String password;
+	private String username;	//用户名
 
-	private String salt;
+	private String password;	//密码
 
-	private Integer status;
+	private String salt;	//盐值
 
-	private Integer type;
+	private Integer status;	//状态
+
+	private Integer type;	//类型
 
 	public Integer getId() {
 		return id;

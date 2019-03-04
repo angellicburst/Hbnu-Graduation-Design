@@ -1,9 +1,12 @@
 package com.hbnu.gradesign.entity;
 
+/**
+ * 角色
+ */
 public class Role {
-	private Integer id;
+	private Integer id;	//ID
 
-	private String role;
+	private String role;	//角色
 
 	public Integer getId() {
 		return id;

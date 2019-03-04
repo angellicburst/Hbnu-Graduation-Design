@@ -1,9 +1,12 @@
 package com.hbnu.gradesign.entity;
 
+/**
+ * 权限
+ */
 public class Permission {
-	private Integer id;
+	private Integer id;	//ID
 
-	private String permission;
+	private String permission;	//权限名
 
 	public Integer getId() {
 		return id;

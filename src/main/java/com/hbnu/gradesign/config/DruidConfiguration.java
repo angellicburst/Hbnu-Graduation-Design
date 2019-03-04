@@ -9,6 +9,7 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -46,6 +47,7 @@ public class DruidConfiguration {
 
 
 	//解决 spring.datasource.filters=stat,wall,log4j 无法正常注册进去
+	@Component
 	@ConfigurationProperties(prefix = DB_PREFIX)
 	class IDataSourceProperties {
 		private String url;

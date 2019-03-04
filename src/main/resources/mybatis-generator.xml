@@ -8,29 +8,39 @@
 	<!--导入属性配置-->
 	<properties resource="application.yml" />
 
-	<context id="DB2Tables" targetRuntime="MyBatis3">
+	<context id="DB2Tables" defaultModelType="hierarchical" targetRuntime="MyBatis3Simple">
+		<!-- 生成的 Java 文件的编码 -->
+		<property name="javaFileEncoding" value="UTF-8"/>
+		<!-- 格式化 Java 代码 -->
+		<property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
+		<!-- 格式化 XML 代码 -->
+		<property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
 
-		<commentGenerator type="com.hbnu.gradesign.config.MySQLCommentGenerator">
-		<!--<property name="suppressDate" value="true"/>-->
-		<!--&lt;!&ndash;&lt;!&ndash; 是否去除自动生成的注释 true：是 ： false:否 &ndash;&gt;&ndash;&gt;-->
-		<!--<property name="suppressAllComments" value="false"/>-->
-		<property name="author" value="Orange"/>
-		<property name="dateFormat" value="yyyy/MM/dd"/>
-	</commentGenerator>
+		<!-- 自定义注释 -->
+		<commentGenerator type="com.hbnu.gradesign.config.RemarkCommentGenerator">
+			<!--<property name="suppressDate" value="true"/>-->
+			<!--&lt;!&ndash;是否去除自动生成的注释 true：是 ： false:否 &ndash;&gt;-->
+			<!--<property name="suppressAllComments" value="false"/>-->
+			<!--<property name="addRemarkComments" value="true" />-->
+			<property name="author" value="Fynce"/>
+			<property name="dateFormat" value="yyyy/MM/dd"/>
+		</commentGenerator>
 
-		<!--数据库链接URL，用户名、密码 -->
+		<!-- 数据库链接URL，用户名、密码 -->
 		<jdbcConnection driverClass="${driver-class-name}" connectionURL="${url}"
 			userId="${username}" password="${password}">
+			<property name="useInformationSchema" value="true" />
 		</jdbcConnection>
 
 		<!-- 非必需，类型处理器，在数据库类型和java类型之间的转换控制-->
-		<javaTypeResolver>
-			<property name="forceBigDecimals" value="false"/>
-		</javaTypeResolver>
+		<!--<javaTypeResolver>-->
+			<!--<property name="forceBigDecimals" value="false"/>-->
+		<!--</javaTypeResolver>-->
 
 		<!-- 生成实体类的包名和位置 ，targetPackage指的是包名,targetProject值得是路径位置-->
 		<javaModelGenerator targetPackage="com.hbnu.gradesign.entity"
 			targetProject=".\src\main\java">
+			<!-- 获取表的注释 -->
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
 		</javaModelGenerator>
@@ -49,14 +59,14 @@
 
 		<!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->
 		<table tableName="address" domainObjectName="Address"></table>
-		<table tableName="cla" domainObjectName="Cla"></table>
-		<table tableName="course" domainObjectName="Course"></table>
-		<table tableName="department" domainObjectName="Department"></table>
-		<table tableName="exam" domainObjectName="Exam"></table>
-		<table tableName="grade" domainObjectName="Grade"></table>
-		<table tableName="major" domainObjectName="Major"></table>
-		<table tableName="student" domainObjectName="Student"></table>
-		<table tableName="teacher" domainObjectName="teacher"></table>
+		<!--<table tableName="cla" domainObjectName="Cla"></table>-->
+		<!--<table tableName="course" domainObjectName="Course"></table>-->
+		<!--<table tableName="department" domainObjectName="Department"></table>-->
+		<!--<table tableName="exam" domainObjectName="Exam"></table>-->
+		<!--<table tableName="grade" domainObjectName="Grade"></table>-->
+		<!--<table tableName="major" domainObjectName="Major"></table>-->
+		<!--<table tableName="student" domainObjectName="Student"></table>-->
+		<!--<table tableName="teacher" domainObjectName="teacher"></table>-->
 
 	</context>
 </generatorConfiguration>

@@ -1,5 +1,9 @@
 package com.hbnu.gradesign.entity;
 
+/**
+ * 逆向工程实体类
+ * 根据数据库表字段注释生成实体类时，自动添加注释
+ */
 public class GeneratorEntity {
 	private String id;
 
