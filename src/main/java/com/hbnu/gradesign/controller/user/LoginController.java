@@ -1,21 +1,16 @@
 package com.hbnu.gradesign.controller.user;
 
-import com.hbnu.gradesign.service.RoleService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class LoginController {
-
-	@Autowired
-	private RoleService roleService;
 
 	@RequestMapping(value = "/login")
 	public String login() {

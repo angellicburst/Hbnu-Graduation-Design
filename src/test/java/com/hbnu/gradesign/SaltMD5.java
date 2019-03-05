@@ -1,5 +1,6 @@
 package com.hbnu.gradesign;
 
+import com.hbnu.gradesign.util.SaltUtil;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
@@ -12,15 +13,14 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class SaltMD5 {
 
-	//   J/ms7qTJtqmysekuY8/v1TAS+VKqXdH5sB7ulXZOWho=
-	//e7dde25f4413f2e505b4e5c77803625e
-//6c590e9dcf14a0cd4d693a79a812f87bdd3a121db54d86ebb39de75894db1482
+//	eefe4bcee417ae082fb3e7bf04b78bef
+//	KtcIXLbJ19rYhkT6E2OI3A==
 	@Test
 	public void salt() {
 		//所需加密的参数  即  密码
 		String source = "123456";
 		//[盐] 一般为用户名 或 随机数
-		String salt = "wxKYXuTPST5SG0jMQzVPsg==";
+		String salt = "KtcIXLbJ19rYhkT6E2OI3A==";
 		//加密次数
 		int hashIterations = 1024;
 
@@ -36,6 +36,11 @@ public class SaltMD5 {
 
 		//打印最终结果
 		System.out.println(sh.toString());
+	}
+
+	@Test
+	public void randomSalt() {
+		SaltUtil.saltEncrypt("123456",1024,"md5");
 	}
 
 }
