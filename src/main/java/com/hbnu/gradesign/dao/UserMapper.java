@@ -1,6 +1,6 @@
 package com.hbnu.gradesign.dao;
 
-import com.hbnu.gradesign.entity.User;
+import com.hbnu.gradesign.domain.User;
 import org.springframework.stereotype.Repository;
 
 @Repository

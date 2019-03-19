@@ -1,7 +1,5 @@
 package com.hbnu.gradesign.service;
 
-import com.hbnu.gradesign.entity.Role;
-
 import java.util.Set;
 
 public interface RoleService {

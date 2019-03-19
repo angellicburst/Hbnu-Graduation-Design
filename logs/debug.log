@@ -104,15 +104,15 @@
 [2019-03-19 09:07:32] DEBUG org.springframework.beans.factory.support.ConstructorResolver 777 createArgumentArray - Autowiring by type from bean name 'sqlSessionFactory' via factory method to bean named 'dataSource'
 [2019-03-19 09:07:32] DEBUG org.apache.ibatis.logging.LogFactory 135 setImplementation - Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
 [2019-03-19 09:07:32] DEBUG org.apache.ibatis.io.VFS$VFSHolder 77 createVFS - Using VFS adapter org.mybatis.spring.boot.autoconfigure.SpringBootVFS
-[2019-03-19 09:07:32] DEBUG org.apache.ibatis.io.ResolverUtil 256 addIfMatching - Checking to see if class com.hbnu.gradesign.entity.Address matches criteria [is assignable to Object]
-[2019-03-19 09:07:32] DEBUG org.apache.ibatis.io.ResolverUtil 256 addIfMatching - Checking to see if class com.hbnu.gradesign.entity.GeneratorEntity matches criteria [is assignable to Object]
-[2019-03-19 09:07:32] DEBUG org.apache.ibatis.io.ResolverUtil 256 addIfMatching - Checking to see if class com.hbnu.gradesign.entity.PackData matches criteria [is assignable to Object]
-[2019-03-19 09:07:32] DEBUG org.apache.ibatis.io.ResolverUtil 256 addIfMatching - Checking to see if class com.hbnu.gradesign.entity.Permission matches criteria [is assignable to Object]
-[2019-03-19 09:07:32] DEBUG org.apache.ibatis.io.ResolverUtil 256 addIfMatching - Checking to see if class com.hbnu.gradesign.entity.Role matches criteria [is assignable to Object]
-[2019-03-19 09:07:32] DEBUG org.apache.ibatis.io.ResolverUtil 256 addIfMatching - Checking to see if class com.hbnu.gradesign.entity.Test matches criteria [is assignable to Object]
-[2019-03-19 09:07:32] DEBUG org.apache.ibatis.io.ResolverUtil 256 addIfMatching - Checking to see if class com.hbnu.gradesign.entity.TestData matches criteria [is assignable to Object]
-[2019-03-19 09:07:32] DEBUG org.apache.ibatis.io.ResolverUtil 256 addIfMatching - Checking to see if class com.hbnu.gradesign.entity.User matches criteria [is assignable to Object]
-[2019-03-19 09:07:32] DEBUG org.mybatis.spring.SqlSessionFactoryBean 437 buildSqlSessionFactory - Scanned package: 'com.hbnu.gradesign.entity' for aliases
+[2019-03-19 09:07:32] DEBUG org.apache.ibatis.io.ResolverUtil 256 addIfMatching - Checking to see if class com.hbnu.gradesign.domain.Address matches criteria [is assignable to Object]
+[2019-03-19 09:07:32] DEBUG org.apache.ibatis.io.ResolverUtil 256 addIfMatching - Checking to see if class com.hbnu.gradesign.domain.GeneratorEntity matches criteria [is assignable to Object]
+[2019-03-19 09:07:32] DEBUG org.apache.ibatis.io.ResolverUtil 256 addIfMatching - Checking to see if class com.hbnu.gradesign.domain.PackData matches criteria [is assignable to Object]
+[2019-03-19 09:07:32] DEBUG org.apache.ibatis.io.ResolverUtil 256 addIfMatching - Checking to see if class com.hbnu.gradesign.domain.Permission matches criteria [is assignable to Object]
+[2019-03-19 09:07:32] DEBUG org.apache.ibatis.io.ResolverUtil 256 addIfMatching - Checking to see if class com.hbnu.gradesign.domain.Role matches criteria [is assignable to Object]
+[2019-03-19 09:07:32] DEBUG org.apache.ibatis.io.ResolverUtil 256 addIfMatching - Checking to see if class com.hbnu.gradesign.domain.Test matches criteria [is assignable to Object]
+[2019-03-19 09:07:32] DEBUG org.apache.ibatis.io.ResolverUtil 256 addIfMatching - Checking to see if class com.hbnu.gradesign.domain.TestData matches criteria [is assignable to Object]
+[2019-03-19 09:07:32] DEBUG org.apache.ibatis.io.ResolverUtil 256 addIfMatching - Checking to see if class com.hbnu.gradesign.domain.User matches criteria [is assignable to Object]
+[2019-03-19 09:07:32] DEBUG org.mybatis.spring.SqlSessionFactoryBean 437 buildSqlSessionFactory - Scanned package: 'com.hbnu.gradesign.domain' for aliases
 [2019-03-19 09:07:32] DEBUG org.mybatis.spring.SqlSessionFactoryBean 455 buildSqlSessionFactory - Registered plugin: 'com.github.pagehelper.PageHelper@299270eb'
 [2019-03-19 09:07:32] DEBUG org.mybatis.spring.SqlSessionFactoryBean 529 buildSqlSessionFactory - Parsed mapper file: 'file [F:\Program\study\GraDesign\Hbnu-Graduation-Design\target\classes\mappers\PermMapper.xml]'
 [2019-03-19 09:07:32] DEBUG org.mybatis.spring.SqlSessionFactoryBean 529 buildSqlSessionFactory - Parsed mapper file: 'file [F:\Program\study\GraDesign\Hbnu-Graduation-Design\target\classes\mappers\RoleMapper.xml]'

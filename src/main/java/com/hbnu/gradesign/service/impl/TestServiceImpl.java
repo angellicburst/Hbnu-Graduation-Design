@@ -1,6 +1,6 @@
 package com.hbnu.gradesign.service.impl;
 
-import com.hbnu.gradesign.entity.Test;
+import com.hbnu.gradesign.domain.Test;
 import com.hbnu.gradesign.dao.TestMapper;
 import com.hbnu.gradesign.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;

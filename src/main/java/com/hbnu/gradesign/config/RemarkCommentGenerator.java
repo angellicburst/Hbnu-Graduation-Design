@@ -1,6 +1,6 @@
 package com.hbnu.gradesign.config;
 
-import com.hbnu.gradesign.entity.GeneratorEntity;
+import com.hbnu.gradesign.domain.GeneratorEntity;
 import org.mybatis.generator.api.CommentGenerator;
 import org.mybatis.generator.api.FullyQualifiedTable;
 import org.mybatis.generator.api.IntrospectedColumn;
@@ -43,19 +43,19 @@ public class RemarkCommentGenerator implements CommentGenerator {
 
 		FullyQualifiedTable fullyQualifiedTable = introspectedTable.getFullyQualifiedTable();
 
-//		Field field = new Field();
-//		field.setVisibility(JavaVisibility.PRIVATE);
-//		field.setType(new FullyQualifiedJavaType("long"));
-//		field.setStatic(true);
-//		field.setFinal(true);
-//		field.setName("serialVersionUID");
-//		field.setInitializationString("1L");
-//		topLevelClass.addField(field);
+		Field field = new Field();
+		field.setVisibility(JavaVisibility.PRIVATE);
+		field.setType(new FullyQualifiedJavaType("long"));
+		field.setStatic(true);
+		field.setFinal(true);
+		field.setName("serialVersionUID");
+		field.setInitializationString("1L");
+		topLevelClass.addField(field);
 
-//		FullyQualifiedJavaType fqjt = new FullyQualifiedJavaType("Serializable");
-//		FullyQualifiedJavaType imp = new FullyQualifiedJavaType("java.io.Serializable");
-//		topLevelClass.addSuperInterface(fqjt);
-//		topLevelClass.addImportedType(imp);
+		FullyQualifiedJavaType fqjt = new FullyQualifiedJavaType("Serializable");
+		FullyQualifiedJavaType imp = new FullyQualifiedJavaType("java.io.Serializable");
+		topLevelClass.addSuperInterface(fqjt);
+		topLevelClass.addImportedType(imp);
 
 		topLevelClass.addJavaDocLine("/**");
 		topLevelClass.addJavaDocLine(" * " + introspectedTable.getRemarks());

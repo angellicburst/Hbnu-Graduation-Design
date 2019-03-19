@@ -1,4 +1,4 @@
-package com.hbnu.gradesign.entity;
+package com.hbnu.gradesign.domain;
 
 import java.util.List;
 

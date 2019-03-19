@@ -1,5 +1,8 @@
-package com.hbnu.gradesign.entity;
+package com.hbnu.gradesign.domain;
 
+import org.springframework.stereotype.Component;
+
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -7,7 +10,10 @@ import java.util.Map;
  * 包装类
  * @param <T>
  */
-public class PackData<T> {
+@Component
+public class PackData<T> implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * 返回码
 	 */

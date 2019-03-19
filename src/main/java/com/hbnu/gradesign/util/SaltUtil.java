@@ -11,7 +11,6 @@ import java.security.SecureRandom;
  */
 public class SaltUtil {
 
-
 	/**
 	 * 利用SecureRandom随机生成盐值
 	 * @return
@@ -37,13 +36,10 @@ public class SaltUtil {
 			salt = randomSalt();
 		}
 
-		System.out.println(salt);
-
 		/*调用org.apache.shiro.crypto.hash.SimpleHash.SimpleHash(String algorithmName, Object source, Object salt, int hashIterations)
 		 * 构造方法实现盐值加密  String algorithmName 为加密算法 支持md5 base64 等*/
 		SimpleHash sh = new SimpleHash(type, password, ByteSource.Util.bytes(salt), hashIterations);
 
-		System.out.println(sh.toString());
 		return sh.toString();
 	}
 }

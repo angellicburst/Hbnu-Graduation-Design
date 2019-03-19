@@ -1,7 +1,7 @@
 package com.hbnu.gradesign.service;
 
-import com.hbnu.gradesign.entity.PackData;
-import com.hbnu.gradesign.entity.User;
+import com.hbnu.gradesign.domain.PackData;
+import com.hbnu.gradesign.domain.User;
 
 public interface UserService {
 	User findUserByUsername(String username);

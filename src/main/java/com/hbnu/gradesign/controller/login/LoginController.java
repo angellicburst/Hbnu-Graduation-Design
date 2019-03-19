@@ -1,6 +1,6 @@
 package com.hbnu.gradesign.controller.login;
 
-import com.hbnu.gradesign.entity.PackData;
+import com.hbnu.gradesign.domain.PackData;
 import com.hbnu.gradesign.service.RoleService;
 import com.hbnu.gradesign.service.UserService;
 import org.apache.commons.logging.Log;
@@ -28,6 +28,9 @@ public class LoginController {
 	@Autowired
 	private UserService us;
 
+	@Autowired
+	private PackData packData;
+
 	/**
 	 * 登陆
 	 *
@@ -36,7 +39,7 @@ public class LoginController {
 	 */
 	@GetMapping(value = "/dologin")
 	public PackData dologin(String username, String password) {
-		PackData packData = new PackData();
+		//PackData packData = new PackData();
 
 		// 从SecurityUtils里边创建一个 subject
 		Subject subject = SecurityUtils.getSubject();

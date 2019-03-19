@@ -1,6 +1,6 @@
 package com.hbnu.gradesign.realm;
 
-import com.hbnu.gradesign.entity.User;
+import com.hbnu.gradesign.domain.User;
 import com.hbnu.gradesign.service.PermService;
 import com.hbnu.gradesign.service.RoleService;
 import com.hbnu.gradesign.service.UserService;

@@ -1,6 +1,6 @@
 package com.hbnu.gradesign.service.impl;
 
-import com.hbnu.gradesign.entity.Role;
+import com.hbnu.gradesign.domain.Role;
 import com.hbnu.gradesign.dao.RoleMapper;
 import com.hbnu.gradesign.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;

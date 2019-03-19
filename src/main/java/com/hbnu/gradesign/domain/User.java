@@ -1,12 +1,16 @@
-package com.hbnu.gradesign.entity;
+package com.hbnu.gradesign.domain;
+
+import java.io.Serializable;
 
 /**
  * 用户表
  * user
  * @author Fynce
- * @date 2019/03/04
+ * @date 2019/03/19
  */
-public class User {
+public class User implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private Integer id;
 
     /**
@@ -74,15 +78,4 @@ public class User {
     public void setStatus(Integer status) {
         this.status = status;
     }
-
-	@Override
-	public String toString() {
-		return "User{" +
-				"id=" + id +
-				", username='" + username + '\'' +
-				", password='" + password + '\'' +
-				", salt='" + salt + '\'' +
-				", status=" + status +
-				'}';
-	}
 }
