@@ -1,13 +1,10 @@
-package com.hbnu.gradesign.domain;
-
-import java.io.Serializable;
+package com.hbnu.gradesign.domain.pojo;
 
 /**
  * 逆向工程实体类
  * 根据数据库表字段注释生成实体类时，自动添加注释
  */
-public class GeneratorEntity implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class GeneratorEntity {
 
 	private String id;
 

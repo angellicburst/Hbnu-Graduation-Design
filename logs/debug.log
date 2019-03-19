@@ -105,8 +105,8 @@
 [2019-03-19 09:07:32] DEBUG org.apache.ibatis.logging.LogFactory 135 setImplementation - Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
 [2019-03-19 09:07:32] DEBUG org.apache.ibatis.io.VFS$VFSHolder 77 createVFS - Using VFS adapter org.mybatis.spring.boot.autoconfigure.SpringBootVFS
 [2019-03-19 09:07:32] DEBUG org.apache.ibatis.io.ResolverUtil 256 addIfMatching - Checking to see if class com.hbnu.gradesign.domain.Address matches criteria [is assignable to Object]
-[2019-03-19 09:07:32] DEBUG org.apache.ibatis.io.ResolverUtil 256 addIfMatching - Checking to see if class com.hbnu.gradesign.domain.GeneratorEntity matches criteria [is assignable to Object]
-[2019-03-19 09:07:32] DEBUG org.apache.ibatis.io.ResolverUtil 256 addIfMatching - Checking to see if class com.hbnu.gradesign.domain.PackData matches criteria [is assignable to Object]
+[2019-03-19 09:07:32] DEBUG org.apache.ibatis.io.ResolverUtil 256 addIfMatching - Checking to see if class com.hbnu.gradesign.domain.pojo.GeneratorEntity matches criteria [is assignable to Object]
+[2019-03-19 09:07:32] DEBUG org.apache.ibatis.io.ResolverUtil 256 addIfMatching - Checking to see if class com.hbnu.gradesign.domain.pojo.PackData matches criteria [is assignable to Object]
 [2019-03-19 09:07:32] DEBUG org.apache.ibatis.io.ResolverUtil 256 addIfMatching - Checking to see if class com.hbnu.gradesign.domain.Permission matches criteria [is assignable to Object]
 [2019-03-19 09:07:32] DEBUG org.apache.ibatis.io.ResolverUtil 256 addIfMatching - Checking to see if class com.hbnu.gradesign.domain.Role matches criteria [is assignable to Object]
 [2019-03-19 09:07:32] DEBUG org.apache.ibatis.io.ResolverUtil 256 addIfMatching - Checking to see if class com.hbnu.gradesign.domain.Test matches criteria [is assignable to Object]
