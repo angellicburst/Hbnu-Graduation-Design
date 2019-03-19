@@ -40,7 +40,7 @@ public class SaltMD5 {
 
 	@Test
 	public void randomSalt() {
-		SaltUtil.saltEncrypt("123456",1024,"md5");
+		SaltUtil.saltEncrypt("123456",1024,"md5",null);
 	}
 
 }

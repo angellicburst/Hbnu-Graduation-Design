@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>后台管理系统</title>
+		<meta name="renderer" content="webkit|ie-comp|ie-stand">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
+		<link rel="stylesheet" href="/css/font.css">
+		<link rel="stylesheet" href="/css/common.css" />
+		<link rel="stylesheet" href="/css/login.css" />
+	</head>
+
+	<body class="login-bg">
+
+		<div class="login">
+			<div class="layui-tab" lay-filter="docDemoTabBrief">
+				<ul class="layui-tab-title">
+				</ul>
+
+				<div class="layui-tab-content" style="height: 100px;">
+					<div class="layui-tab-item layui-show">
+						<div class="login-logo">
+						</div>
+						<form method="post" class="layui-form">
+							<div class="layui-input-inline">
+								<div class="layui-inline">
+									<i class="layui-icon iconfont">&#xe66f;</i>
+									<input name="username" lay-verify="required" placeholder="用户名" type="text" class="layui-input">
+								</div>
+							</div>
+							<hr class="hr20">
+							<div class="layui-input-inline">
+								<div class="layui-inline">
+									<i class="layui-icon iconfont">&#xe673;</i>
+									<input name="password" lay-verify="required" placeholder="密码" type="password" class="layui-input">
+								</div>
+							</div>
+							<hr class="hr20">
+							<div class="layui-input-inline">
+								<div class="layui-inline">
+									<i class="layui-icon iconfont">&#xe679;</i>
+									<input name="idecode" lay-verify="required" placeholder="验证码" type="text" class="layui-input" maxlength="4" style="width: 150px;float: left;"></div>
+								<div class="layui-inline">
+									<i class="layui-icon" id="it" style="color: green;font-weight: bolder;" hidden>&#xe605;</i>
+								</div>
+								<div class="layui-inline">
+									<i class="layui-icon" id="if" style="color: red; font-weight: bolder;" hidden>&#x1006;</i>
+								</div>
+								<div class="layui-inline">
+									<canvas id="canvas" width="100" height="50" style="float: left;margin-left: 20px;"></canvas>
+								</div>
+							</div>
+							<hr class="hr20">
+							<input class="loginin" value="登录" lay-submit lay-filter="login" style="width:100%;" type="submit">
+							<hr class="hr20">
+						</form>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<!-- layui -->
+		<script type="text/javascript" src="/lib/layui/layui.js" charset="utf-8"></script>
+		<!-- three 3D -->
+		<script type="text/javascript" src="/js/three/three.min.js" charset="utf-8"></script>
+		<!-- 动态背景 -->
+		<script type="text/javascript" src="/js/login/dynamic.js" charset="utf-8"></script>
+		<script type="text/javascript" src="/js/common/myAjax.js" charset="utf-8"></script>
+		<script type="text/javascript" src="/js/login/login.js" charset="utf-8"></script>
+
+	</body>
+
+</html>

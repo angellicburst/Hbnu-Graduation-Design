@@ -17,33 +17,14 @@
 	position: relative;
 	z-index: 1;
 }
-.layui-tab {
-	
-}
-.layui-tab-title li {
-
-	width: 210px;
-	padding: 0;
-}
 .layui-tab-content {
 	padding: 40px;
 }
-.layui-tab-title .layui-this {
-	color: #009688;
-}
-.layui-tab-title .layui-this:after {
-    position: absolute;
-    left: 0;
-    top: 0;
-    content: '';
-    width: 100%;
-
-    border-width: 1px;
-    border-style: solid;
+.layui-tab-title {
+	left: 0;
+	height: 40px;
 	border-top: 3px solid #009688;
-    border-radius: 2px 2px 0 0;
-    box-sizing: border-box;
-    pointer-events: none;
+	border-bottom-style: none;
 }
 .login-logo {
 	height: 150px;

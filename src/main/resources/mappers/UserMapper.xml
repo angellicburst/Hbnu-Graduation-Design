@@ -5,10 +5,14 @@
 		<id column="id" jdbcType="INTEGER" property="id" />
 		<result column="username" jdbcType="VARCHAR" property="username" />
 		<result column="password" jdbcType="VARCHAR" property="password" />
+		<result column="salt" jdbcType="VARCHAR" property="salt" />
 		<result column="status" jdbcType="INTEGER" property="status" />
-		<result column="type" jdbcType="INTEGER" property="type" />
 	</resultMap>
 	<select id="findUserByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
 		SELECT * FROM `user` WHERE username = #{username};
+	</select>
+
+	<select id="checkUser" parameterType="java.lang.String" resultMap="BaseResultMap">
+		SELECT * FROM `user` WHERE username = #{username} and password = #{password};
 	</select>
 </mapper>
