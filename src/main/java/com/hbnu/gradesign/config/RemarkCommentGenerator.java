@@ -63,7 +63,6 @@ public class RemarkCommentGenerator implements CommentGenerator {
 		topLevelClass.addJavaDocLine(" * @author " + author);
 		topLevelClass.addJavaDocLine(" * @date " + dateFormatter.format(new Date()));
 		topLevelClass.addJavaDocLine(" */");
-		topLevelClass.addJavaDocLine("@Component");
 	}
 
 	@Override

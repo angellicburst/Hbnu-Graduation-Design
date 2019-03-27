@@ -49,15 +49,23 @@ spring:
   # 视图解析器
   mvc:
     view:
-      prefix: /pages/
+      prefix: /
       suffix: .html
   # 静态资源
   resources:
     static-locations:
-    - classpath:/static/
+      - classpath:/static/
   # 需要设置proxy-target-class="true" 否则无法依赖注入
   aop:
     proxy-target-class: true
+  # thymeleaf模板配置
+  thymeleaf:
+    cache: false
+    prefix:
+      - classpath:/templates/
+    suffix: .html
+    encoding: utf-8
+
 
 # mybatis配置
 mybatis:

@@ -21,8 +21,8 @@
         	描述：顶部
         -->
 		<div class="container">
-			<div class="logo">			
-				<a href="./index.html">
+			<div class="logo">
+				<a href="index.html">
 					<img src="/images/logo.png" />
 					Fynce
 				</a>
@@ -49,7 +49,7 @@
 					</li>
 				</ul>
 			</div>
-					
+
 			<div class="layui-form component" lay-filter="LAY-site-header-component">
 				<select class="menu-iterm" lay-search="" lay-filter="component">
 					<option value="">搜索菜单</option>
@@ -75,17 +75,14 @@
 			<div class="layui-nav right" lay-filter="">
 				<ul>
 					<li class="layui-nav-item">
-						<a href="javascript:;">Admin</a>
+						<a id="username" href="javascript:;"></a>
 						<dl class="layui-nav-child">
 							<!-- 二级菜单 -->
 							<dd>
 								<a onclick="WeAdminShow('个人信息','http://www.baidu.com')">个人信息</a>
 							</dd>
 							<dd>
-								<a onclick="WeAdminShow('切换帐号','./login.html')">切换帐号</a>
-							</dd>
-							<dd>
-								<a class="loginout" href="../login.html">退出</a>
+								<a class="loginout">退出</a>
 							</dd>
 						</dl>
 					</li>
@@ -107,180 +104,42 @@
 					<li>
 						<a href="javascript:;">
 							<i class="iconfont">&#xe6b8;</i>
-							<cite>会员管理</cite>
+							<cite>学生管理</cite>
 							<i class="iconfont nav_right">&#xe697;</i>
 						</a>
-						<ul class="sub-menu">
-							<li>
-								<a _href="./pages/member/list.html">
-									<i class="iconfont">&#xe6a7;</i>
-									<cite>会员列表</cite>
-								</a>
-							</li>
-							<li>
-								<a _href="./pages/member/del.html">
-									<i class="iconfont">&#xe6a7;</i>
-									<cite>会员删除</cite>
-
-								</a>
-							</li>
-							<li>
-								<a href="javascript:;">
-									<i class="iconfont">&#xe70b;</i>
-									<cite>会员管理</cite>
-									<i class="iconfont nav_right">&#xe697;</i>
-								</a>
-								<ul class="sub-menu">
-									<li>
-										<a _href="./pages/member/addInput.html">
-											<i class="iconfont">&#xe6a7;</i>
-											<cite>输入框操作</cite>
-										</a>
-									</li>
-									<li>
-										<a _href="./pages/404.html">
-											<i class="iconfont">&#xe6a7;</i>
-											<cite>三级菜单演示</cite>
-										</a>
-									</li>
-									<li>
-										<a _href="./pages/404.html">
-											<i class="iconfont">&#xe6a7;</i>
-											<cite>导航菜单演示</cite>
-										</a>
-									</li>
-								</ul>
-							</li>
-						</ul>
 					</li>
 					<li>
 						<a href="javascript:;">
 							<i class="iconfont">&#xe705;</i>
-							<cite>文章管理</cite>
+							<cite>教师管理</cite>
 							<i class="iconfont nav_right">&#xe697;</i>
 						</a>
-						<ul class="sub-menu">
-							<li>
-								<a _href="./pages/article/list.html">
-									<i class="iconfont">&#xe6a7;</i>
-									<cite>文章列表</cite>
-								</a>
-							</li>
-							<li>
-								<a _href="./pages/article/category.html">
-									<i class="iconfont">&#xe6a7;</i>
-									<cite>分类管理</cite>
-								</a>
-							</li>
-						</ul>
 					</li>
 					<li>
 						<a href="javascript:;">
 							<i class="iconfont">&#xe723;</i>
-							<cite>订单管理</cite>
+							<cite>院系管理</cite>
 							<i class="iconfont nav_right">&#xe697;</i>
 						</a>
-						<ul class="sub-menu">
-							<li>
-								<a _href="./pages/order/list.html">
-									<i class="iconfont">&#xe6a7;</i>
-									<cite>订单列表</cite>
-								</a>
-							</li>
-						</ul>
 					</li>
 					<li>
 						<a href="javascript:;">
 							<i class="iconfont">&#xe726;</i>
-							<cite>管理员管理</cite>
+							<cite>考试管理</cite>
 							<i class="iconfont nav_right">&#xe697;</i>
 						</a>
-						<ul class="sub-menu">
-							<li>
-								<a _href="./pages/admin/list.html">
-									<i class="iconfont">&#xe6a7;</i>
-									<cite>管理员列表</cite>
-								</a>
-							</li>
-							<li>
-								<a _href="./pages/admin/role.html">
-									<i class="iconfont">&#xe6a7;</i>
-									<cite>角色管理</cite>
-								</a>
-							</li>
-							<li>
-								<a _href="./pages/admin/cate.html">
-									<i class="iconfont">&#xe6a7;</i>
-									<cite>权限分类</cite>
-								</a>
-							</li>
-							<li>
-								<a _href="./pages/admin/rule.html">
-									<i class="iconfont">&#xe6a7;</i>
-									<cite>权限管理</cite>
-								</a>
-							</li>
-						</ul>
 					</li>
 					<li>
 						<a href="javascript:;">
 							<i class="iconfont">&#xe6ce;</i>
-							<cite>系统统计</cite>
+							<cite>系统管理</cite>
 							<i class="iconfont nav_right">&#xe697;</i>
 						</a>
 						<ul class="sub-menu">
 							<li>
 								<a _href="./pages/echarts/echarts1.html">
 									<i class="iconfont">&#xe6a7;</i>
-									<cite>拆线图</cite>
-								</a>
-							</li>
-							<li>
-								<a _href="./pages/echarts/echarts2.html">
-									<i class="iconfont">&#xe6a7;</i>
-									<cite>柱状图</cite>
-								</a>
-							</li>
-							<li>
-								<a _href="./pages/echarts/echarts3.html">
-									<i class="iconfont">&#xe6a7;</i>
-									<cite>地图</cite>
-								</a>
-							</li>
-							<li>
-								<a _href="./pages/echarts/echarts4.html">
-									<i class="iconfont">&#xe6a7;</i>
-									<cite>饼图</cite>
-								</a>
-							</li>
-							<li>
-								<a _href="./pages/echarts/echarts5.html">
-									<i class="iconfont">&#xe6a7;</i>
-									<cite>雷达图</cite>
-								</a>
-							</li>
-							<li>
-								<a _href="./pages/echarts/echarts6.html">
-									<i class="iconfont">&#xe6a7;</i>
-									<cite>k线图</cite>
-								</a>
-							</li>
-							<li>
-								<a _href="./pages/echarts/echarts7.html">
-									<i class="iconfont">&#xe6a7;</i>
-									<cite>热力图</cite>
-								</a>
-							</li>
-							<li>
-								<a _href="./pages/echarts/echarts8.html">
-									<i class="iconfont">&#xe6a7;</i>
-									<cite>仪表图</cite>
-								</a>
-							</li>
-							<li>
-								<a _href="./pages/echarts/echarts9.html">
-									<i class="iconfont">&#xe6a7;</i>
-									<cite>地图DIY实例</cite>
+									<cite>角色管理</cite>
 								</a>
 							</li>
 						</ul>
@@ -288,8 +147,6 @@
 				</ul>
 			</div>
 		</div>
-
-		<!--<div class="x-slide_left"></div>-->
 
 		<!--
         	作者：fyc
@@ -338,31 +195,36 @@
 		</div>
 
 	</body>
-	
+
 	<script type="text/javascript" src="/lib/layui/layui.js" charset="utf-8"></script>
+	<script type="text/javascript" src="/js/common/myAjax.js" charset="utf-8"></script>
 	<script type="text/javascript">
 		layui.config({
 			base: '/js/',
 			version: '101100'
 		}).use('admin');
-		layui.use(['jquery', 'admin'], function() {
+		layui.use(['jquery'], function() {
 			var $ = layui.jquery;
-			var form = layui.form;
-			var element = layui.element;
 			$(function() {
-				var login = JSON.parse(localStorage.getItem("login"));
-				if(login) {
-					if(login = 0) {
-						window.location.href = 'login.html';
-						return false;
-					} else {
-						return false;
+                /**
+                 * @todo 页面右上角显示用户
+                 */
+				myAjax("post","/showUser",null,function(data){
+					if (!$.isEmptyObject(data)) {
+						//解析json，不然带有双引号
+						var jsonObj = JSON.parse( data );
+						$("#username").text(jsonObj.username);
 					}
-				} else {
-					window.location.href = 'login.html';
-					return false;
-				}
+				});
+
+				/**
+				 * @todo 登出操作
+				 */
+				$(".loginout").on('click', function() {
+					location.href = '/logout';
+				});
 			});
+
 
 		});
 	</script>

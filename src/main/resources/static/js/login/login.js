@@ -18,10 +18,9 @@ layui.use(['form'], function() {
         if(logininfo.idecode == num) {
             //JSON.stringify(data.field)
             myAjax("get","/dologin",logininfo,function(data){
-                console.log(data.recode);
                 if (data.recode == 200) {
                     layer.msg(data.remsg, function() {
-                        location.href = 'pages/index.html';
+                        location.href = 'index';
                     });
                 } else  {
                     layer.msg(data.remsg);

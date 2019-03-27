@@ -11,8 +11,4 @@
 	<select id="findUserByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
 		SELECT * FROM `user` WHERE username = #{username};
 	</select>
-
-	<select id="checkUser" parameterType="java.lang.String" resultMap="BaseResultMap">
-		SELECT * FROM `user` WHERE username = #{username} and password = #{password};
-	</select>
 </mapper>

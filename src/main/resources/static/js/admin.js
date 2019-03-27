@@ -1,14 +1,3 @@
-/*
- * @Author: https://github.com/WangEn
- * @Author: https://gitee.com/lovetime/
- * @Date:   2018-01-01
- * @lastModify 2018-3-27 15:00:35
- * +----------------------------------------------------------------------
- * | Weadmin [ 后台管理模板 ]
- * | 基于Layui http://www.layui.com/
- * +----------------------------------------------------------------------
- */
-
 layui.define(['jquery', 'form', 'layer', 'element'], function(exports) {
 	var $ = layui.jquery,
 		form = layui.form,

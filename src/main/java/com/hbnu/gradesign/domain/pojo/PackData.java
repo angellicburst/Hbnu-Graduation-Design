@@ -5,9 +5,9 @@ import java.util.Map;
 
 /**
  * 包装类
- * @param <T>
+ * @param
  */
-public class PackData<T> {
+public class PackData {
 
 	/**
 	 * 返回码
@@ -22,17 +22,17 @@ public class PackData<T> {
 	/**
 	 * 返回对象
 	 */
-	private T reobj;
+	private Object reobj;
 
 	/**
 	 * 返回对象集合
 	 */
-	private List<T> reobjs;
+	private List<Object> reobjs;
 
 	/**
 	 * 返回参数
 	 */
-	private Map<String ,String> reparams;
+	private Map<String, String> reparams;
 
 	public Integer getRecode() {
 		return recode;
@@ -50,19 +50,19 @@ public class PackData<T> {
 		this.remsg = remsg;
 	}
 
-	public T getReobj() {
+	public Object getReobj() {
 		return reobj;
 	}
 
-	public void setReobj(T reobj) {
+	public void setReobj(Object reobj) {
 		this.reobj = reobj;
 	}
 
-	public List<T> getReobjs() {
+	public List<Object> getReobjs() {
 		return reobjs;
 	}
 
-	public void setReobjs(List<T> reobjs) {
+	public void setReobjs(List<Object> reobjs) {
 		this.reobjs = reobjs;
 	}
 
