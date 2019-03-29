@@ -148,8 +148,9 @@
 			base: '/js/',
 			version: '101100'
 		}).use('admin');
-		layui.use(['jquery'], function() {
+		layui.use(['jquery','form'], function() {
 			var $ = layui.jquery;
+			var form = layui.form;
 			$(function() {
                 /**
                  * @todo 页面右上角显示用户
@@ -190,6 +191,8 @@
 						$("#nav").append(str);
 
 						$(".layui-input-inline select").append(search);
+
+						form.render();
 					});
 				});
 
