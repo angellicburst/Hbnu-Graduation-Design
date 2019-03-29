@@ -51,24 +51,12 @@
 			</div>
 
 			<div class="layui-form component" lay-filter="LAY-site-header-component">
-				<select class="menu-iterm" lay-search="" lay-filter="component">
-					<option value="">搜索菜单</option>
-					<option value="./pages/member/list.html">会员列表</option>
-					<option value="./pages/article/list.html">文章列表</option>
-					<option value="./pages/order/list.html">订单列表</option>
-					<option value="./pages/admin/list.html">管理员列表</option>
-				</select>
-				<div class="layui-form-select">
-					<div class="layui-select-title">
-						<input type="text" placeholder="搜索菜单" value="" class="layui-input">
-						<i class="layui-edge"></i>
+				<div class="layui-inline">
+					<div class="layui-input-inline">
+						<select name="modules" lay-verify="required" lay-search="" lay-filter="component">
+							<option value="">搜索菜单</option>
+						</select>
 					</div>
-					<dl class="layui-anim layui-anim-upbit">
-						<dd lay-value="./pages/member/list.html" class="layui-select-tips">会员列表</dd>
-						<dd lay-value="./pages/article/list.html" class="">文章列表</dd>
-						<dd lay-value="./pages/order/list.html" class="">订单列表</dd>
-						<dd lay-value="./pages/admin/list.html" class="">管理员列表</dd>
-					</dl>
 				</div>
 			</div>
 
@@ -101,49 +89,6 @@
 		<div class="left-nav">
 			<div id="side-nav">
 				<ul id="nav">
-					<li>
-						<a href="javascript:;">
-							<i class="iconfont">&#xe6b8;</i>
-							<cite>学生管理</cite>
-							<i class="iconfont nav_right">&#xe697;</i>
-						</a>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<i class="iconfont">&#xe705;</i>
-							<cite>教师管理</cite>
-							<i class="iconfont nav_right">&#xe697;</i>
-						</a>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<i class="iconfont">&#xe723;</i>
-							<cite>院系管理</cite>
-							<i class="iconfont nav_right">&#xe697;</i>
-						</a>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<i class="iconfont">&#xe726;</i>
-							<cite>考试管理</cite>
-							<i class="iconfont nav_right">&#xe697;</i>
-						</a>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<i class="iconfont">&#xe6ce;</i>
-							<cite>系统管理</cite>
-							<i class="iconfont nav_right">&#xe697;</i>
-						</a>
-						<ul class="sub-menu">
-							<li>
-								<a _href="./pages/echarts/echarts1.html">
-									<i class="iconfont">&#xe6a7;</i>
-									<cite>角色管理</cite>
-								</a>
-							</li>
-						</ul>
-					</li>
 				</ul>
 			</div>
 		</div>
@@ -212,9 +157,40 @@
 				myAjax("post","/showUser",null,function(data){
 					if (!$.isEmptyObject(data)) {
 						//解析json，不然带有双引号
-						var jsonObj = JSON.parse( data );
+						const jsonObj = JSON.parse( data );
 						$("#username").text(jsonObj.username);
 					}
+				});
+
+				myAjax("post","/getMenus",null,function(data){
+					layui.each(JSON.parse(data), function(index, obj) {
+						let str = "<li value='"+obj.id
+								+"'><a _href='"+obj.url
+								+"'><i class='iconfont'><img src='/images/"+obj.img
+								+"' ></i><cite>"+ obj.menuName
+								+"</cite><i class='iconfont nav_right'>&#xe697;</i></a>";
+						let search = "<option id='"+obj.id
+								+"'value='"+obj.url
+								+"'>"+obj.menuName
+								+"</option>";
+						if (!$.isEmptyObject(obj.secMenu)) {
+							search = "";
+							layui.each(obj.secMenu, function (i,o) {
+								str += "<ul class='sub-menu'><li value='"+o.secId
+										+"'><a _href='"+o.secUrl
+										+"'><i class='iconfont'>&#xe6a7;</i><cite>"+o.secMenu
+										+"</cite></a></li></ul>";
+								search += "<option id='"+o.secId
+										+"'value='"+o.secUrl
+										+"'>"+o.secMenu
+										+"</option>";
+							});
+						}
+						str += "</li>";
+						$("#nav").append(str);
+
+						$(".layui-input-inline select").append(search);
+					});
 				});
 
 				/**
@@ -223,6 +199,7 @@
 				$(".loginout").on('click', function() {
 					location.href = '/logout';
 				});
+
 			});
 
 

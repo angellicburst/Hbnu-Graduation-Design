@@ -84,16 +84,12 @@ layui.define(['jquery', 'form', 'layer', 'element'], function(exports) {
 	 * @todo 顶部搜索栏
 	 */
 	form.on('select(component)', function(data) {
-		select_url = data.value;
-		//console.log(data);
-		var id = new Date().getTime(); //实际使用一般是规定好的id，这里以时间戳模拟下
-		var title = $('.layui-anim-upbit .layui-this')[0].innerHTML; //标题
-		element.tabAdd("wenav_tab", {
-			title: title,
-			content: '<iframe src=' + select_url + ' frameborder="0" scrolling="yes" class="weIframe"></iframe>',
-			id: id
-		});
-		element.tabChange('wenav_tab', id);
+		let title = $('.layui-anim-upbit .layui-this')[0].innerHTML;
+		let url = data.value;
+		console.log(data);
+		let index = data.elem[data.elem.selectedIndex].id;
+		tab.tabAdd(title,url,index);
+		tab.tabChange(index);
 	});
 
 	/*
@@ -138,7 +134,9 @@ layui.define(['jquery', 'form', 'layer', 'element'], function(exports) {
 	 * @todo 左侧菜单事件
 	 * 如果有子级就展开，没有就打开frame
 	 */
-	$('.left-nav #nav li').click(function(event) {
+
+	$(document).on('click','.left-nav #nav li',function(event){
+	//$('.left-nav #nav li').click(function(event) {
 		if($(this).children('.sub-menu').length) {
 			if($(this).hasClass('open')) {
 				$(this).removeClass('open');
@@ -156,18 +154,17 @@ layui.define(['jquery', 'form', 'layer', 'element'], function(exports) {
 		} else {
 			var url = $(this).children('a').attr('_href');
 			var title = $(this).find('cite').html();
-			var index = $('.left-nav #nav li').index($(this));
-
+			//var index = $('.left-nav #nav li').index($(this));
+			var index = $(this).val()
 			for(var i = 0; i < $('.weIframe').length; i++) {
-				if($('.weIframe').eq(i).attr('tab-id') == index + 1) {
-					tab.tabChange(index + 1);
+				if($('.weIframe').eq(i).attr('tab-id') == index) {
+					tab.tabChange(index);
 					event.stopPropagation();
 					return;
 				}
 			};
-
-			tab.tabAdd(title, url, index + 1);
-			tab.tabChange(index + 1);
+			tab.tabAdd(title, url, index);
+			tab.tabChange(index);
 		}
 		event.stopPropagation(); //不触发任何前辈元素上的事件处理函数
 	});

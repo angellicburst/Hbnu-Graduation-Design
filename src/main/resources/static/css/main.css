@@ -134,7 +134,7 @@
 .left-nav #nav li .sub-menu li:hover {
   /*color: blue;*/
   /*background: #fff 0 0 no-repeat;*/
-}
+}iconfont
 .left-nav #nav li .sub-menu li a {
   padding: 12px 15px 12px 30px;
   font-size: 14px;
@@ -157,6 +157,9 @@
 .left-nav #nav li a i {
   padding-right: 10px;
   line-height: 14px;
+}
+.iconfont img {
+  height: 18px;
 }
 
 /*主体*/

@@ -23,4 +23,9 @@ public class PagesController {
 	public String index() {
 		return "index";
 	}
+
+	@RequestMapping(value = "/stu/list")
+	public String stuList() {
+		return "student/stuList";
+	}
 }
