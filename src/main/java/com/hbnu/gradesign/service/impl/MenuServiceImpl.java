@@ -4,6 +4,7 @@ import com.hbnu.gradesign.dao.MenuMapper;
 import com.hbnu.gradesign.domain.dto.MenuDto;
 import com.hbnu.gradesign.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class MenuServiceImpl implements MenuService {
 	 * @return
 	 */
 	@Override
+	@Cacheable(cacheNames= "menuDto",key="#roleId")
 	public List<MenuDto> getMenus(Integer roleId) {
 		return mm.getMenuByRoleId(roleId);
 	}
