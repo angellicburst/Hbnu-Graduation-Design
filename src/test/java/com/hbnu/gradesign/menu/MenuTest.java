@@ -24,4 +24,11 @@ public class MenuTest {
 			System.out.println(m);
 		}
 	}
+
+	@Test
+	public void getMenuByRoleId() {
+		MenuDto m = ms.getCurMenu(5,1);
+		System.out.println(m.getMenuName());
+		System.out.println(m);
+	}
 }

@@ -105,6 +105,9 @@
 					<li>我的桌面</li>
 				</ul>
 
+				<!-- 隐藏域存值 -->
+				<input id="menuId" type="hidden" />
+
 				<!--iframe-->
 				<div class="layui-tab-content">
 					<div class="layui-tab-item layui-show">
@@ -142,74 +145,15 @@
 	</body>
 
 
+	<!-- layui -->
 	<script type="text/javascript" src="/lib/layui/layui.js" charset="utf-8"></script>
+	<!-- 首字母模糊查询 -->
 	<script type="text/javascript" src="/lib/pingyin/pinyin.js" charset="utf-8"></script>
 	<script type="text/javascript" src="/lib/pingyin/initials.js" charset="utf-8"></script>
+	<!-- 封装Ajax -->
 	<script type="text/javascript" src="/js/common/myAjax.js" charset="utf-8"></script>
-	<script type="text/javascript">
-		layui.config({
-			base: '/js/',
-			version: '101100'
-		}).use('admin');
-		layui.use(['jquery','form'], function() {
-			var $ = layui.jquery;
-			var form = layui.form;
-			$(function() {
-                /**
-                 * @todo 页面右上角显示用户
-                 */
-				myAjax("post","/showUser",null,function(data){
-					if (!$.isEmptyObject(data)) {
-						//解析json，不然带有双引号
-						const jsonObj = JSON.parse( data );
-						$("#username").text(jsonObj.username);
-					}
-				});
 
-				myAjax("post","/getMenus",null,function(data){
-					layui.each(JSON.parse(data), function(index, obj) {
-						let str = "<li value='"+obj.id
-								+"'><a _href='"+obj.url
-								+"'><i class='iconfont'><img src='/images/"+obj.img
-								+"' ></i><cite>"+ obj.menuName
-								+"</cite><i class='iconfont nav_right'>&#xe697;</i></a>";
-						let search = "<option id='"+obj.id
-								+"'value='"+obj.url
-								+"'>"+obj.menuName
-								+"</option>";
-						if (!$.isEmptyObject(obj.secMenu)) {
-							search = "";
-							layui.each(obj.secMenu, function (i,o) {
-								str += "<ul class='sub-menu'><li value='"+o.secId
-										+"'><a _href='"+o.secUrl
-										+"'><i class='iconfont'>&#xe6a7;</i><cite>"+o.secMenu
-										+"</cite></a></li></ul>";
-								search += "<option id='"+o.secId
-										+"'value='"+o.secUrl
-										+"'>"+o.secMenu
-										+"</option>";
-							});
-						}
-						str += "</li>";
-						$("#nav").append(str);
+	<script type="text/javascript" src="/js/index/index.js" charset="utf-8"></script>
 
-						$(".layui-input-inline select").append(search);
-
-						form.render();
-					});
-				});
-
-				/**
-				 * @todo 登出操作
-				 */
-				$(".loginout").on('click', function() {
-					location.href = '/logout';
-				});
-
-			});
-
-
-		});
-	</script>
 
 </html>

@@ -1,16 +1,6 @@
-/*
- * @Author: https://github.com/WangEn
- * @Author: https://gitee.com/lovetime/
- * @Date:   2018-03-27
- * @lastModify 2018-3-28
- * +----------------------------------------------------------------------
- * | WeAdmin 表格table中多个删除等操作公用js
- * | 有改用时直接复制到对应页面也不影响使用
- * +----------------------------------------------------------------------
- */
-layui.extend({
-	admin: '{/}../../js/admin'
-});
+layui.config({
+	base: '/js/',
+}).use('admin');
 layui.use(['laydate', 'jquery', 'admin', 'table'], function() {
 	var laydate = layui.laydate,
 		$ = layui.jquery,
@@ -128,4 +118,27 @@ layui.use(['laydate', 'jquery', 'admin', 'table'], function() {
 			$(".layui-form-checked").not('.header').parents('tr').remove();
 		});
 	}
+
+	/**
+	 * @todo 每个iframe顶端显示当前菜单目录
+	 */
+	myAjax("post","/getMenu",{id: $("#menuId",parent.document).attr("value")},function(data){
+		let curmenu = {
+			id: data.id,
+			level:data.level
+		};
+
+		myAjax("post","/getCurMenu",curmenu,function(data){
+			menu = JSON.parse(data);
+			let nav = "<span lay-separator=''>/</span><a href='"+menu.url
+				+"'>"+menu.menuName
+				+"</a>";
+			if (!$.isEmptyObject(menu.secMenu)) {
+				nav += "<span lay-separator=''>/</span><a href='"+menu.secMenu[0].secUrl
+					+"'><cite>"+menu.secMenu[0].secMenu
+					+"</cite></a>"
+			}
+			$(".layui-breadcrumb").append(nav);
+		});
+	},"json");
 });

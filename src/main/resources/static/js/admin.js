@@ -84,9 +84,12 @@ layui.define(['jquery', 'form', 'layer', 'element'], function(exports) {
 	 * @todo 顶部搜索栏
 	 */
 	form.on('select(component)', function(data) {
+		//避免点击搜索菜单前台报错
+		if (data.elem.selectedIndex == 0) {
+			return;
+		}
 		let title = $('.layui-anim-upbit .layui-this')[0].innerHTML;
 		let url = data.value;
-		console.log(data);
 		let index = data.elem[data.elem.selectedIndex].id;
 		tab.tabAdd(title,url,index);
 		tab.tabChange(index);
@@ -136,7 +139,6 @@ layui.define(['jquery', 'form', 'layer', 'element'], function(exports) {
 	 */
 
 	$(document).on('click','.left-nav #nav li',function(event){
-	//$('.left-nav #nav li').click(function(event) {
 		if($(this).children('.sub-menu').length) {
 			if($(this).hasClass('open')) {
 				$(this).removeClass('open');
@@ -155,7 +157,7 @@ layui.define(['jquery', 'form', 'layer', 'element'], function(exports) {
 			var url = $(this).children('a').attr('_href');
 			var title = $(this).find('cite').html();
 			//var index = $('.left-nav #nav li').index($(this));
-			var index = $(this).val()
+			var index = $(this).val();
 			for(var i = 0; i < $('.weIframe').length; i++) {
 				if($('.weIframe').eq(i).attr('tab-id') == index) {
 					tab.tabChange(index);
@@ -176,17 +178,15 @@ layui.define(['jquery', 'form', 'layer', 'element'], function(exports) {
 		tabAdd: function(title, url, id) {
 			//判断当前id的元素是否存在于tab中
 			var li = $("#WeTabTip li[lay-id=" + id + "]").length;
-			//console.log(li);
 			if(li > 0) {
 				//tab已经存在，直接切换到指定Tab项
-				//console.log(">0");
 				element.tabChange('wenav_tab', id); //切换到：用户管理
 			} else {
+				$("#menuId").val(id);
 				//该id不存在，新增一个Tab项
-				//console.log("<0");
 				element.tabAdd('wenav_tab', {
 					title: title,
-					content: '<iframe tab-id="' + id + '" frameborder="0" src="' + url + '" scrolling="yes" class="weIframe"></iframe>',
+					content: '<iframe tab-id="' + id + '" frameborder="0" src="' + url+"?id="+ id + '" scrolling="yes" class="weIframe"></iframe>',
 					id: id
 				});
 				//当前窗口内容
@@ -231,7 +231,6 @@ layui.define(['jquery', 'form', 'layer', 'element'], function(exports) {
 			var aid = $(this).attr("lay-id"); //获取右键时li的lay-id属性
 			var popupmenu = $(".rightMenu");
 			popupmenu.find("li").attr("data-id", aid);
-			//console.log("popopmenuId:" + popupmenu.find("li").attr("data-id"));
 			l = ($(document).width() - e.clientX) < popupmenu.width() ? (e.clientX - popupmenu.width()) : e.clientX;
 			t = ($(document).height() - e.clientY) < popupmenu.height() ? (e.clientY - popupmenu.height()) : e.clientY;
 			popupmenu.css({
@@ -246,10 +245,8 @@ layui.define(['jquery', 'form', 'layer', 'element'], function(exports) {
 		var type = $(this).attr("data-type");
 		var layId = $(this).attr("data-id")
 		if(type == "current") {
-			//console.log("close this:" + layId);
 			tab.tabDelete(layId);
 		} else if(type == "all") {
-			//console.log("closeAll");
 			var tabtitle = $(".layui-tab-title li");
 			var ids = new Array();
 			$.each(tabtitle, function(i) {
@@ -257,7 +254,6 @@ layui.define(['jquery', 'form', 'layer', 'element'], function(exports) {
 			})
 			tab.tabDeleteAll(ids);
 		} else if(type == "fresh") {
-			//console.log("fresh:" + layId);
 			tab.tabChange($(this).attr("data-id"));
 			var othis = $('.layui-tab-title').find('>li[lay-id="' + layId + '"]'),
 				index = othis.parent().children('li').index(othis),
@@ -352,7 +348,6 @@ layui.define(['jquery', 'form', 'layer', 'element'], function(exports) {
 				//向iframe页的id=house的元素传值  // 参考 https://yq.aliyun.com/ziliao/133150
 				var body = layer.getChildFrame('body', index);
 				body.contents().find("#dataId").val(id);
-				console.log(id);
 			},
 			error: function(layero, index) {
 				alert("aaa");
@@ -371,7 +366,6 @@ layui.define(['jquery', 'form', 'layer', 'element'], function(exports) {
 	 * tab切换监听不能写字初始化加载$(function())方法内，否则不执行
 	 */
 	element.on('tab(wenav_tab)', function(data) {
-		//console.log(this); //当前Tab标题所在的原始DOM元素
 		setStorageCurMenu();
 	});
 	/*
@@ -379,7 +373,6 @@ layui.define(['jquery', 'form', 'layer', 'element'], function(exports) {
 	 */
 	element.on('tabDelete(wenav_tab)', function(data) {
 		var layId = $(this).parent('li').attr('lay-id');
-		//console.log(layId);
 		removeStorageMenu(layId);
 	});
 	/**
@@ -422,7 +415,6 @@ layui.define(['jquery', 'form', 'layer', 'element'], function(exports) {
 		text = text.split('ဆ')[0];
 		var url = $('.layui-tab-content').find('.layui-show').find('.weIframe').attr('src');
 		var id = $('.layui-tab-title').find('.layui-this').attr('lay-id');
-		//console.log(text);
 		curMenu = {
 			title: text,
 			url: url,
@@ -447,20 +439,6 @@ layui.define(['jquery', 'form', 'layer', 'element'], function(exports) {
 		}
 		sessionStorage.setItem('menu', JSON.stringify(menu));
 	}
-
-	/**
-	 *@todo 模拟登录
-	 * 判断初次登录时，跳转到登录页
-	 */
-	var login = localStorage.getItem('login');
-	$('.loginout').click(function() {
-		login = 0;
-		localStorage.setItem('login', login);
-	});
-	$('.loginin').click(function() {
-		login = 1;
-		localStorage.setItem('login', login);
-	});
 
 	/*
 	 *Tab加载后刷新
