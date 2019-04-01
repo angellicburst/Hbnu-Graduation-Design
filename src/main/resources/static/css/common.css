@@ -55,10 +55,10 @@ body {
   border: 1px solid #009688;
 }
 /*表单样式*/
-.weadmin-body {
+.page-body {
   padding: 20px;
 }
-.weadmin-nav {
+.page-nav {
   padding: 0 20px;
   position: relative;
   z-index: 99;
@@ -67,7 +67,7 @@ body {
   height: 39px;
   overflow: hidden;
 }
-.weadmin-block {
+.page-block {
   display: block;
   margin-bottom: 10px;
   padding: 5px;
@@ -75,13 +75,13 @@ body {
   border-radius: 0 2px 2px 0;
   background-color: #f2f2f2;
 }
-.we-search {
+.page-search {
   margin-bottom: 20px;
   font-size: 16px;
 }
-.we-search input.layui-input {
+.page-search input.layui-input {
   width: 190px;
 }
-.we-red {
+.page-red {
   color: red;
 }

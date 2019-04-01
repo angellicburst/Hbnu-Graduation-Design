@@ -75,6 +75,8 @@ layui.define(['jquery', 'form', 'layer', 'element'], function(exports) {
 		//点击tab标题时，触发reloadTab函数
 		$('#tabName').on('click', 'li', function() {
 			reloadTab(this);
+			//重新加载element组建，防止切换tab栏，layui面包屑失效
+			element.init();
 		});
 
 		//初始化加载结束
@@ -445,14 +447,16 @@ layui.define(['jquery', 'form', 'layer', 'element'], function(exports) {
 	 * 判断是刷新后第一次点击时，刷新frame子页面
 	 * */
 	window.reloadTab = function(which) {
-		var len = $('.layui-tab-title').children('li').length;
-		var layId = $(which).attr('lay-id');
-		var i = 1;
+		let layId = $(which).attr('lay-id');
+		const i = 1;
+
+		$('#menuId').val(layId);
 		if($(which).attr('data-bit')) {
 			return false; //判断页面打开后第一次点击，执行刷新
 		} else {
 			$(which).attr('data-bit', i);
-			var frame = $('.weIframe[tab-id=' + layId + ']');
+			let frame = $('.weIframe[tab-id=' + layId + ']');
+			console.log(frame.attr('src'));
 			frame.attr('src', frame.attr('src'));
 			console.log("reload:" + $(which).attr('data-bit'));
 		}

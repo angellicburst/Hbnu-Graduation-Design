@@ -29,9 +29,22 @@ public class PagesController {
 		return "index";
 	}
 
+	/**
+	 * 跳转学生管理-学生列表页面
+	 * @return
+	 */
 	@RequestMapping(value = "/stu/list")
 	public String stuList() {
 		return "student/stuList";
+	}
+
+	/**
+	 * 跳转菜单管理页面
+	 * @return
+	 */
+	@RequestMapping(value = "/menu/manage")
+	public String menuManagement() {
+		return "menu/menuManage";
 	}
 
 }

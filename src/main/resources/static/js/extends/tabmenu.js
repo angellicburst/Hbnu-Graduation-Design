@@ -1,15 +1,3 @@
-/*
- * @Author: Paco
- * @Date:   2017-01-31
- * @lastModify 2017-05-08
- * +----------------------------------------------------------------------
- * | jqadmin [ jq酷打造的一款懒人后台模板 ]
- * | Copyright (c) 2017 http://jqadmin.jqcool.net All rights reserved.
- * | Licensed ( http://jqadmin.jqcool.net/licenses/ )
- * | Author: Paco <admin@jqcool.net>
- * +----------------------------------------------------------------------
- */
-
 layui.define(['jquery', 'element'], function(exports) {
     var $ = layui.jquery,
         element = layui.element,
