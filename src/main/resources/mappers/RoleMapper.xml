@@ -22,4 +22,11 @@
         WHERE
             id IN ( SELECT role_id FROM user_role WHERE user_id = #{userId} );
 	</select>
+
+    <select id="getRoles" resultMap="BaseResultMap">
+		SELECT
+            *
+        FROM
+            role;
+	</select>
 </mapper>

@@ -1,15 +1,14 @@
 layui.use(['form'], function() {
-    var form = layui.form;
+    const form = layui.form,
     $ = layui.jquery;
 
-    var show_num = [];
+    let show_num = [];
     draw(show_num);
 
     form.on('submit(login)', function(data) {
         //canvas展示的验证码
-        var num = show_num.join("");
-
-        var logininfo = {
+        let num = show_num.join("");
+        let logininfo = {
             username: data.field.username,
             password: data.field.password,
             idecode: data.field.idecode
@@ -18,12 +17,12 @@ layui.use(['form'], function() {
         if(logininfo.idecode == num) {
             //JSON.stringify(data.field)
             myAjax("get","/dologin",logininfo,function(data){
-                if (data.recode == 200) {
-                    layer.msg(data.remsg, function() {
+                if (data.code == 200) {
+                    layer.msg(data.msg, function() {
                         location.href = 'index';
                     });
                 } else  {
-                    layer.msg(data.remsg);
+                    layer.msg(data.msg);
                 }
             },"json");
 

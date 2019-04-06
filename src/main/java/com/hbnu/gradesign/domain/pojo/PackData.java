@@ -7,70 +7,83 @@ import java.util.Map;
  * 包装类
  * @param
  */
-public class PackData {
+public class PackData<T> {
 
 	/**
 	 * 返回码
 	 */
-	private Integer recode;
+	private Integer code;
 
 	/**
 	 * 返回信息
 	 */
-	private String remsg;
+	private String msg;
+
+	/**
+	 * 返回数据条数
+	 */
+	private Integer count;
 
 	/**
 	 * 返回对象
 	 */
-	private Object reobj;
+	private T obj;
 
 	/**
 	 * 返回对象集合
 	 */
-	private List<Object> reobjs;
+	private List<T> objs;
 
 	/**
 	 * 返回参数
 	 */
-	private Map<String, String> reparams;
+	private Map<String, String> params;
 
-	public Integer getRecode() {
-		return recode;
+	public Integer getCode() {
+		return code;
 	}
 
-	public void setRecode(Integer recode) {
-		this.recode = recode;
+	public void setCode(Integer code) {
+		this.code = code;
 	}
 
-	public String getRemsg() {
-		return remsg;
+	public String getMsg() {
+		return msg;
 	}
 
-	public void setRemsg(String remsg) {
-		this.remsg = remsg;
+	public void setMsg(String msg) {
+		this.msg = msg;
 	}
 
-	public Object getReobj() {
-		return reobj;
+	public Integer getCount() {
+		return count;
 	}
 
-	public void setReobj(Object reobj) {
-		this.reobj = reobj;
+	public void setCount(Integer count) {
+		this.count = count;
 	}
 
-	public List<Object> getReobjs() {
-		return reobjs;
+	public T getObj() {
+		return obj;
 	}
 
-	public void setReobjs(List<Object> reobjs) {
-		this.reobjs = reobjs;
+	public void setObj(T obj) {
+		this.obj = obj;
 	}
 
-	public Map<String, String> getReparams() {
-		return reparams;
+	public List<T> getObjs() {
+		return objs;
 	}
 
-	public void setReparams(Map<String, String> reparams) {
-		this.reparams = reparams;
+	public void setObjs(List<T> objs) {
+		this.objs = objs;
+	}
+
+	public Map<String, String> getParams() {
+		return params;
+	}
+
+	public void setParams(Map<String, String> params) {
+		this.params = params;
 	}
 }

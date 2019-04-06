@@ -456,9 +456,7 @@ layui.define(['jquery', 'form', 'layer', 'element'], function(exports) {
 		} else {
 			$(which).attr('data-bit', i);
 			let frame = $('.weIframe[tab-id=' + layId + ']');
-			console.log(frame.attr('src'));
 			frame.attr('src', frame.attr('src'));
-			console.log("reload:" + $(which).attr('data-bit'));
 		}
 	}
 	/**

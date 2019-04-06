@@ -63,8 +63,8 @@ body {
   position: relative;
   z-index: 99;
   border-bottom: 1px solid #e5e5e5;
-  line-height: 39px;
-  height: 39px;
+  line-height: 43px;
+  height: 40px;
   overflow: hidden;
 }
 .page-block {

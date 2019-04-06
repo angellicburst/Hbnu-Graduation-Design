@@ -1,7 +1,8 @@
-layui.use(['jquery','element'], function() {
+layui.define(['jquery','table','form','upload'], function() {
     const $ = layui.jquery;
 
     $(function () {
+
         /**
          * @todo 每个iframe顶端显示当前菜单目录
          */
@@ -25,6 +26,7 @@ layui.use(['jquery','element'], function() {
             });
 
         },"json");
+
     });
 
 })

@@ -48,22 +48,22 @@ public class LoginController {
 			subject.login(token);
 		} catch (AuthenticationException e) {
 			log.error("用户名或密码错误：" + e.getMessage());
-			packData.setRecode(500);
-			packData.setRemsg("用户名或密码错误");
+			packData.setCode(500);
+			packData.setMsg("用户名或密码错误");
 			return packData;
 		}
 
 		//根据权限，指定返回数据
 		Set<String> role = rs.getRolesByUsername(username);
 
-		packData.setReobj(SecurityUtils.getSubject().getPrincipal());
-		packData.setRecode(200);
-		packData.setRemsg("登陆成功");
+		packData.setObj(SecurityUtils.getSubject().getPrincipal());
+		packData.setCode(200);
+		packData.setMsg("登陆成功");
 
 		//存储用户角色
 		Map<String, String> params = new HashMap<>();
 		params.put("role", role.iterator().next());
-		packData.setReparams(params);
+		packData.setParams(params);
 		return packData;
 	}
 }

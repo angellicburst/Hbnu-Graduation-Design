@@ -8,5 +8,8 @@ import java.util.List;
 @Repository
 public interface RoleMapper {
 	List<Role> getRolesByUsername(String username);
+
 	Role getUserRole(Integer userId);
+
+	List<Role> getRoles();
 }

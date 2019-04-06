@@ -35,6 +35,13 @@
         id = #{id};
   </select>
 
+  <select id="getMenus" resultMap="BaseResultMap">
+    SELECT
+        *
+    FROM
+        menu
+  </select>
+
   <select id="getMenuByRoleId" parameterType="java.lang.Integer" resultMap="FirSecMenu">
     SELECT
         t1.id,
@@ -78,4 +85,33 @@
         AND ( t1.LEVEL = 1 OR t2.LEVEL = 2 )
         AND ( LENGTH( trim( t1.url ) ) >= 1 OR LENGTH( trim( t2.url ) ) >= 1 );
   </select>
+
+  <insert id="addMenu" parameterType="com.hbnu.gradesign.domain.dto.MenuDto" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO menu ( menu_name, url, level, img, parent_id, role_id )
+    VALUES
+        ( #{menuName},#{url},#{level},#{img},#{parentId},#{roleId} );
+  </insert>
+
+  <delete id="delMenu" parameterType="java.lang.Integer">
+    DELETE
+    FROM
+        menu
+    WHERE
+        id IN
+    <foreach collection="ids" item="id" open="(" separator="," close=")">
+        #{id,jdbcType=INTEGER}
+    </foreach>
+  </delete>
+
+  <update id="editMenu" parameterType="com.hbnu.gradesign.domain.dto.MenuDto" useGeneratedKeys="true" keyProperty="id">
+    UPDATE menu
+    SET menu_name = #{menuName},
+        url = #{url},
+        level = #{level},
+        img = #{img},
+        parent_id = #{parentId},
+        role_id = #{roleId}
+    WHERE
+        id= #{id}
+  </update>
 </mapper>

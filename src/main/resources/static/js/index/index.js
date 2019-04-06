@@ -6,6 +6,11 @@ layui.use(['jquery','form'], function() {
     var form = layui.form;
     $(function() {
         /**
+         * layui加载层，支持0-2
+         */
+        let loading = layer.load(0, {shade: false});
+
+        /**
          * @todo 页面右上角显示用户
          */
         myAjax("post","/showUser",null,function(data){
@@ -23,7 +28,7 @@ layui.use(['jquery','form'], function() {
             layui.each(JSON.parse(data), function(index, obj) {
                 let str = "<li value='"+obj.id
                     +"'><a _href='"+obj.url
-                    +"'><i class='iconfont'><img src='/images/"+obj.img
+                    +"'><i class='iconfont'><img src='/images/menu/"+obj.img
                     +"' ></i><cite>"+ obj.menuName
                     +"</cite><i class='iconfont nav_right'>&#xe697;</i></a>";
                 let search = "<option id='"+obj.id
@@ -50,6 +55,7 @@ layui.use(['jquery','form'], function() {
 
                 //刷新form避免select菜单搜索框不显示
                 form.render();
+                layer.close(loading);
             });
         });
 

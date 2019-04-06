@@ -1,0 +1,47 @@
+.layui-form-item {
+    padding-left: 30px;
+    padding-top: 20px;
+}
+
+.layui-form-item .layui-input-inline {
+    width: 300px;
+}
+
+.layui-upload {
+    padding-left: 30px;
+    padding-top: 20px;
+    margin-bottom: 50px
+}
+
+.layui-upload .layui-btn-danger {
+    float: left;
+}
+
+.layui-upload-list {
+    float: left;
+}
+
+.layui-input-inline .layui-btn-danger {
+    float: left;
+}
+
+.fileMsg {
+    padding-left: 10px;
+    line-height: 38px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    white-space:nowrap;
+    width:176px;
+    height:38px;
+    display:block;
+    float: left;
+}
+
+#addMenuFileName,#editMenuFileName {
+    line-height: 38px;
+    float: left;
+    width: 176px;
+    margin-left: 10px;
+    border: none;
+}

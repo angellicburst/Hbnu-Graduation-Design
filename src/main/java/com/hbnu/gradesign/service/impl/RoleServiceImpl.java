@@ -4,9 +4,11 @@ import com.hbnu.gradesign.domain.Role;
 import com.hbnu.gradesign.dao.RoleMapper;
 import com.hbnu.gradesign.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -40,4 +42,15 @@ public class RoleServiceImpl implements RoleService {
 		if (role.getId() == 1) return true;
 		else return false;
 	}
+
+	/**
+	 * 获得所有的角色
+	 * @return
+	 */
+	@Override
+	@Cacheable(cacheNames= "roles")
+	public List<Role> getRoles() {
+		return rm.getRoles();
+	}
+
 }

@@ -65,6 +65,11 @@ spring:
       - classpath:/templates/
     suffix: .html
     encoding: utf-8
+  # 文件上传设置文件大小，-1表示无限制
+  servlet:
+    multipart:
+      max-file-size: -1
+      max-request-size: -1
 
 
 # mybatis配置

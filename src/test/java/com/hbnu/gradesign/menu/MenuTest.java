@@ -18,7 +18,7 @@ public class MenuTest {
 
 	@Test
 	public void getMenu() {
-		for (MenuDto m:ms.getMenus(1)
+		for (MenuDto m:ms.getMenusByRoleId(1)
 			 ) {
 			System.out.println(m.getMenuName());
 			System.out.println(m);
