@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hbnu.gradesign.dao.DepartmentMapper">
+  <resultMap id="BaseResultMap" type="com.hbnu.gradesign.domain.Department">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="department" jdbcType="VARCHAR" property="department" />
+  </resultMap>
+  <select id="getDepartmentById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT
+        id,
+        department
+    FROM
+        department
+    WHERE
+        id = #{id,jdbcType=INTEGER}
+  </select>
+</mapper>

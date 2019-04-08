@@ -6,19 +6,21 @@ layui.use(['jquery', 'admin', 'table','form'], function() {
         table = layui.table,
         form = layui.form;
 
-    /**
-     * layui加载层，支持0-2
-     */
-    let loading = layer.load(2, {shade: false});
+
 
     $(function() {
+        /**
+         * layui加载层，支持0-2
+         */
+        let loading = layer.load(2, {shade: false});
+
         /**
          * @todo 定义table
          */
         table.render({
             elem : '#menuList',
             url : '/menus',
-            toolbar : '#toolbarMenu',
+            toolbar : '#toolbar',
             type : 'POST',
             width : 1200,
             cellMinWidth : 80,
@@ -81,118 +83,120 @@ layui.use(['jquery', 'admin', 'table','form'], function() {
          */
         layer.close(loading);
 
-        /**
-         * @todo 获取所有角色
-         */
-        myAjax("post","/getRoles",null,function(data) {
-            let roles = "<option value=''></option>";
-            layui.each(data, function(index, obj) {
-                roles += "<option value='"+obj.id+"'>"+obj.role+"</option>"
-            });
-            $(".selectRoles").append(roles);
-            form.render();
-        },"json");
+    });
 
-        /**
-         * @todo 监听头部操作按钮（添加，批量删除）
-         */
-        table.on('toolbar(menu)', function(obj){
-            let checkStatus = table.checkStatus(obj.config.id);
-            let data = checkStatus.data;
 
-            if (obj.event === 'add') {  //添加
-                //打开弹出层
-                layer.open({
-                    type : 1,
-                    title : "菜单添加",
-                    area: ['520px', '650px'],
-                    content: $('#addFrame'),
-                    cancel: function(index, layero){   //点击弹出层右上角X触发
-                        //清除所有弹出层数据
-                        $("#addForm")[0].reset();
-                        $("#editForm")[0].reset();
-                        //关闭弹出层
-                        layer.close(index);
-                        return false;
-                    }
-                });
-            } else if (obj.event === 'delMult') {   //批量删除
-                //删除提示
-                layer.confirm('确认删除'+data.length+'条？', function(){
-                    //删除
-                    delMult(JSON.stringify(data),"/delMenus");
-                    //重新加载table
-                    table.reload('menuList',{});
-                });
-            }
+    /**
+     * @todo 获取所有角色
+     */
+    myAjax("post","/getRoles",null,function(data) {
+        let roles = "<option value=''></option>";
+        layui.each(data, function(index, obj) {
+            roles += "<option value='"+obj.id+"'>"+obj.role+"</option>"
         });
+        $(".selectRoles").append(roles);
+        form.render();
+    },"json");
 
-        /**
-         * @todo table 监听表格操作按钮（删除，更新）
-         * @param obj
-         * '+$('.layui-table').attr("lay-filter")+'
-         */
-        table.on('tool(menu)', function(obj){
-            let data = obj.data;
+    /**
+     * @todo 监听头部操作按钮（添加，批量删除）
+     */
+    table.on('toolbar(menu)', function(obj){
+        let checkStatus = table.checkStatus(obj.config.id);
+        let data = checkStatus.data;
 
-            if(obj.event === 'del'){    //删除
-                layer.confirm('确认删除？', function(index){
-                    //删除
-                    del(obj.data,"/delMenu");
-                    //重新加载table
-                    table.reload('menuList',{});
+        if (obj.event === 'add') {  //添加
+            //打开弹出层
+            layer.open({
+                type : 1,
+                title : "菜单添加",
+                area: ['520px', '650px'],
+                content: $('#addFrame'),
+                cancel: function(index, layero){   //点击弹出层右上角X触发
+                    //清除所有弹出层数据
+                    $("#addForm")[0].reset();
+                    $("#editForm")[0].reset();
+                    //关闭弹出层
                     layer.close(index);
-                });
-            } else if(obj.event === 'edit'){    //更新
-                //打开弹出层
-                layer.open({
-                    type : 1,
-                    title : "菜单编辑",
-                    area: ['520px', '650px'],
-                    content: $('#editFrame'),
-                    cancel: function(index, layero){    //点击弹出层右上角X触发
-                        //清除所有弹出层数据
-                        $("#addForm")[0].reset();
-                        $("#editForm")[0].reset();
-                        //关闭弹出层
-                        layer.close(index);
-                        return false;
-                    }
-                });
-
-                /*
-                根据菜单等级判断
-                等级1：可以上传图片，关闭父节点输入
-                等级2：关闭上传图片，打开父节点输入
-                 */
-                if (data.level === 1) {
-                    $("#editParentId").attr("disabled",true);
-                    $("#editParentId").attr("class","layui-input layui-disabled");
-                    $("#editParentId").css("background-color","#eee");
-                } else if (data.level === 2) {
-                    $("#editParentId").attr("disabled",false);
-                    $("#editParentId").attr("class","layui-input");
-                    $("#editParentId").css("background-color","#fff");
+                    return false;
                 }
+            });
+        } else if (obj.event === 'delMult') {   //批量删除
+            //删除提示
+            layer.confirm('确认删除'+data.length+'条？', function(){
+                //删除
+                delMult(JSON.stringify(data),"/delMenus");
+                //重新加载table
+                table.reload('menuList',{});
+            });
+        }
+    });
 
-                /*
-                 * 获取要编辑的值
-                 */
-                ajax({
-                    url: "/getMenu",
-                    data: {
-                        id: data.id
-                    },
-                    success:function () {
-                        //表单初始赋值
-                        form.val('menuFilter', data);
-                        //隐藏域保存菜单Id和菜单图片名称
-                        $("#saveId").val(data.id);
-                        $("#saveImg").val(data.img);
-                    }
-                });
+    /**
+     * @todo table 监听表格操作按钮（删除，更新）
+     * @param obj
+     * '+$('.layui-table').attr("lay-filter")+'
+     */
+    table.on('tool(menu)', function(obj){
+        let data = obj.data;
+
+        if(obj.event === 'del'){    //删除
+            layer.confirm('确认删除？', function(index){
+                //删除
+                del(obj.data,"/delMenu");
+                //重新加载table
+                table.reload('menuList',{});
+                layer.close(index);
+            });
+        } else if(obj.event === 'edit'){    //更新
+            //打开弹出层
+            layer.open({
+                type : 1,
+                title : "菜单编辑",
+                area: ['520px', '650px'],
+                content: $('#editFrame'),
+                cancel: function(index, layero){    //点击弹出层右上角X触发
+                    //清除所有弹出层数据
+                    $("#addForm")[0].reset();
+                    $("#editForm")[0].reset();
+                    //关闭弹出层
+                    layer.close(index);
+                    return false;
+                }
+            });
+
+            /*
+            根据菜单等级判断
+            等级1：可以上传图片，关闭父节点输入
+            等级2：关闭上传图片，打开父节点输入
+             */
+            if (data.level === 1) {
+                $("#editParentId").attr("disabled",true);
+                $("#editParentId").attr("class","layui-input layui-disabled");
+                $("#editParentId").css("background-color","#eee");
+            } else if (data.level === 2) {
+                $("#editParentId").attr("disabled",false);
+                $("#editParentId").attr("class","layui-input");
+                $("#editParentId").css("background-color","#fff");
             }
-        });
+
+            /*
+             * 获取要编辑的值
+             */
+            ajax({
+                url: "/getMenu",
+                data: {
+                    id: data.id
+                },
+                success:function () {
+                    //表单初始赋值
+                    form.val('menuFilter', data);
+                    //隐藏域保存菜单Id和菜单图片名称
+                    $("#saveId").val(data.id);
+                    $("#saveImg").val(data.img);
+                }
+            });
+        }
     });
 
 

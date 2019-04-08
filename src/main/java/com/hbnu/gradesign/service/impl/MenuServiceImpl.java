@@ -36,8 +36,15 @@ public class MenuServiceImpl implements MenuService {
 	@Override
 	public PackData getMenus() {
 		PackData packData = new PackData();
-		packData.setCode(200);
-		packData.setObjs(mm.getMenus());
+		List<Menu> menus = mm.getMenus();
+		if (menus.isEmpty()) {
+			packData.setCode(400);
+			packData.setMsg("菜单查询失败");
+		} else {
+			packData.setCode(200);
+			packData.setObjs(menus);
+			packData.setMsg("菜单查询成功");
+		}
 		return packData;
 	}
 

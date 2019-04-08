@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<link rel="stylesheet" href="/css/common.css" />
+		<link rel="stylesheet" href="/css/font.css">
+	</head>
+
+	<body>
+		<div class="page-nav">
+			<span class="layui-breadcrumb">
+                <a href="">首页</a>
+             </span>
+			<a class="layui-btn layui-btn-sm" style="line-height:1.6em;margin-top:5px;float:right" href="javascript:window.location.reload();" title="刷新"><i class="layui-icon" style="line-height:30px">&#xe669;</i></a>
+		</div>
+		<div class="page-body">
+			<table class="layui-table" id="stuListAdm">
+			</table>
+
+		</div>
+
+		<!-- layui -->
+		<script type="text/javascript" src="/lib/layui/layui.js" charset="utf-8"></script>
+		<!-- 封装Ajax -->
+		<script type="text/javascript" src="/js/common/myAjax.js" charset="utf-8"></script>
+
+		<script type="text/javascript" src="/js/common/common.js" charset="utf-8"></script>
+
+		<script type="text/javascript" src="/js/student/stuAdm.js"  charset="utf-8"></script>
+
+		<script type="text/html" id="genderTpl">
+			{{#  if(d.gender == 0){ }}
+			男
+			{{#  } else if(d.gender == 1) { }}
+			女
+			{{#  } }}
+		</script>
+
+		<script type="text/html" id="statusTpl">
+			{{#  if(d.status == 0){ }}
+			有效
+			{{#  } else if(d.status == 1) { }}
+			失效
+			{{#  } }}
+		</script>
+
+
+		<script type="text/html" id="barStuMange">
+			<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+			<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+			<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="del">停用</a>
+		</script>
+
+		<script type="text/html" id="toolbar">
+			<div class="layui-btn-container">
+				<button class="layui-btn layui-btn-sm" lay-event="add">添加</button>
+				<button class="layui-btn layui-btn-sm" lay-event="delMult">批量导入</button>
+				<button class="layui-btn layui-btn-sm" lay-event="delMult">批量删除</button>
+			</div>
+		</script>
+	</body>
+</html>
