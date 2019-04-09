@@ -67,20 +67,40 @@
     from student
     where id = #{id,jdbcType=VARCHAR}
   </select>
-  <select id="getStudentsAdm" resultMap="StuIncDeMaCl">
+  <select id="getStudentsAdm" parameterType="com.hbnu.gradesign.domain.dto.StudentDto" resultMap="StuIncDeMaCl">
     SELECT
         t1.*,
         t2.department,
         t3.major,
         t4.cla
     FROM
-        student t1,
-        department t2,
-        major t3,
-        cla t4
-    WHERE
-        t1.department_id = t2.id
-        AND t1.major_id = t3.id
-        AND t1.cla_id = t4.id
+        student t1
+        LEFT JOIN department t2 ON ( t1.department_id = t2.id )
+        LEFT JOIN major t3 ON ( t1.major_id = t3.id )
+        LEFT JOIN cla t4 ON ( t1.cla_id = t4.id )
+    <where>
+        <if test="id != null and id != ''">
+          t1.id = #{id}
+        </if>
+        <if test="name != null and name != ''">
+          <bind name="pattern" value="name + '%'" ></bind>
+          AND t1.name LIKE #{pattern}
+        </if>
+        <if test="dateStr != null and dateStr != ''">
+          AND DATE_FORMAT(t1.create_date,'%Y-%m-%d') = #{dateStr}
+        </if>
+        <if test="status == 0 || status == 1">
+          AND t1.status = #{status}
+        </if>
+        <if test="departmentId != null and departmentId != ''">
+          AND t1.department_id = #{departmentId}
+        </if>
+        <if test="majorId != null and majorId != ''">
+          AND t1.major_id = #{majorId}
+        </if>
+        <if test="claId != null and claId != ''">
+          AND t1.cla_id = #{claId}
+        </if>
+    </where>
   </select>
 </mapper>

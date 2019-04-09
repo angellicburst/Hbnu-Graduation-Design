@@ -21,7 +21,6 @@ layui.use(['jquery', 'admin', 'table','form'], function() {
             elem : '#menuList',
             url : '/menus',
             toolbar : '#toolbar',
-            type : 'POST',
             width : 1200,
             cellMinWidth : 80,
             page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档

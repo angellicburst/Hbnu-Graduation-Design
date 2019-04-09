@@ -38,8 +38,8 @@ public class MenuServiceImpl implements MenuService {
 		PackData packData = new PackData();
 		List<Menu> menus = mm.getMenus();
 		if (menus.isEmpty()) {
-			packData.setCode(400);
-			packData.setMsg("菜单查询失败");
+			packData.setCode(404);
+			packData.setMsg("菜单查询为空");
 		} else {
 			packData.setCode(200);
 			packData.setObjs(menus);

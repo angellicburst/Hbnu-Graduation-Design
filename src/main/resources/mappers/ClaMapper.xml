@@ -14,4 +14,12 @@
     WHERE
         id = #{id,jdbcType=INTEGER}
   </select>
+
+  <select id="getClas" resultMap="BaseResultMap">
+    SELECT
+        id,
+        cla
+    FROM
+        cla
+  </select>
 </mapper>

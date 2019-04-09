@@ -19,6 +19,44 @@
 			<a class="layui-btn layui-btn-sm" style="line-height:1.6em;margin-top:5px;float:right" href="javascript:window.location.reload();" title="刷新"><i class="layui-icon" style="line-height:30px">&#xe669;</i></a>
 		</div>
 		<div class="page-body">
+			<div class="layui-row">
+				<form class="layui-form" style="float: left;">
+					<div class="layui-inline">
+						<input type="text" name="id" placeholder="ID" autocomplete="off" class="layui-input" id="searchId">
+					</div>
+					<div class="layui-inline">
+						<input type="text" name="name" placeholder="姓名" autocomplete="off" class="layui-input" id="searchName">
+					</div>
+					<div class="layui-inline">
+						<input class="layui-input" placeholder="入学时间" name="createDate" id="searchCreateDate">
+					</div>
+					<div class="layui-inline status">
+						<select name="level" lay-filter="status">
+							<option value="">状态</option>
+							<option value="0">有效</option>
+							<option value="1">失效</option>
+						</select>
+					</div>
+					<div class="layui-inline department">
+						<select name="department" lay-search="" lay-filter="department" id="selectDepartment">
+							<option value="">院系</option>
+						</select>
+					</div>
+					<div class="layui-inline major">
+						<select name="major" lay-search="" lay-filter="major" id="selectMajor">
+							<option value="">专业</option>
+						</select>
+					</div>
+					<div class="layui-inline cla">
+						<select name="cla" lay-search="" lay-filter="cla" id="selectCla">
+							<option value="">班级</option>
+						</select>
+					</div>
+				</form>
+				<button class="layui-btn" lay-submit="" lay-filter="searchBtn" style="float: left;margin-left: 10px">
+					<i class="layui-icon">&#xe615;</i>
+				</button>
+			</div>
 			<table class="layui-table" id="stuListAdm">
 			</table>
 
@@ -28,6 +66,9 @@
 		<script type="text/javascript" src="/lib/layui/layui.js" charset="utf-8"></script>
 		<!-- 封装Ajax -->
 		<script type="text/javascript" src="/js/common/myAjax.js" charset="utf-8"></script>
+		<!-- 首字母模糊查询 -->
+		<script type="text/javascript" src="/lib/pingyin/pinyin.js" charset="utf-8"></script>
+		<script type="text/javascript" src="/lib/pingyin/initials.js" charset="utf-8"></script>
 
 		<script type="text/javascript" src="/js/common/common.js" charset="utf-8"></script>
 

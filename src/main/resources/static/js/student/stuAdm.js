@@ -3,13 +3,20 @@ layui.config({
 }).use('admin');
 layui.use(['laydate', 'jquery', 'admin', 'table'], function() {
 	const $ = layui.jquery,
-		table = layui.table;
+		table = layui.table,
+		laydate = layui.laydate,
+		form = layui.form;
 
 	$(function () {
 		/**
 		 * layui加载层，支持0-2
 		 */
 		let loading = layer.load(2, {shade: false});
+
+		//执行一个laydate实例
+		laydate.render({
+			elem: '#searchCreateDate' //指定元素
+		});
 
 		/**
 		 * @todo 定义table
@@ -18,7 +25,7 @@ layui.use(['laydate', 'jquery', 'admin', 'table'], function() {
 			elem : '#stuListAdm',
 			url : '/admin/getStudents',
 			toolbar : '#toolbar',
-			type : 'POST',
+			id: 'stuAdmTable',
 			//width : 1200,
 			cellMinWidth : 80,
 			page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
@@ -98,38 +105,73 @@ layui.use(['laydate', 'jquery', 'admin', 'table'], function() {
 		});
 
 		/**
+		 * @todo 获取所有的院系
+		 */
+		ajax({
+			url: "/getDepartments",
+			success: function (data){
+				let departments = "";
+				layui.each(JSON.parse(data).objs, function(index, obj) {
+					departments += "<option value='"+obj.id+"'>"+obj.department+"</option>"
+				});
+				$("#selectDepartment").append(departments);
+				form.render();
+			}
+		});
+
+		/**
+		 * @todo 获取所有的专业
+		 */
+		ajax({
+			url: "/getMajors",
+			success: function (data){
+				let majors = "";
+				layui.each(JSON.parse(data).objs, function(index, obj) {
+					majors += "<option value='"+obj.id+"'>"+obj.major+"</option>"
+				});
+				$("#selectMajor").append(majors);
+				form.render();
+			}
+		});
+
+		/**
+		 * @todo 获取所有的班级
+		 */
+		ajax({
+			url: "/getClas",
+			success: function (data){
+				let clas = "";
+				layui.each(JSON.parse(data).objs, function(index, obj) {
+					clas += "<option value='"+obj.id+"'>"+obj.cla+"</option>"
+				});
+				$("#selectCla").append(clas);
+				form.render();
+			}
+		});
+
+
+
+		/**
 		 * 关闭加载按钮
 		 */
 		layer.close(loading);
-	})
+	});
 
-
-	/*用户-停用*/
-	window.member_stop = function (obj, id) {
-		layer.confirm('确认要停用吗？', function(index) {
-			if($(obj).attr('title') == '启用') {
-
-				//发异步把用户状态进行更改
-				$(obj).attr('title', '停用')
-				$(obj).find('i').html('&#xe62f;');
-
-				$(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
-				layer.msg('已停用!', {
-					icon: 5,
-					time: 1000
-				});
-
-			} else {
-				$(obj).attr('title', '启用')
-				$(obj).find('i').html('&#xe601;');
-
-				$(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
-				layer.msg('已启用!', {
-					icon: 5,
-					time: 1000
-				});
+	form.on('submit(searchBtn)', function(){
+		table.reload('stuAdmTable',{
+			where: {
+				id:$("#searchId").val(),
+				name:$("#searchName").val(),
+				dateStr:$("#searchCreateDate").val(),
+				status:$(".status .layui-this").attr("lay-value") == undefined?'':$(".status .layui-this").attr("lay-value"),
+				departmentId:$(".department .layui-this").attr("lay-value") == undefined?'':$(".department .layui-this").attr("lay-value"),
+				majorId:$(".major .layui-this").attr("lay-value") == undefined?'':$(".major .layui-this").attr("lay-value"),
+				claId:$(".cla .layui-this").attr("lay-value") == undefined?'':$(".cla .layui-this").attr("lay-value")
 			}
 		});
-	}
+		form.render();
+	});
+
+
 
 });

@@ -16,12 +16,13 @@ public class StudentServiceImpl implements StudentService {
 	private StudentMapper sm;
 
 	@Override
-	public PackData getStusAdm() {
+	public PackData getStusAdm(StudentDto studentDto) {
 		PackData packData = new PackData();
-		List<StudentDto> studentDtos = sm.getStudentsAdm();
+
+		List<StudentDto> studentDtos = sm.getStudentsAdm(studentDto);
 		if (studentDtos.isEmpty()) {
-			packData.setCode(400);
-			packData.setMsg("学生查询失败");
+			packData.setCode(404);
+			packData.setMsg("学生查询为空");
 		} else {
 			packData.setCode(200);
 			packData.setObjs(studentDtos);
