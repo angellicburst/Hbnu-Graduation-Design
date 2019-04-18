@@ -8,8 +8,8 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 @Configuration
-@Component
 @PropertySource({"classpath:config/path.properties"})
+@Component
 @Getter
 @Setter
 public class PathProperties {

@@ -9,6 +9,9 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * myBatis逆向工程
+ */
 public class Generator {
 
 	public static void main( String[] args ) throws Exception {

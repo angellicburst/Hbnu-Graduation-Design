@@ -105,11 +105,8 @@ public class FileUtil {
 			BufferedInputStream bin = null;// 输入流缓存流
 			BufferedOutputStream bout = null;// 输出流缓存流
 
-			//response.setContentType("multipart/form-data");
-
 			response.setHeader("content-type", "application/octet-stream");
 			response.setContentType("multipart/form-data;charset=UTF-8");
-			//response.setHeader("Content-Disposition", "attachment; filename=stuTemplate.xls");
 			response.setHeader("Content-Disposition", "attachment; fileName=stuTemplate.xls;filename*=utf-8''"+ URLEncoder.encode("stuTemplate.xls","UTF-8"));
 
 			try {
@@ -154,25 +151,5 @@ public class FileUtil {
 		}
 		return packData;
 	}
-
-//	/**
-//	 * 获取项目绝对路径
-//	 * @return String
-//	 * */
-//	public static String getClassFilePath() {
-//		try {
-//			String classPath = ResourceUtils.getURL("classpath:").getPath();
-//			File classFile = new File(classPath);
-//			if (!classFile.exists()) {
-//				classFile = new File("");
-//			}
-//			String classFilePath = classFile.getAbsolutePath();
-//			System.out.println("classFilePath(项目根路径): " + classFilePath);
-//			return classFilePath;
-//		} catch (FileNotFoundException e) {
-//			e.printStackTrace();
-//		}
-//		return null;
-//	}
 
 }

@@ -1,5 +1,8 @@
 package com.hbnu.gradesign.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 
 /**
@@ -8,9 +11,15 @@ import java.io.Serializable;
  * @author Fynce
  * @date 2019/03/19
  */
+@Getter
+@Setter
 public class Role implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    /**
+     * ID
+     * id
+     */
     private Integer id;
 
     /**
@@ -19,19 +28,4 @@ public class Role implements Serializable {
      */
     private String role;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role == null ? null : role.trim();
-    }
 }

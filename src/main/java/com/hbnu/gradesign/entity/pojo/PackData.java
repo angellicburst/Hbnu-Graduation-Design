@@ -1,5 +1,8 @@
 package com.hbnu.gradesign.entity.pojo;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +10,8 @@ import java.util.Map;
  * 包装类
  * @param
  */
+@Getter
+@Setter
 public class PackData<T> {
 
 	/**
@@ -39,51 +44,4 @@ public class PackData<T> {
 	 */
 	private Map<String, String> params;
 
-	public Integer getCode() {
-		return code;
-	}
-
-	public void setCode(Integer code) {
-		this.code = code;
-	}
-
-	public String getMsg() {
-		return msg;
-	}
-
-	public void setMsg(String msg) {
-		this.msg = msg;
-	}
-
-	public Integer getCount() {
-		return count;
-	}
-
-	public void setCount(Integer count) {
-		this.count = count;
-	}
-
-	public T getObj() {
-		return obj;
-	}
-
-	public void setObj(T obj) {
-		this.obj = obj;
-	}
-
-	public List<T> getObjs() {
-		return objs;
-	}
-
-	public void setObjs(List<T> objs) {
-		this.objs = objs;
-	}
-
-	public Map<String, String> getParams() {
-		return params;
-	}
-
-	public void setParams(Map<String, String> params) {
-		this.params = params;
-	}
 }

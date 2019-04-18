@@ -1,5 +1,8 @@
 package com.hbnu.gradesign.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 
 /**
@@ -8,9 +11,15 @@ import java.io.Serializable;
  * @author Fynce
  * @date 2019/03/27
  */
+@Getter
+@Setter
 public class SecMenu implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    /**
+     * ID
+     * id
+     */
     private Integer secId;
 
     /**
@@ -31,49 +40,4 @@ public class SecMenu implements Serializable {
      */
     private Integer secLevel;
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    public Integer getSecId() {
-        return secId;
-    }
-
-    public void setSecId(Integer secId) {
-        this.secId = secId;
-    }
-
-    public String getSecMenu() {
-        return secMenu;
-    }
-
-    public void setSecMenu(String secMenu) {
-        this.secMenu = secMenu;
-    }
-
-    public String getSecUrl() {
-        return secUrl;
-    }
-
-    public void setSecUrl(String secUrl) {
-        this.secUrl = secUrl;
-    }
-
-    public Integer getSecLevel() {
-        return secLevel;
-    }
-
-    public void setSecLevel(Integer secLevel) {
-        this.secLevel = secLevel;
-    }
-
-    @Override
-    public String toString() {
-        return "SecMenu{" +
-                "secId=" + secId +
-                ", secMenu='" + secMenu + '\'' +
-                ", secUrl='" + secUrl + '\'' +
-                ", secLevel=" + secLevel +
-                '}';
-    }
 }

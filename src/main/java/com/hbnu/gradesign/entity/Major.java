@@ -1,5 +1,8 @@
 package com.hbnu.gradesign.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 
 /**
@@ -8,9 +11,15 @@ import java.io.Serializable;
  * @author Fynce
  * @date 2019/04/08
  */
+@Getter
+@Setter
 public class Major implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    /**
+     * ID
+     * id
+     */
     private Integer id;
 
     /**
@@ -19,19 +28,4 @@ public class Major implements Serializable {
      */
     private String major;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getMajor() {
-        return major;
-    }
-
-    public void setMajor(String major) {
-        this.major = major == null ? null : major.trim();
-    }
 }

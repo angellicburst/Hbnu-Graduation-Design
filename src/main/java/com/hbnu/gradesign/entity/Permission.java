@@ -1,5 +1,8 @@
 package com.hbnu.gradesign.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 
 /**
@@ -8,9 +11,15 @@ import java.io.Serializable;
  * @author Fynce
  * @date 2019/03/19
  */
+@Getter
+@Setter
 public class Permission implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    /**
+     * ID
+     * id
+     */
     private Integer id;
 
     /**
@@ -19,19 +28,4 @@ public class Permission implements Serializable {
      */
     private String permission;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getPermission() {
-        return permission;
-    }
-
-    public void setPermission(String permission) {
-        this.permission = permission == null ? null : permission.trim();
-    }
 }

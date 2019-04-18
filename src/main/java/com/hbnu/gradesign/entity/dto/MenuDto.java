@@ -2,10 +2,14 @@ package com.hbnu.gradesign.entity.dto;
 
 import com.hbnu.gradesign.entity.Menu;
 import com.hbnu.gradesign.entity.SecMenu;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+@Getter
+@Setter
 public class MenuDto extends Menu {
 	/**
 	 * 二级菜单
@@ -17,19 +21,4 @@ public class MenuDto extends Menu {
 	 */
 	private MultipartFile imgFile;
 
-	public List<SecMenu> getSecMenu() {
-		return secMenu;
-	}
-
-	public void setSecMenu(List<SecMenu> secMenu) {
-		this.secMenu = secMenu;
-	}
-
-	public MultipartFile getImgFile() {
-		return imgFile;
-	}
-
-	public void setImgFile(MultipartFile imgFile) {
-		this.imgFile = imgFile;
-	}
 }
