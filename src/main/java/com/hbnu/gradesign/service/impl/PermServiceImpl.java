@@ -1,6 +1,6 @@
 package com.hbnu.gradesign.service.impl;
 
-import com.hbnu.gradesign.domain.Permission;
+import com.hbnu.gradesign.entity.Permission;
 import com.hbnu.gradesign.dao.PermMapper;
 import com.hbnu.gradesign.service.PermService;
 import org.springframework.beans.factory.annotation.Autowired;

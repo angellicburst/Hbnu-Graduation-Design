@@ -1,6 +1,6 @@
 package com.hbnu.gradesign.config;
 
-import com.hbnu.gradesign.domain.pojo.GeneratorEntity;
+import com.hbnu.gradesign.entity.pojo.GeneratorEntity;
 import org.mybatis.generator.api.CommentGenerator;
 import org.mybatis.generator.api.FullyQualifiedTable;
 import org.mybatis.generator.api.IntrospectedColumn;

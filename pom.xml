@@ -153,6 +153,19 @@
             <version>1.4.0</version>
         </dependency>
 
+		<!-- easyexcel excel操作工具 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>easyexcel</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+
+		<!-- lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.16.20</version>
+		</dependency>
 
 	</dependencies>
 

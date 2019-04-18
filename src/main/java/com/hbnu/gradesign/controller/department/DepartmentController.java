@@ -1,6 +1,6 @@
 package com.hbnu.gradesign.controller.department;
 
-import com.hbnu.gradesign.domain.pojo.PackData;
+import com.hbnu.gradesign.entity.pojo.PackData;
 import com.hbnu.gradesign.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

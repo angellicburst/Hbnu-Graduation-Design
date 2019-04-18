@@ -1,4 +1,4 @@
-package com.hbnu.gradesign.domain.pojo;
+package com.hbnu.gradesign.entity.pojo;
 
 import java.util.List;
 import java.util.Map;

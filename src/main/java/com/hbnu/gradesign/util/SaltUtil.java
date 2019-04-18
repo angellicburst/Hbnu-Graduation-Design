@@ -15,7 +15,7 @@ public class SaltUtil {
 	 * 利用SecureRandom随机生成盐值
 	 * @return
 	 */
-	private static String randomSalt() {
+	public static String randomSalt() {
 		SecureRandom random = new SecureRandom();
 		byte bytes[] = new byte[16];
 		random.nextBytes(bytes);

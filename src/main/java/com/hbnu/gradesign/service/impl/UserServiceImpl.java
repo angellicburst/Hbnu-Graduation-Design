@@ -1,7 +1,7 @@
 package com.hbnu.gradesign.service.impl;
 
 import com.hbnu.gradesign.dao.UserMapper;
-import com.hbnu.gradesign.domain.User;
+import com.hbnu.gradesign.entity.User;
 import com.hbnu.gradesign.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

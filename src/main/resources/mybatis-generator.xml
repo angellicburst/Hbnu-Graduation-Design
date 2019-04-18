@@ -38,7 +38,7 @@
 		<!--</javaTypeResolver>-->
 
 		<!-- 生成实体类的包名和位置 ，targetPackage指的是包名,targetProject值得是路径位置-->
-		<javaModelGenerator targetPackage="com.hbnu.gradesign.domain"
+		<javaModelGenerator targetPackage="com.hbnu.gradesign.entity"
 			targetProject=".\src\main\java">
 			<!-- 获取表的注释 -->
 			<property name="enableSubPackages" value="true" />

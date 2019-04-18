@@ -1,6 +1,6 @@
 package com.hbnu.gradesign.controller.role;
 
-import com.hbnu.gradesign.domain.Role;
+import com.hbnu.gradesign.entity.Role;
 import com.hbnu.gradesign.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

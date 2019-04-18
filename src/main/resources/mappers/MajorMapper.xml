@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hbnu.gradesign.dao.MajorMapper">
-  <resultMap id="BaseResultMap" type="com.hbnu.gradesign.domain.Major">
+  <resultMap id="BaseResultMap" type="com.hbnu.gradesign.entity.Major">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="major" jdbcType="VARCHAR" property="major" />
   </resultMap>
@@ -21,5 +21,16 @@
         major
     FROM
         major
+  </select>
+
+  <select id="getMajorsByDepartmentId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT
+            t2.*
+        FROM
+            `department_major` t1
+            LEFT JOIN `major` t2 ON ( t1.major_id = t2.id )
+            LEFT JOIN `department` t3 ON ( t1.department_id = t3.id )
+        WHERE
+            t3.id = #{departmentId}
   </select>
 </mapper>

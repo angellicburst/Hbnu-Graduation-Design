@@ -2,7 +2,7 @@ package com.hbnu.gradesign.dao;
 
 import java.util.List;
 
-import com.hbnu.gradesign.domain.Test;
+import com.hbnu.gradesign.entity.Test;
 import org.springframework.stereotype.Repository;
 
 @Repository

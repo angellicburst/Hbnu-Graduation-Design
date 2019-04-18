@@ -1,11 +1,11 @@
 package com.hbnu.gradesign.dao;
 
-import com.hbnu.gradesign.domain.User;
+import com.hbnu.gradesign.entity.User;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserMapper {
 	User findUserByUsername(String username);
 
-	User checkUser(String username, String password);
+	Integer addUser(User users);
 }

@@ -1,11 +1,12 @@
 package com.hbnu.gradesign.service.impl;
 
 import com.hbnu.gradesign.dao.MenuMapper;
-import com.hbnu.gradesign.domain.Menu;
-import com.hbnu.gradesign.domain.dto.MenuDto;
-import com.hbnu.gradesign.domain.pojo.PackData;
+import com.hbnu.gradesign.entity.Menu;
+import com.hbnu.gradesign.entity.dto.MenuDto;
+import com.hbnu.gradesign.entity.pojo.PackData;
+import com.hbnu.gradesign.properties.PathProperties;
 import com.hbnu.gradesign.service.MenuService;
-import com.hbnu.gradesign.util.UploadUtil;
+import com.hbnu.gradesign.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,9 @@ public class MenuServiceImpl implements MenuService {
 
 	@Autowired
 	private MenuMapper mm;
+
+	@Autowired
+	private PathProperties pathProperties;
 
 	/**
 	 * 根据ID获取某个菜单
@@ -84,7 +88,7 @@ public class MenuServiceImpl implements MenuService {
 		PackData packData = null;
 		//限制只有一级菜单才能添加图片
 		if (menuDto.getLevel() == 1) {
-			packData = UploadUtil.uploadFile(menuDto.getImgFile());
+			packData = FileUtil.uploadFile(menuDto.getImgFile(), pathProperties.getMenuImgSavePath());
 			menuDto.setImg(packData.getObj().toString());
 		} else if (menuDto.getLevel() == 2){
 			packData = new PackData();
@@ -116,7 +120,7 @@ public class MenuServiceImpl implements MenuService {
 		for (Menu m:menus) {
 			ids.add(m.getId());
 			if (m.getLevel() == 1) {
-				packData = UploadUtil.delFile(m.getImg());
+				packData = FileUtil.delFile(m.getImg(), pathProperties.getMenuImgSavePath());
 				if (packData.getCode() != 200) {
 					return packData;
 				}
@@ -144,9 +148,9 @@ public class MenuServiceImpl implements MenuService {
 	public PackData editMenu(MenuDto menuDto) {
 		PackData packData;
 		if (!menuDto.getImgFile().isEmpty()) {
-			packData = UploadUtil.delFile(menuDto.getImg());
+			packData = FileUtil.delFile(menuDto.getImg(), pathProperties.getMenuImgSavePath());
 			if (packData.getCode() == 200) {
-				packData = UploadUtil.uploadFile(menuDto.getImgFile());
+				packData = FileUtil.uploadFile(menuDto.getImgFile(), pathProperties.getMenuImgSavePath());
 				menuDto.setImg(menuDto.getImgFile().getOriginalFilename());
 				if (packData.getCode() != 200) {
 					return packData;

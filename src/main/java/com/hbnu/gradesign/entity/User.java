@@ -1,4 +1,4 @@
-package com.hbnu.gradesign.domain;
+package com.hbnu.gradesign.entity;
 
 import java.io.Serializable;
 
@@ -77,5 +77,16 @@ public class User implements Serializable {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", salt='" + salt + '\'' +
+                ", status=" + status +
+                '}';
     }
 }

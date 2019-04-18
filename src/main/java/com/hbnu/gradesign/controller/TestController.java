@@ -2,9 +2,9 @@ package com.hbnu.gradesign.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.hbnu.gradesign.domain.Test;
-import com.hbnu.gradesign.domain.TestData;
-import com.hbnu.gradesign.domain.User;
+import com.hbnu.gradesign.entity.Test;
+import com.hbnu.gradesign.entity.TestData;
+import com.hbnu.gradesign.entity.User;
 import com.hbnu.gradesign.service.TestService;
 import com.hbnu.gradesign.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,9 +2,9 @@ package com.hbnu.gradesign.controller.menu;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.hbnu.gradesign.domain.Menu;
-import com.hbnu.gradesign.domain.dto.MenuDto;
-import com.hbnu.gradesign.domain.pojo.PackData;
+import com.hbnu.gradesign.entity.Menu;
+import com.hbnu.gradesign.entity.dto.MenuDto;
+import com.hbnu.gradesign.entity.pojo.PackData;
 import com.hbnu.gradesign.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

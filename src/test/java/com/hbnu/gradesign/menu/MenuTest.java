@@ -1,7 +1,7 @@
 package com.hbnu.gradesign.menu;
 
 
-import com.hbnu.gradesign.domain.dto.MenuDto;
+import com.hbnu.gradesign.entity.dto.MenuDto;
 import com.hbnu.gradesign.service.MenuService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

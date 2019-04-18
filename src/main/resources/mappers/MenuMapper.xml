@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hbnu.gradesign.dao.MenuMapper">
-  <resultMap id="BaseResultMap" type="com.hbnu.gradesign.domain.Menu">
+  <resultMap id="BaseResultMap" type="com.hbnu.gradesign.entity.Menu">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
     <result column="url" jdbcType="VARCHAR" property="url" />
@@ -10,7 +10,7 @@
     <result column="role_id" jdbcType="INTEGER" property="roleId" />
   </resultMap>
 
-  <resultMap id="FirSecMenu" type="com.hbnu.gradesign.domain.dto.MenuDto">
+  <resultMap id="FirSecMenu" type="com.hbnu.gradesign.entity.dto.MenuDto">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
     <result column="url" jdbcType="VARCHAR" property="url" />
@@ -86,7 +86,7 @@
         AND ( LENGTH( trim( t1.url ) ) >= 1 OR LENGTH( trim( t2.url ) ) >= 1 );
   </select>
 
-  <insert id="addMenu" parameterType="com.hbnu.gradesign.domain.dto.MenuDto" useGeneratedKeys="true" keyProperty="id">
+  <insert id="addMenu" parameterType="com.hbnu.gradesign.entity.dto.MenuDto" useGeneratedKeys="true" keyProperty="id">
     INSERT INTO menu ( menu_name, url, level, img, parent_id, role_id )
     VALUES
         ( #{menuName},#{url},#{level},#{img},#{parentId},#{roleId} );
@@ -103,7 +103,7 @@
     </foreach>
   </delete>
 
-  <update id="editMenu" parameterType="com.hbnu.gradesign.domain.dto.MenuDto" useGeneratedKeys="true" keyProperty="id">
+  <update id="editMenu" parameterType="com.hbnu.gradesign.entity.dto.MenuDto" useGeneratedKeys="true" keyProperty="id">
     UPDATE menu
     SET menu_name = #{menuName},
         url = #{url},

@@ -1,6 +1,6 @@
 package com.hbnu.gradesign.dao;
 
-import com.hbnu.gradesign.domain.Department;
+import com.hbnu.gradesign.entity.Department;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

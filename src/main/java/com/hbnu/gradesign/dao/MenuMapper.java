@@ -1,7 +1,7 @@
 package com.hbnu.gradesign.dao;
 
-import com.hbnu.gradesign.domain.Menu;
-import com.hbnu.gradesign.domain.dto.MenuDto;
+import com.hbnu.gradesign.entity.Menu;
+import com.hbnu.gradesign.entity.dto.MenuDto;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

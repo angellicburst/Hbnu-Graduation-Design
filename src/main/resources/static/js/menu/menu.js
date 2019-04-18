@@ -116,7 +116,7 @@ layui.use(['jquery', 'admin', 'table','form'], function() {
                     $("#addForm")[0].reset();
                     $("#editForm")[0].reset();
                     //关闭弹出层
-                    layer.close(index);
+                    layer.closeAll();
                     return false;
                 }
             });
@@ -125,6 +125,8 @@ layui.use(['jquery', 'admin', 'table','form'], function() {
             layer.confirm('确认删除'+data.length+'条？', function(){
                 //删除
                 delMult(JSON.stringify(data),"/delMenus");
+                //关闭弹出层
+                layer.closeAll();
                 //重新加载table
                 table.reload('menuList',{});
             });
@@ -143,10 +145,12 @@ layui.use(['jquery', 'admin', 'table','form'], function() {
             layer.confirm('确认删除？', function(index){
                 //删除
                 del(obj.data,"/delMenu");
+                //关闭弹出层
+                layer.closeAll();
                 //重新加载table
                 table.reload('menuList',{});
-                layer.close(index);
             });
+
         } else if(obj.event === 'edit'){    //更新
             //打开弹出层
             layer.open({
@@ -159,7 +163,7 @@ layui.use(['jquery', 'admin', 'table','form'], function() {
                     $("#addForm")[0].reset();
                     $("#editForm")[0].reset();
                     //关闭弹出层
-                    layer.close(index);
+                    layer.closeAll();
                     return false;
                 }
             });

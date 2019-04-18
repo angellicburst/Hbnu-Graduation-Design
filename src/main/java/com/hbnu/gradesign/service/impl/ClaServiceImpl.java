@@ -1,8 +1,8 @@
 package com.hbnu.gradesign.service.impl;
 
 import com.hbnu.gradesign.dao.ClaMapper;
-import com.hbnu.gradesign.domain.Cla;
-import com.hbnu.gradesign.domain.pojo.PackData;
+import com.hbnu.gradesign.entity.Cla;
+import com.hbnu.gradesign.entity.pojo.PackData;
 import com.hbnu.gradesign.service.ClaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -16,11 +16,21 @@ public class ClaServiceImpl implements ClaService {
 	@Autowired
 	private ClaMapper cm;
 
+	/**
+	 * 通过Id查询单个班级
+	 * @param id
+	 * @return
+	 */
 	@Override
 	public Cla getClaById(Integer id) {
 		return cm.getClaById(id);
 	}
 
+	/**
+	 * 查询所有班级
+	 * 加入缓存
+	 * @return
+	 */
 	@Override
 	@Cacheable(cacheNames = "clas")
 	public PackData getClas() {
@@ -35,5 +45,15 @@ public class ClaServiceImpl implements ClaService {
 			packData.setMsg("班级查询成功");
 		}
 		return packData;
+	}
+
+	/**
+	 * 关系表通过专业查询了班级
+	 * @param majorId
+	 * @return
+	 */
+	@Override
+	public List<Cla> getClasByMajorId(Integer majorId) {
+		return cm.getClasByMajorId(majorId);
 	}
 }

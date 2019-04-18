@@ -91,7 +91,7 @@ public class ShiroConfiguration {
 //		filterChainMap.put("/css/**", "anon");
 //		filterChainMap.put("/lib/**", "anon");
 //		filterChainMap.put("/dologin", "anon");
-//		filterChainMap.put("/logout", "logout");
+		filterChainMap.put("/logout", "logout");
 		filterChainMap.put("/**", "anon");
 		//所有url必须通过认证才可以访问
 		//filterChainMap.put("/**", "authc");

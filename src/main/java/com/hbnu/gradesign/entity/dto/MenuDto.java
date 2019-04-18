@@ -1,7 +1,7 @@
-package com.hbnu.gradesign.domain.dto;
+package com.hbnu.gradesign.entity.dto;
 
-import com.hbnu.gradesign.domain.Menu;
-import com.hbnu.gradesign.domain.SecMenu;
+import com.hbnu.gradesign.entity.Menu;
+import com.hbnu.gradesign.entity.SecMenu;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;

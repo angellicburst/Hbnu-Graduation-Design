@@ -1,6 +1,6 @@
 package com.hbnu.gradesign.controller.login;
 
-import com.hbnu.gradesign.domain.pojo.PackData;
+import com.hbnu.gradesign.entity.pojo.PackData;
 import com.hbnu.gradesign.service.RoleService;
 import com.hbnu.gradesign.service.UserService;
 import org.apache.commons.logging.Log;

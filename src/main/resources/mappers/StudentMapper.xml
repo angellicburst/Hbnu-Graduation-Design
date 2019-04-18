@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hbnu.gradesign.dao.StudentMapper">
-  <resultMap id="BaseResultMap" type="com.hbnu.gradesign.domain.Student">
+  <resultMap id="BaseResultMap" type="com.hbnu.gradesign.entity.Student">
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="gender" jdbcType="INTEGER" property="gender" />
@@ -16,7 +16,7 @@
     <result column="user_id" jdbcType="INTEGER" property="userId" />
   </resultMap>
 
-  <resultMap id="StuIncDeMaCl" type="com.hbnu.gradesign.domain.dto.StudentDto">
+  <resultMap id="StuIncDeMaCl" type="com.hbnu.gradesign.entity.dto.StudentDto">
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="gender" jdbcType="INTEGER" property="gender" />
@@ -33,41 +33,36 @@
     <result column="major" jdbcType="VARCHAR" property="major" />
     <result column="cla" jdbcType="VARCHAR" property="cla" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from student
-    where id = #{id,jdbcType=VARCHAR}
-  </delete>
-  <insert id="insert" parameterType="com.hbnu.gradesign.domain.Student">
-    insert into student (id, name, gender, 
-      phone, email, year, 
-      create_date, department_id, major_id, 
-      cla_id, user_id)
-    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, 
-      #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{year,jdbcType=INTEGER}, 
-      #{createDate,jdbcType=DATE}, #{departmentId,jdbcType=INTEGER}, #{majorId,jdbcType=INTEGER}, 
-      #{claId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER})
+<!--  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">-->
+<!--    delete from student-->
+<!--    where id = #{id,jdbcType=VARCHAR}-->
+<!--  </delete>-->
+    <!-- str_to_date(#{student.dateStr,jdbcType=VARCHAR}, '%Y-%m-%d'), -->
+  <insert id="addStudent" parameterType="com.hbnu.gradesign.entity.Student">
+    INSERT INTO student ( id, name, gender, phone, email, year, create_date, status, department_id, major_id, cla_id, user_id )
+    VALUES
+        (
+        #{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER},
+        #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{year,jdbcType=INTEGER},
+        #{createDate,jdbcType=DATE},#{status,jdbcType=INTEGER},#{departmentId,jdbcType=INTEGER},
+        #{majorId,jdbcType=INTEGER},#{claId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}
+        )
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.hbnu.gradesign.domain.Student">
-    update student
-    set name = #{name,jdbcType=VARCHAR},
-      gender = #{gender,jdbcType=INTEGER},
-      phone = #{phone,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
-      year = #{year,jdbcType=INTEGER},
-      create_date = #{createDate,jdbcType=DATE},
-      department_id = #{departmentId,jdbcType=INTEGER},
-      major_id = #{majorId,jdbcType=INTEGER},
-      cla_id = #{claId,jdbcType=INTEGER},
-      user_id = #{userId,jdbcType=INTEGER}
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select id, name, gender, phone, email, year, create_date, department_id, major_id, 
-    cla_id, user_id
-    from student
-    where id = #{id,jdbcType=VARCHAR}
-  </select>
-  <select id="getStudentsAdm" parameterType="com.hbnu.gradesign.domain.dto.StudentDto" resultMap="StuIncDeMaCl">
+<!--  <update id="updateByPrimaryKey" parameterType="com.hbnu.gradesign.entity.Student">-->
+<!--    update student-->
+<!--    set name = #{name,jdbcType=VARCHAR},-->
+<!--      gender = #{gender,jdbcType=INTEGER},-->
+<!--      phone = #{phone,jdbcType=VARCHAR},-->
+<!--      email = #{email,jdbcType=VARCHAR},-->
+<!--      year = #{year,jdbcType=INTEGER},-->
+<!--      create_date = #{createDate,jdbcType=DATE},-->
+<!--      department_id = #{departmentId,jdbcType=INTEGER},-->
+<!--      major_id = #{majorId,jdbcType=INTEGER},-->
+<!--      cla_id = #{claId,jdbcType=INTEGER},-->
+<!--      user_id = #{userId,jdbcType=INTEGER}-->
+<!--    where id = #{id,jdbcType=VARCHAR}-->
+<!--  </update>-->
+  <select id="getStudentsAdm" parameterType="com.hbnu.gradesign.entity.dto.StudentDto" resultMap="StuIncDeMaCl">
     SELECT
         t1.*,
         t2.department,

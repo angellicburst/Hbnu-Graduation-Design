@@ -1,4 +1,4 @@
-package com.hbnu.gradesign.domain.pojo;
+package com.hbnu.gradesign.entity.pojo;
 
 /**
  * 逆向工程实体类

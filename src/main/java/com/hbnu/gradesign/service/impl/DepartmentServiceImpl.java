@@ -1,8 +1,8 @@
 package com.hbnu.gradesign.service.impl;
 
 import com.hbnu.gradesign.dao.DepartmentMapper;
-import com.hbnu.gradesign.domain.Department;
-import com.hbnu.gradesign.domain.pojo.PackData;
+import com.hbnu.gradesign.entity.Department;
+import com.hbnu.gradesign.entity.pojo.PackData;
 import com.hbnu.gradesign.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;

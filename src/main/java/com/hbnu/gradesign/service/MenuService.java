@@ -1,8 +1,8 @@
 package com.hbnu.gradesign.service;
 
-import com.hbnu.gradesign.domain.Menu;
-import com.hbnu.gradesign.domain.dto.MenuDto;
-import com.hbnu.gradesign.domain.pojo.PackData;
+import com.hbnu.gradesign.entity.Menu;
+import com.hbnu.gradesign.entity.dto.MenuDto;
+import com.hbnu.gradesign.entity.pojo.PackData;
 
 import java.util.List;
 

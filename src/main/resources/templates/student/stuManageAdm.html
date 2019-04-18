@@ -9,9 +9,74 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
 		<link rel="stylesheet" href="/css/common.css" />
 		<link rel="stylesheet" href="/css/font.css">
+		<link rel="stylesheet" href="/css/student/stuAdm.css">
 	</head>
 
 	<body>
+		<!-- 添加菜单弹出层 -->
+		<div style="display: none" disabled="true" id="addFrame">
+			<form class="layui-form" action="" lay-filter="menuFilter" id="addForm">
+				<div class="layui-form-item">
+					<label class="layui-form-label">姓名</label>
+					<div class="layui-input-inline">
+						<input type="text" name="name" lay-verify="required" autocomplete="off" placeholder="请输入姓名" class="layui-input">
+					</div>
+					<label class="layui-form-label">性别</label>
+					<div class="layui-input-inline">
+						<select name="gender" lay-filter="addGender">
+							<option value=""></option>
+							<option value="0">男</option>
+							<option value="1">女</option>
+						</select>
+					</div>
+					<label class="layui-form-label">电话</label>
+					<div class="layui-input-inline">
+						<input type="text" name="phone" autocomplete="off" placeholder="请输入电话" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">邮箱</label>
+					<div class="layui-input-inline">
+						<input type="text" name="email" autocomplete="off" placeholder="请输入邮箱" class="layui-input">
+					</div>
+					<label class="layui-form-label">学年制</label>
+					<div class="layui-input-inline">
+						<input type="number" name="year" lay-verify="required" autocomplete="off" placeholder="请输入学年制" class="layui-input">
+					</div>
+					<label class="layui-form-label">入学时间</label>
+					<div class="layui-input-inline">
+						<input class="layui-input" lay-verify="required" placeholder="请输入入学时间" name="createDate" id="addCreateDate">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">院系</label>
+					<div class="layui-input-inline addDep">
+						<select name="departmentId" lay-verify="required" lay-search="" lay-filter="department" class="selectDepartment">
+							<option value="">院系</option>
+						</select>
+					</div>
+					<label class="layui-form-label">专业</label>
+					<div class="layui-input-inline addMa">
+						<select name="majorId" lay-verify="required" lay-search="" lay-filter="major" class="selectMajor" disabled="true">
+							<option value="">专业</option>
+						</select>
+					</div>
+					<label class="layui-form-label">班级</label>
+					<div class="layui-input-inline addCla">
+						<select name="claId" lay-verify="required" lay-search="" class="selectCla" disabled="true">
+							<option value="">班级</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<div class="layui-input-block">
+						<button class="layui-btn" lay-submit="" lay-filter="addStu">立即提交</button>
+					</div>
+				</div>
+			</form>
+		</div>
+
 		<div class="page-nav">
 			<span class="layui-breadcrumb">
                 <a href="">首页</a>
@@ -38,17 +103,17 @@
 						</select>
 					</div>
 					<div class="layui-inline department">
-						<select name="department" lay-search="" lay-filter="department" id="selectDepartment">
+						<select name="department" lay-search="" lay-filter="department" class="selectDepartment">
 							<option value="">院系</option>
 						</select>
 					</div>
 					<div class="layui-inline major">
-						<select name="major" lay-search="" lay-filter="major" id="selectMajor">
+						<select name="major" lay-search="" lay-filter="major" class="selectMajor">
 							<option value="">专业</option>
 						</select>
 					</div>
 					<div class="layui-inline cla">
-						<select name="cla" lay-search="" lay-filter="cla" id="selectCla">
+						<select name="cla" lay-search="" lay-filter="cla" class="selectCla">
 							<option value="">班级</option>
 						</select>
 					</div>
@@ -57,9 +122,8 @@
 					<i class="layui-icon">&#xe615;</i>
 				</button>
 			</div>
-			<table class="layui-table" id="stuListAdm">
+			<table class="layui-table" id="stuListAdm" lay-filter="stuAdm">
 			</table>
-
 		</div>
 
 		<!-- layui -->
@@ -99,8 +163,8 @@
 
 		<script type="text/html" id="toolbar">
 			<div class="layui-btn-container">
-				<button class="layui-btn layui-btn-sm" lay-event="add">添加</button>
-				<button class="layui-btn layui-btn-sm" lay-event="delMult">批量导入</button>
+				<button class="layui-btn layui-btn-sm" onclick="javascript:window.location.href='/admin/template/download'">导入模板下载</button>
+				<button class="layui-btn layui-btn-sm" lay-event="addMult" id="addMult">批量导入</button>
 				<button class="layui-btn layui-btn-sm" lay-event="delMult">批量删除</button>
 			</div>
 		</script>

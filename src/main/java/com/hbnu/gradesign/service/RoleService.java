@@ -1,6 +1,6 @@
 package com.hbnu.gradesign.service;
 
-import com.hbnu.gradesign.domain.Role;
+import com.hbnu.gradesign.entity.Role;
 
 import java.util.List;
 import java.util.Set;

@@ -1,6 +1,6 @@
-package com.hbnu.gradesign.domain.dto;
+package com.hbnu.gradesign.entity.dto;
 
-import com.hbnu.gradesign.domain.Student;
+import com.hbnu.gradesign.entity.Student;
 
 public class StudentDto extends Student {
 
