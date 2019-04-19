@@ -88,14 +88,19 @@ layui.use(['jquery', 'admin', 'table','form'], function() {
     /**
      * @todo 获取所有角色
      */
-    myAjax("post","/getRoles",null,function(data) {
-        let roles = "<option value=''></option>";
-        layui.each(data, function(index, obj) {
-            roles += "<option value='"+obj.id+"'>"+obj.role+"</option>"
-        });
-        $(".selectRoles").append(roles);
-        form.render();
-    },"json");
+    $.ajax({
+       type: "POST",
+       url: "/getRoles",
+       dataType: "json",
+       success:function (data) {
+           let roles = "<option value=''></option>";
+           layui.each(data, function(index, obj) {
+               roles += "<option value='"+obj.id+"'>"+obj.role+"</option>"
+           });
+           $(".selectRoles").append(roles);
+           form.render();
+       }
+    });
 
     /**
      * @todo 监听头部操作按钮（添加，批量删除）
@@ -124,7 +129,20 @@ layui.use(['jquery', 'admin', 'table','form'], function() {
             //删除提示
             layer.confirm('确认删除'+data.length+'条？', function(){
                 //删除
-                delMult(JSON.stringify(data),"/delMenus");
+                $.ajax({
+                    type: "POST",
+                    url: "/delMenus",
+                    data: JSON.stringify(data),
+                    dataType: "json",
+                    contentType:"application/json",
+                    success: function (data) {
+                        if (data.code === 200) {
+                            layer.msg(data.msg,{icon: 1});
+                        } else {
+                            layer.msg(data.msg,{icon: 2});
+                        }
+                    }
+                });
                 //关闭弹出层
                 layer.closeAll();
                 //重新加载table
@@ -136,7 +154,6 @@ layui.use(['jquery', 'admin', 'table','form'], function() {
     /**
      * @todo table 监听表格操作按钮（删除，更新）
      * @param obj
-     * '+$('.layui-table').attr("lay-filter")+'
      */
     table.on('tool(menu)', function(obj){
         let data = obj.data;
@@ -144,7 +161,19 @@ layui.use(['jquery', 'admin', 'table','form'], function() {
         if(obj.event === 'del'){    //删除
             layer.confirm('确认删除？', function(index){
                 //删除
-                del(obj.data,"/delMenu");
+                $.ajax({
+                    type: "POST",
+                    url: "/delMenu",
+                    data: data,
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.code === 200) {
+                            layer.msg(data.msg,{icon: 1});
+                        } else {
+                            layer.msg(data.msg,{icon: 2});
+                        }
+                    }
+                });
                 //关闭弹出层
                 layer.closeAll();
                 //重新加载table
@@ -164,14 +193,13 @@ layui.use(['jquery', 'admin', 'table','form'], function() {
                     $("#editForm")[0].reset();
                     //关闭弹出层
                     layer.closeAll();
-                    return false;
                 }
             });
 
             /*
-            根据菜单等级判断
-            等级1：可以上传图片，关闭父节点输入
-            等级2：关闭上传图片，打开父节点输入
+                根据菜单等级判断
+                等级1：可以上传图片，关闭父节点输入
+                等级2：关闭上传图片，打开父节点输入
              */
             if (data.level === 1) {
                 $("#editParentId").attr("disabled",true);
@@ -183,22 +211,12 @@ layui.use(['jquery', 'admin', 'table','form'], function() {
                 $("#editParentId").css("background-color","#fff");
             }
 
-            /*
-             * 获取要编辑的值
-             */
-            ajax({
-                url: "/getMenu",
-                data: {
-                    id: data.id
-                },
-                success:function () {
-                    //表单初始赋值
-                    form.val('menuFilter', data);
-                    //隐藏域保存菜单Id和菜单图片名称
-                    $("#saveId").val(data.id);
-                    $("#saveImg").val(data.img);
-                }
-            });
+
+            //表单初始赋值
+            form.val('menuFilter', data);
+            //隐藏域保存菜单Id和菜单图片名称
+            $("#saveId").val(data.id);
+            $("#saveImg").val(data.img);
         }
     });
 

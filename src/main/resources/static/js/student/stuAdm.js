@@ -111,11 +111,13 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 		/**
 		 * @todo 获取所有的院系
 		 */
-		ajax({
+		$.ajax({
+			type: "POST",
 			url: "/getDepartments",
-			success: function (data){
+			dataType: "json",
+			success: function (data) {
 				let departments = "";
-				layui.each(JSON.parse(data).objs, function(index, obj) {
+				layui.each(data.objs, function(index, obj) {
 					departments += "<option value='"+obj.id+"'>"+obj.department+"</option>"
 				});
 				$(".selectDepartment").append(departments);
@@ -127,11 +129,13 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 		/**
 		 * @todo 获取所有的专业
 		 */
-		ajax({
+		$.ajax({
+			type: "POST",
 			url: "/getMajors",
-			success: function (data){
+			dataType: "json",
+			success: function (data) {
 				let majors = "";
-				layui.each(JSON.parse(data).objs, function(index, obj) {
+				layui.each(data.objs, function(index, obj) {
 					majors += "<option value='"+obj.id+"'>"+obj.major+"</option>"
 				});
 				$(".selectMajor").append(majors);
@@ -142,11 +146,13 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 		/**
 		 * @todo 获取所有的班级
 		 */
-		ajax({
+		$.ajax({
+			type: "POST",
 			url: "/getClas",
-			success: function (data){
+			dataType: "json",
+			success: function (data) {
 				let clas = "";
-				layui.each(JSON.parse(data).objs, function(index, obj) {
+				layui.each(data.objs, function(index, obj) {
 					clas += "<option value='"+obj.id+"'>"+obj.cla+"</option>"
 				});
 				$(".selectCla").append(clas);
@@ -189,12 +195,27 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 
 		if (obj.event === 'delMult') {   //批量删除
 			//删除提示
-			layer.confirm('确认删除'+data.length+'条？', function(){
-				//删除
-				delMult(JSON.stringify(data),"/delMenus");
-				//重新加载table
-				table.reload('menuList',{});
+			layer.confirm('确认删除'+data.length+'条？', function() {
+				$.ajax({
+					type: "POST",
+					url: "/admin/delStudents",
+					data: JSON.stringify(data),
+					dataType: "json",
+					contentType:"application/json",
+					success: function (data) {
+						if (data.code === 200) {
+							layer.msg(data.msg,{icon: 1});
+						} else {
+							layer.msg(data.msg,{icon: 2});
+						}
+					}
+				});
+				//刷新table
+				table.reload('stuListAdm',{});
+				//关闭弹出层
+				layer.closeAll();
 			});
+			console.log();
 		}
 	});
 
@@ -208,10 +229,24 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 		if(obj.event === 'del'){    //删除
 			layer.confirm('确认删除？', function(index){
 				//删除
-				del(obj.data,"/delMenu");
-				//重新加载table
-				table.reload('menuList',{});
-				layer.close(index);
+				$.ajax({
+					type: "POST",
+					url: "/admin/delStudent",
+					data: JSON.stringify(data),
+					dataType: "json",
+					contentType:'application/json;charset=UTF-8',
+					success: function (data) {
+						if (data.code === 200) {
+							layer.msg(data.msg,{icon: 1});
+						} else {
+							layer.msg(data.msg,{icon: 2});
+						}
+					}
+				});
+				//刷新table
+				table.reload('stuListAdm',{});
+				//关闭弹出层
+				layer.closeAll();
 			});
 		} else if(obj.event === 'edit'){    //更新
 			//打开弹出层
@@ -225,8 +260,7 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 					$("#addForm")[0].reset();
 					$("#editForm")[0].reset();
 					//关闭弹出层
-					layer.close(index);
-					return false;
+					layer.closeAll();
 				}
 			});
 		}
@@ -237,11 +271,13 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 	 * @todo 院系专业班级三级联动
 	 */
 	form.on('select(department)', function(data) {
-		ajax({
-			url: '/getMajorsByDep',
+		$.ajax({
+			type: "POST",
+			url: "/getMajorsByDep",
 			data: {
 				departmentId : data.value
 			},
+			dataType: "json",
 			success: function (data) {
 				if (data === '[]') {
 					$(".addMa select").attr("disabled",true);
@@ -251,7 +287,7 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 				}
 				$(".selectMajor").empty();
 				let majors = "<option value=''>专业</option>";
-				layui.each(JSON.parse(data), function(index, obj) {
+				layui.each(data, function(index, obj) {
 					majors += "<option value='"+obj.id+"'>"+obj.major+"</option>"
 				});
 				$(".selectMajor").append(majors);
@@ -266,12 +302,13 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 		return false;
 	});
 	form.on('select(major)', function(data) {
-
-		ajax({
-			url: '/getClasByMaj',
+		$.ajax({
+			type: "POST",
+			url: "/getClasByMaj",
 			data: {
 				majorId : data.value
 			},
+			dataType: "json",
 			success: function (data) {
 				if (data === '[]') {
 					$(".addCla select").attr("disabled",true);
@@ -282,7 +319,7 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 
 				$(".selectCla").empty();
 				let clas = "<option value=''>班级</option>";
-				layui.each(JSON.parse(data), function(index, obj) {
+				layui.each(data, function(index, obj) {
 					clas += "<option value='"+obj.id+"'>"+obj.cla+"</option>"
 				});
 				$(".selectCla").append(clas);
@@ -327,4 +364,5 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 			statusCode: 200   //设置返回码为200，默认0
 		}
 	});
+
 });

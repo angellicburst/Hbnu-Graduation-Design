@@ -2,18 +2,18 @@ package com.hbnu.gradesign.controller.student;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.hbnu.gradesign.entity.Student;
 import com.hbnu.gradesign.entity.dto.StudentDto;
 import com.hbnu.gradesign.entity.pojo.PackData;
 import com.hbnu.gradesign.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class StudentController {
@@ -64,6 +64,27 @@ public class StudentController {
 		return ss.addStudentsByExcel(file);
 	}
 
+	/**
+	 * 学生批量删除
+	 * @param students
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/delStudents",method = RequestMethod.POST)
+	public PackData delStudents(@RequestBody List<Student> students) {
+		return ss.delStudent(students);
+	}
+
+	/**
+	 * 学生删除
+	 * @param student
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/delStudent",method = RequestMethod.POST)
+	public PackData delStudent(@RequestBody Student student) {
+		List<Student> students = new ArrayList<>();
+		students.add(student);
+		return ss.delStudent(students);
+	}
 
 
 }

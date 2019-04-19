@@ -20,4 +20,12 @@
 			#{status,jdbcType=INTEGER}
 			)
 	</insert>
+
+	<delete id="deleteUser" parameterType="java.lang.Integer">
+		DELETE
+		FROM
+			`user`
+		WHERE
+			id = #{id,jdbcType=INTEGER}
+	</delete>
 </mapper>

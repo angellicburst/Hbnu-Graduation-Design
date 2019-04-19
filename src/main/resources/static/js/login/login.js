@@ -14,17 +14,22 @@ layui.use(['form'], function() {
             idecode: data.field.idecode
         };
         
-        if(logininfo.idecode == num) {
-            //JSON.stringify(data.field)
-            myAjax("get","/dologin",logininfo,function(data){
-                if (data.code == 200) {
-                    layer.msg(data.msg, function() {
-                        location.href = 'index';
-                    });
-                } else  {
-                    layer.msg(data.msg);
+        if(logininfo.idecode === num) {
+            $.ajax({
+                type: "GET",
+                url: "/dologin",
+                data: logininfo,
+                dataType: "json",
+                success: function (data) {
+                    if (data.code === 200) {
+                        layer.msg(data.msg, function() {
+                            location.href = 'index';
+                        });
+                    } else  {
+                        layer.msg(data.msg);
+                    }
                 }
-            },"json");
+            });
 
             $(".input-val").val('');
             draw(show_num);

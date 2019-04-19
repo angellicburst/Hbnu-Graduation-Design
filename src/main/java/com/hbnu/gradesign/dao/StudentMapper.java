@@ -2,6 +2,7 @@ package com.hbnu.gradesign.dao;
 
 import com.hbnu.gradesign.entity.Student;
 import com.hbnu.gradesign.entity.dto.StudentDto;
+import com.hbnu.gradesign.entity.excel.StudentExcel;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -9,7 +10,9 @@ import java.util.List;
 @Repository
 public interface StudentMapper {
 
-    Integer addStudent(Student students);
+    Integer addStudent(StudentExcel students);
 
     List<StudentDto> getStudentsAdm(Student student);
+
+    Integer deleteStudent(String id);
 }

@@ -33,12 +33,15 @@
     <result column="major" jdbcType="VARCHAR" property="major" />
     <result column="cla" jdbcType="VARCHAR" property="cla" />
   </resultMap>
-<!--  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">-->
-<!--    delete from student-->
-<!--    where id = #{id,jdbcType=VARCHAR}-->
-<!--  </delete>-->
+  <delete id="deleteStudent" parameterType="java.lang.String">
+    DELETE
+    FROM
+        student
+    WHERE
+        id = #{id,jdbcType=VARCHAR}
+  </delete>
     <!-- str_to_date(#{student.dateStr,jdbcType=VARCHAR}, '%Y-%m-%d'), -->
-  <insert id="addStudent" parameterType="com.hbnu.gradesign.entity.Student">
+  <insert id="addStudent" parameterType="com.hbnu.gradesign.entity.excel.StudentExcel">
     INSERT INTO student ( id, name, gender, phone, email, year, create_date, status, department_id, major_id, cla_id, user_id )
     VALUES
         (

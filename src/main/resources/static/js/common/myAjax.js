@@ -118,7 +118,7 @@ function ajax(opts){
     //     defaults.data = str.substring(0, str.length - 1);
     // }
     var param = '';
-    if (typeof defaults.data === 'object') {
+    if (JSON.stringify(defaults.data) != '{}') {
         for (var i in defaults.data) {
             param += i + '=' + defaults.data[i] + '&';   //将js对象重组，拼接成url参数存入param变量中
         }
@@ -155,43 +155,4 @@ function ajax(opts){
             }
         }
     };
-}
-
-/**
- * table删除
- * @param data
- */
-function del(data,url) {
-    ajax({
-        url: url,
-        data: data,
-        success: function (data) {
-            let jsonData = JSON.parse(data);
-            if (jsonData.code == 200) {
-                layer.msg(jsonData.msg,{icon: 1});
-            } else {
-                layer.msg(jsonData.msg,{icon: 2});
-            }
-        }
-    });
-}
-
-/**
- * table删除多个
- * @param data
- */
-function delMult(data,url) {
-    ajax({
-        url: url,
-        data: data,
-        contentType:"application/json",
-        success: function (data) {
-            let jsonData = JSON.parse(data);
-            if (jsonData.code == 200) {
-                layer.msg(jsonData.msg,{icon: 1});
-            } else {
-                layer.msg(jsonData.msg,{icon: 2});
-            }
-        }
-    });
 }

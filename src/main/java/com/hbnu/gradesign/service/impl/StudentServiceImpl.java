@@ -7,6 +7,7 @@ import com.hbnu.gradesign.dao.UserMapper;
 import com.hbnu.gradesign.entity.Student;
 import com.hbnu.gradesign.entity.User;
 import com.hbnu.gradesign.entity.dto.StudentDto;
+import com.hbnu.gradesign.entity.excel.StudentExcel;
 import com.hbnu.gradesign.entity.pojo.PackData;
 import com.hbnu.gradesign.properties.PathProperties;
 import com.hbnu.gradesign.service.StudentService;
@@ -69,11 +70,11 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	@Transactional
 	public PackData addStudentsByExcel(MultipartFile file) throws IOException {
-		List<Object> studentObjs = EasyExcelUtil.readExcelWithModel(file.getInputStream(), Student.class, ExcelTypeEnum.XLS);
-		List<Student> students = (List) studentObjs;
+		List<Object> studentObjs = EasyExcelUtil.readExcelWithModel(file.getInputStream(), StudentExcel.class, ExcelTypeEnum.XLS);
+		List<StudentExcel> students = (List) studentObjs;
 		PackData packData = new PackData();
 
-		for (Student student: students) {
+		for (StudentExcel student: students) {
 
 			User user = new User();
 			user.setUsername(student.getId());
@@ -113,9 +114,48 @@ public class StudentServiceImpl implements StudentService {
 		return packData;
 	}
 
+	/**
+	 * 学生导入模板下载
+	 * @param response
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
 	@Override
 	public PackData templateDownLoad(HttpServletResponse response) throws UnsupportedEncodingException {
 		return FileUtil.downloadFile(response,pathProperties.getStuTemSavePath());
+	}
+
+	@Override
+	@Transactional
+	public PackData delStudent(List<Student> students) {
+		PackData packData = new PackData();
+
+		for (Student student: students) {
+			Integer res = sm.deleteStudent(student.getId());
+
+			if (res > 0) {
+				Integer rer = rm.deleteRoleRelateUser(student.getUserId(),3);
+				if (rer > 0) {
+					Integer reu = um.deleteUser(student.getUserId());
+					if (reu > 0) {
+						packData.setCode(200);
+						packData.setMsg("删除成功");
+					} else {
+						packData.setCode(400);
+						packData.setMsg("学生对应用户删除失败");
+					}
+
+				} else {
+					packData.setCode(400);
+					packData.setMsg("学生对应角色关系删除失败");
+				}
+			} else {
+				packData.setCode(400);
+				packData.setMsg("学生删除失败");
+			}
+		}
+
+		return packData;
 	}
 
 }

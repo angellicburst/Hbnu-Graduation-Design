@@ -14,4 +14,6 @@ public interface RoleMapper {
 	List<Role> getRoles();
 
 	Integer addRoleRelateUser(Integer userId,Integer roleId);
+
+	Integer deleteRoleRelateUser(Integer userId,Integer roleId);
 }
