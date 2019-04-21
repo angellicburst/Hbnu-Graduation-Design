@@ -103,4 +103,14 @@ public class StudentController {
 		return ss.updateStudent(student);
 	}
 
+	/**
+	 * 更新学生
+	 * @param student
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/editStudent",method = RequestMethod.POST)
+	public PackData editStudent(@RequestBody Student student) {
+		return ss.updateStudent(student);
+	}
+
 }

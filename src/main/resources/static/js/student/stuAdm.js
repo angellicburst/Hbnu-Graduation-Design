@@ -85,20 +85,40 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 			}, {
 				field : 'department',
 				title :'院系',
+				width : 210,
 				align : 'center'
+			}, {
+				field : 'departmentId',
+				title :'院系ID',
+				width : 80,
+				align : 'center',
+				hide: true
 			}, {
 				field : 'major',
 				title : '专业',
+				width : 180,
 				align : 'center'
+			}, {
+				field : 'majorId',
+				title :'专业ID',
+				width : 80,
+				align : 'center',
+				hide: true
 			}, {
 				field : 'cla',
 				title : '班级',
-				width : 80,
 				align : 'center'
+			}, {
+				field : 'claId',
+				title :'班级ID',
+				width : 80,
+				align : 'center',
+				hide: true
 			}, {
 				fixed : 'right',
 				title :'操作',
 				toolbar : '#barStuMange',
+				width : 180,
 				align : 'center'
 			} ] ],
 			page : true,
@@ -120,8 +140,8 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 				layui.each(data.objs, function(index, obj) {
 					departments += "<option value='"+obj.id+"'>"+obj.department+"</option>"
 				});
-				$(".selectDepartment").append(departments);
-				$(".changeDep").append(departments);
+				$("#selectDepartment").append(departments);
+				$("#searchDepartment").append(departments);
 				form.render();
 			}
 		});
@@ -138,7 +158,8 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 				layui.each(data.objs, function(index, obj) {
 					majors += "<option value='"+obj.id+"'>"+obj.major+"</option>"
 				});
-				$(".selectMajor").append(majors);
+				$("#selectMajor").append(majors);
+				$("#searchMajor").append(majors);
 				form.render();
 			}
 		});
@@ -155,7 +176,8 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 				layui.each(data.objs, function(index, obj) {
 					clas += "<option value='"+obj.id+"'>"+obj.cla+"</option>"
 				});
-				$(".selectCla").append(clas);
+				$("#selectCla").append(clas);
+				$("#searchCla").append(clas);
 				form.render();
 			}
 		});
@@ -182,7 +204,6 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 				claId:$(".cla .layui-this").attr("lay-value") == undefined?'':$(".cla .layui-this").attr("lay-value")
 			}
 		});
-		form.render();
 		return false;
 	});
 
@@ -216,7 +237,6 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 				//关闭弹出层
 				layer.closeAll();
 			});
-			console.log();
 		}
 	});
 
@@ -255,18 +275,77 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 			//打开弹出层
 			layer.open({
 				type : 1,
-				title : "菜单编辑",
-				area: ['520px', '650px'],
-				content: $('#editFrame'),
+				title : "学生编辑",
+				area: ['1000px', '550px'],
+				content: $('#editStuFrame'),
 				cancel: function(index, layero) {    //点击弹出层右上角X触发
 					//清除所有弹出层数据
-					$("#addForm")[0].reset();
 					$("#editForm")[0].reset();
 					//关闭弹出层
 					layer.closeAll();
 				}
+
 			});
-		} else if(obj.event === 'stop' ||obj.event === 'use') {
+			//表单初始赋值
+			form.val('stuFilter', data);
+			//获取院系ID，专业ID，班级ID
+			let depId = data.departmentId;
+			let maId = data.majorId;
+			let claId = data.claId;
+
+			//id存入隐藏域
+			$("#saveStuId").val(data.id);
+			$("#saveStuStatus").val(data.status);
+
+			//三级联动
+			$.ajax({
+				type: "POST",
+				url: "/getMajorsByDep",
+				data: {
+					departmentId : depId
+				},
+				dataType: "json",
+				success: function (data) {
+					$("#selectMajor").empty();
+					$("#selectCla").empty();
+					let majors = "<option value=''>专业</option>";
+					layui.each(data, function(index, obj) {
+
+						if (maId == obj.id) {
+							majors += "<option value='"+obj.id+"' selected>"+obj.major+"</option>"
+						} else {
+							majors += "<option value='"+obj.id+"'>"+obj.major+"</option>"
+						}
+
+					});
+					$("#selectMajor").append(majors);
+					form.render();
+					$.ajax({
+						type: "POST",
+						url: "/getClasByMaj",
+						data: {
+							majorId : maId
+						},
+						dataType: "json",
+						success: function (data) {
+							$("#selectCla").empty();
+							let clas = "<option value=''>班级</option>";
+							layui.each(data, function(index, obj) {
+								if (claId == obj.id) {
+									clas += "<option value='"+obj.id+"' selected>"+obj.cla+"</option>"
+								} else {
+									clas += "<option value='"+obj.id+"'>"+obj.cla+"</option>"
+								}
+
+							});
+							$("#selectCla").append(clas);
+							form.render();
+						}
+					});
+				}
+			});
+
+		} else if(obj.event === 'stop' ||obj.event === 'use') {			//状态变更
 			layer.confirm(obj.event === 'stop'?'确认停用？':'确认启用？', function(index) {
 				//改变状态
 				$.ajax({
@@ -305,26 +384,18 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 			},
 			dataType: "json",
 			success: function (data) {
-				if (data === '[]') {
-					$(".addMa select").attr("disabled",true);
-					$(".addMa input").attr("class","layui-input layui-disabled");
-					form.render();
-					return;
-				}
-				$(".selectMajor").empty();
+
+				$("#selectMajor").empty();
+				$("#selectCla").empty();
 				let majors = "<option value=''>专业</option>";
 				layui.each(data, function(index, obj) {
 					majors += "<option value='"+obj.id+"'>"+obj.major+"</option>"
 				});
-				$(".selectMajor").append(majors);
-
-				$(".addMa select").attr("disabled",false);
-				$(".addMa input").attr("class","layui-input");
+				$("#selectMajor").append(majors);
 
 				form.render();
 			}
 		});
-
 		return false;
 	});
 	form.on('select(major)', function(data) {
@@ -336,29 +407,21 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 			},
 			dataType: "json",
 			success: function (data) {
-				if (data === '[]') {
-					$(".addCla select").attr("disabled",true);
-					$(".addCla input").attr("class","layui-input layui-disabled");
-					form.render();
-					return;
-				}
 
-				$(".selectCla").empty();
+				$("#selectCla").empty();
 				let clas = "<option value=''>班级</option>";
 				layui.each(data, function(index, obj) {
 					clas += "<option value='"+obj.id+"'>"+obj.cla+"</option>"
 				});
-				$(".selectCla").append(clas);
-
-				$(".addCla select").attr("disabled",false);
-				$(".addCla input").attr("class",false);
+				$("#selectCla").append(clas);
 
 				form.render();
 			}
 		});
-
 		return false;
 	});
+
+
 
 	/**
 	 * 批量导入学生
@@ -390,5 +453,33 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 			statusCode: 200   //设置返回码为200，默认0
 		}
 	});
+
+	/**
+	 * 学生更新
+	 */
+	form.on('submit(editStu)', function(data) {
+		$.ajax({
+			type: "POST",
+			url: "/admin/editStudent",
+			data: JSON.stringify(data.field),
+			dataType: "json",
+			contentType:'application/json;charset=UTF-8',
+			success: function (data) {
+				//关闭弹出层
+				layer.closeAll();
+				if (data.code === 200) {
+					layer.msg(data.msg,{icon: 1});
+				} else {
+					layer.msg(data.msg,{icon: 2});
+				}
+				//刷新table
+				table.reload('stuListAdm',{});
+				//清空弹出层的数据
+				$("#editForm")[0].reset();
+			}
+		});
+		return false;
+	});
+
 
 });
