@@ -31,28 +31,29 @@ public class FileUtil {
 			if (fileUpload.isEmpty()) {
 				packData.setCode(400);
 				packData.setMsg("上传文件为空");
-				return packData;
+				throw new RuntimeException("文件不存在");
+			} else {
+				//获取文件名
+				String fileName = fileUpload.getOriginalFilename();
+				//加上时间毫秒避免重名
+				//newFileName = System.currentTimeMillis() + "_" + fileName;
+				newFileName = fileName;
+				//指定路径存储图片
+				File file = new File(savePath + newFileName);
+				//不存在新建
+				if (!file.getParentFile().exists()) {
+					file.getParentFile().mkdirs();
+				}
+				//上传文件到指定路径
+
+				fileUpload.transferTo(file);
 			}
 
-			//获取文件名
-			String fileName = fileUpload.getOriginalFilename();
-			//加上时间毫秒避免重名
-			//newFileName = System.currentTimeMillis() + "_" + fileName;
-			newFileName = fileName;
-			//指定路径存储图片
-			File file = new File(savePath + newFileName);
-			//不存在新建
-			if (!file.getParentFile().exists()) {
-				file.getParentFile().mkdirs();
-			}
-			//上传文件到指定路径
 
-			fileUpload.transferTo(file);
 		} catch (IllegalStateException | IOException e) {
-			e.printStackTrace();
 			packData.setCode(400);
 			packData.setMsg("上传失败");
-			return packData;
+			throw new RuntimeException("上传失败");
 		}
 		packData.setCode(200);
 		packData.setMsg("上传成功");
@@ -77,10 +78,12 @@ public class FileUtil {
 			} else {
 				packData.setCode(400);
 				packData.setMsg("文件删除失败");
+				throw new RuntimeException("文件删除失败");
 			}
 		} else {
 			packData.setCode(404);
 			packData.setMsg("文件不存在");
+			throw new RuntimeException("文件不存在");
 		}
 
 		return packData;
@@ -121,15 +124,15 @@ public class FileUtil {
 					bout.flush();
 				}
 			} catch (FileNotFoundException e) {
-				log.error("文件读取异常", e);
 				//这里抛出RuntimeException,实际时抛出自定义异常,方便在上一层捕捉自定义异常,对异常信息统一管理,并返会前台
 				packData.setCode(400);
 				packData.setMsg("文件读取异常");
+				log.error("文件读取异常", e);
 				throw new RuntimeException("文件读取异常");
 			} catch (IOException e) {
-				log.error("上传文件IO异常", e);
 				packData.setCode(400);
 				packData.setMsg("上传文件IO异常");
+				log.error("上传文件IO异常", e);
 				throw new RuntimeException("上传文件IO异常");
 			} finally {
 				try {
@@ -141,10 +144,11 @@ public class FileUtil {
 						bout.close();
 					}
 				} catch (IOException e) {
-					log.error("文件上传异常", e);
 					packData.setCode(400);
 					packData.setMsg("文件上传异常");
+					log.error("文件上传异常", e);
 					throw new RuntimeException("文件上传异常");
+
 				}
 
 			}

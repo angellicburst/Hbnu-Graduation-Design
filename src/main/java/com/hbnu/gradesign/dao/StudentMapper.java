@@ -15,4 +15,6 @@ public interface StudentMapper {
     List<StudentDto> getStudentsAdm(Student student);
 
     Integer deleteStudent(String id);
+
+    Integer updateStudent(Student student);
 }

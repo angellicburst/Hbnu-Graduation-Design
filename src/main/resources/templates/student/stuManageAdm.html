@@ -156,7 +156,13 @@
 		<script type="text/html" id="barStuMange">
 			<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
 			<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-			<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="del">停用</a>
+			{{#  if(d.status == 0){ }}
+			<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="stop">停用</a>
+			{{#  } else if(d.status == 1) { }}
+			<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="use">启用</a>
+			{{#  } }}
+
+
 		</script>
 
 		<script type="text/html" id="toolbar">

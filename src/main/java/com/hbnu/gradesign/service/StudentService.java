@@ -18,4 +18,6 @@ public interface StudentService {
 	PackData templateDownLoad(HttpServletResponse response) throws UnsupportedEncodingException;
 
 	PackData delStudent(List<Student> students);
+
+	PackData updateStudent(Student student);
 }

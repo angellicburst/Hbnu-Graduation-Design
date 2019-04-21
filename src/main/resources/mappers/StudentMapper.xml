@@ -51,20 +51,23 @@
         #{majorId,jdbcType=INTEGER},#{claId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}
         )
   </insert>
-<!--  <update id="updateByPrimaryKey" parameterType="com.hbnu.gradesign.entity.Student">-->
-<!--    update student-->
-<!--    set name = #{name,jdbcType=VARCHAR},-->
-<!--      gender = #{gender,jdbcType=INTEGER},-->
-<!--      phone = #{phone,jdbcType=VARCHAR},-->
-<!--      email = #{email,jdbcType=VARCHAR},-->
-<!--      year = #{year,jdbcType=INTEGER},-->
-<!--      create_date = #{createDate,jdbcType=DATE},-->
-<!--      department_id = #{departmentId,jdbcType=INTEGER},-->
-<!--      major_id = #{majorId,jdbcType=INTEGER},-->
-<!--      cla_id = #{claId,jdbcType=INTEGER},-->
-<!--      user_id = #{userId,jdbcType=INTEGER}-->
-<!--    where id = #{id,jdbcType=VARCHAR}-->
-<!--  </update>-->
+  <update id="updateStudent" parameterType="com.hbnu.gradesign.entity.Student">
+    UPDATE student
+    SET
+        name = #{name,jdbcType=VARCHAR},
+        gender = #{gender,jdbcType=INTEGER},
+        phone = #{phone,jdbcType=VARCHAR},
+        email = #{email,jdbcType=VARCHAR},
+        year = #{year,jdbcType=INTEGER},
+        create_date = #{createDate,jdbcType=DATE},
+        status = #{status,jdbcType=INTEGER},
+        department_id = #{departmentId,jdbcType=INTEGER},
+        major_id = #{majorId,jdbcType=INTEGER},
+        cla_id = #{claId,jdbcType=INTEGER},
+        user_id = #{userId,jdbcType=INTEGER}
+    WHERE
+        id = #{id,jdbcType=VARCHAR}
+  </update>
   <select id="getStudentsAdm" parameterType="com.hbnu.gradesign.entity.dto.StudentDto" resultMap="StuIncDeMaCl">
     SELECT
         t1.*,

@@ -210,6 +210,7 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 						}
 					}
 				});
+				form.render();
 				//刷新table
 				table.reload('stuListAdm',{});
 				//关闭弹出层
@@ -226,8 +227,8 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 	table.on('tool(stuAdm)', function(obj){
 		let data = obj.data;
 
-		if(obj.event === 'del'){    //删除
-			layer.confirm('确认删除？', function(index){
+		if(obj.event === 'del') {    //删除
+			layer.confirm('确认删除？', function(index) {
 				//删除
 				$.ajax({
 					type: "POST",
@@ -243,25 +244,50 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 						}
 					}
 				});
+				form.render();
 				//刷新table
 				table.reload('stuListAdm',{});
 				//关闭弹出层
 				layer.closeAll();
+
 			});
-		} else if(obj.event === 'edit'){    //更新
+		} else if(obj.event === 'edit') {    //更新
 			//打开弹出层
 			layer.open({
 				type : 1,
 				title : "菜单编辑",
 				area: ['520px', '650px'],
 				content: $('#editFrame'),
-				cancel: function(index, layero){    //点击弹出层右上角X触发
+				cancel: function(index, layero) {    //点击弹出层右上角X触发
 					//清除所有弹出层数据
 					$("#addForm")[0].reset();
 					$("#editForm")[0].reset();
 					//关闭弹出层
 					layer.closeAll();
 				}
+			});
+		} else if(obj.event === 'stop' ||obj.event === 'use') {
+			layer.confirm(obj.event === 'stop'?'确认停用？':'确认启用？', function(index) {
+				//改变状态
+				$.ajax({
+					type: "POST",
+					url: "/admin/changeStatus",
+					data: JSON.stringify(data),
+					dataType: "json",
+					contentType:'application/json;charset=UTF-8',
+					success: function (data) {
+						if (data.code === 200) {
+							layer.msg(data.msg,{icon: 1});
+						} else {
+							layer.msg(data.msg,{icon: 2});
+						}
+					}
+				});
+				form.render();
+				//刷新table
+				table.reload('stuListAdm',{});
+				//关闭弹出层
+				layer.closeAll();
 			});
 		}
 	});

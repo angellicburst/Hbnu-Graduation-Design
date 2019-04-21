@@ -10,6 +10,7 @@ import com.hbnu.gradesign.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,6 +103,7 @@ public class MenuServiceImpl implements MenuService {
 			} else {
 				packData.setCode(400);
 				packData.setMsg("添加失败");
+				TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 			}
 		}
 		return packData;
@@ -134,6 +136,7 @@ public class MenuServiceImpl implements MenuService {
 		} else {
 			packData.setCode(400);
 			packData.setMsg("删除失败");
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 		}
 		return packData;
 	}
@@ -170,6 +173,7 @@ public class MenuServiceImpl implements MenuService {
 		} else {
 			packData.setCode(400);
 			packData.setMsg("更新失败");
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 		}
 		return packData;
 	}

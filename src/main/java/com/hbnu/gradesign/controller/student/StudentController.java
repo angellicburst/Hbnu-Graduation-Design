@@ -86,5 +86,21 @@ public class StudentController {
 		return ss.delStudent(students);
 	}
 
+	/**
+	 * 学生状态变更
+	 * 0：启用
+	 * 1：停用
+	 * @param student
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/changeStatus",method = RequestMethod.POST)
+	public PackData changeStatus(@RequestBody Student student) {
+		if (student.getStatus() == 0) {
+			student.setStatus(1);
+		} else {
+			student.setStatus(0);
+		}
+		return ss.updateStudent(student);
+	}
 
 }

@@ -14,9 +14,12 @@ import com.hbnu.gradesign.service.StudentService;
 import com.hbnu.gradesign.util.EasyExcelUtil;
 import com.hbnu.gradesign.util.FileUtil;
 import com.hbnu.gradesign.util.SaltUtil;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -26,6 +29,8 @@ import java.util.List;
 
 @Service
 public class StudentServiceImpl implements StudentService {
+
+	private static transient Log log = LogFactory.getLog(FileUtil.class);
 
 	@Autowired
 	private StudentMapper sm;
@@ -96,17 +101,20 @@ public class StudentServiceImpl implements StudentService {
 					} else {
 						packData.setCode(400);
 						packData.setMsg("学生添加失败");
-						return packData;
+						//手动事务回滚
+						TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 					}
 				} else {
 					packData.setCode(400);
 					packData.setMsg("学生关联的用户角色添加失败");
-					return packData;
+					//手动事务回滚
+					TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 				}
 			} else {
 				packData.setCode(400);
 				packData.setMsg("学生关联的用户添加失败");
-				return packData;
+				//手动事务回滚
+				TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 			}
 
 		}
@@ -125,6 +133,11 @@ public class StudentServiceImpl implements StudentService {
 		return FileUtil.downloadFile(response,pathProperties.getStuTemSavePath());
 	}
 
+	/**
+	 * 学生删除
+	 * @param students
+	 * @return
+	 */
 	@Override
 	@Transactional
 	public PackData delStudent(List<Student> students) {
@@ -143,18 +156,49 @@ public class StudentServiceImpl implements StudentService {
 					} else {
 						packData.setCode(400);
 						packData.setMsg("学生对应用户删除失败");
+						log.error("学生对应用户删除失败");
+						//手动事务回滚
+						TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 					}
 
 				} else {
 					packData.setCode(400);
 					packData.setMsg("学生对应角色关系删除失败");
+					log.error("学生对应角色关系删除失败");
+					//手动事务回滚
+					TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 				}
 			} else {
 				packData.setCode(400);
 				packData.setMsg("学生删除失败");
+				log.error("学生删除失败");
+				//手动事务回滚
+				TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 			}
 		}
 
+		return packData;
+	}
+
+	/**
+	 * 更新学生信息
+	 * @param student
+	 * @return
+	 */
+	@Override
+	@Transactional
+	public PackData updateStudent(Student student) {
+		PackData packData = new PackData();
+		Integer re = sm.updateStudent(student);
+		if (re > 0) {
+			packData.setCode(200);
+			packData.setMsg("更新成功");
+		} else {
+			packData.setCode(400);
+			packData.setMsg("更新失败");
+			//手动事务回滚
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+		}
 		return packData;
 	}
 
