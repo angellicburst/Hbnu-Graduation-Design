@@ -183,11 +183,11 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 		});
 
 		/**
-		 * 关闭加载按钮
+		 * @todo 关闭加载按钮
 		 */
 		layer.close(loading);
-	});
 
+	});
 
 	/**
 	 * @todo 模糊查询表单
@@ -225,15 +225,15 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 					contentType:"application/json",
 					success: function (data) {
 						if (data.code === 200) {
+							//刷新table
+							$(".layui-laypage-btn")[0].click();
 							layer.msg(data.msg,{icon: 1});
 						} else {
 							layer.msg(data.msg,{icon: 2});
 						}
 					}
 				});
-				form.render();
-				//刷新table
-				table.reload('stuListAdm',{});
+
 				//关闭弹出层
 				layer.closeAll();
 			});
@@ -258,15 +258,15 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 					contentType:'application/json;charset=UTF-8',
 					success: function (data) {
 						if (data.code === 200) {
+							//刷新table
+							$(".layui-laypage-btn")[0].click();
 							layer.msg(data.msg,{icon: 1});
 						} else {
 							layer.msg(data.msg,{icon: 2});
 						}
 					}
 				});
-				form.render();
-				//刷新table
-				table.reload('stuListAdm',{});
+
 				//关闭弹出层
 				layer.closeAll();
 
@@ -364,7 +364,7 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 				});
 				form.render();
 				//刷新table
-				table.reload('stuListAdm',{});
+				$(".layui-laypage-btn")[0].click();
 				//关闭弹出层
 				layer.closeAll();
 			});
@@ -421,41 +421,79 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 		return false;
 	});
 
-
-
-	/**
-	 * 批量导入学生
-	 */
-	upload.render({
-		elem: '#addMult'
-		,url: '/admin/addStudent'
-		,method: 'POST'
-		,accept: 'file'
-		,exts: 'xls'
-		,before: function(){
-			layer.load(1, {shade: false});
-		}
-		,done: function(res){
-			layer.closeAll(); //关闭loading
-			if (res.code === 200) {
-				//打印msg
-				layer.msg(res.msg,{icon: 1});
+    /**
+     * @todo 批量导入学生
+     */
+/*    upload.render({
+        elem: '#addStus'
+        ,url: '/admin/addStudent'
+        ,method: 'POST'
+        ,accept: 'file'
+        ,exts: 'xls'
+        ,before: function(){
+            layer.load(1, {shade: false});
+        }
+        ,done: function(res){
+            //关闭loading
+            layer.closeAll();
+            //刷新table
+            table.reload('stuListAdm',{});
+            if (res.code === 200) {
+                //打印msg
+                layer.msg(res.msg,{icon: 1});
 				//刷新table
-				table.reload('stuListAdm',{});
-			} else {
-				layer.msg(res.msg,{icon: 2});
-			}
-		}
-		,error: function(){
-			layer.closeAll('loading'); //关闭loading
-		}
-		,response: {
-			statusCode: 200   //设置返回码为200，默认0
-		}
-	});
+				$(".layui-laypage-btn")[0].click();
+            } else {
+                layer.msg(res.msg,{icon: 2});
+            }
+        }
+        ,error: function(){
+            layer.closeAll('loading'); //关闭loading
+        }
+        ,response: {
+            statusCode: 200   //设置返回码为200，默认0
+        }
+    });*/
+
+    $("#addStusBtn").on("click",function () {
+        $('#addStus').click();
+    });
+    $("#addStus").change(function () {
+        if($(this).val() != ""){
+            let addForm=document.querySelector("#addStusForm");
+            let formdata=new FormData(addForm);
+            $.ajax({
+                url: '/admin/addStudent',
+                type: 'POST',
+                data: formdata,
+                async: false,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (res) {
+                      //关闭loading
+                      //layer.closeAll();
+                      form.render();
+                      $("#addStusForm")[0].reset();
+                      //清空弹出层的数据
+                      //$("#addStusForm")[0].reset();
+                      if (res.code === 200) {
+                          //打印msg
+                          layer.msg(res.msg,{icon: 1});
+						  //刷新table
+						  $(".layui-laypage-btn")[0].click();
+                      } else {
+                          layer.msg(res.msg,{icon: 2});
+                      }
+                }
+            });
+        }
+    });
+
+
 
 	/**
-	 * 学生更新
+	 * @todo 学生更新
 	 */
 	form.on('submit(editStu)', function(data) {
 		$.ajax({

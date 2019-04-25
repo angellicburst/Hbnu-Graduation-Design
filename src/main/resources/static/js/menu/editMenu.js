@@ -1,6 +1,5 @@
 layui.use(['jquery', 'table'], function() {
     const $ = layui.jquery,
-        table = layui.table,
         form = layui.form;
 
     $(function () {
@@ -25,7 +24,7 @@ layui.use(['jquery', 'table'], function() {
                     //打印msg
                     layer.msg(data.msg,{icon: 1});
                     //刷新table
-                    table.reload('menuList',{});
+                    $(".layui-laypage-btn")[0].click();
                     //清空弹出层的数据
                     $("#editForm")[0].reset();
                 }

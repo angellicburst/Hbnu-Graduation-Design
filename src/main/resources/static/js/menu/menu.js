@@ -137,6 +137,8 @@ layui.use(['jquery', 'admin', 'table','form'], function() {
                     contentType:"application/json",
                     success: function (data) {
                         if (data.code === 200) {
+                            //刷新table
+                            $(".layui-laypage-btn")[0].click();
                             layer.msg(data.msg,{icon: 1});
                         } else {
                             layer.msg(data.msg,{icon: 2});
@@ -145,8 +147,7 @@ layui.use(['jquery', 'admin', 'table','form'], function() {
                 });
                 //关闭弹出层
                 layer.closeAll();
-                //重新加载table
-                table.reload('menuList',{});
+
             });
         }
     });
@@ -168,6 +169,8 @@ layui.use(['jquery', 'admin', 'table','form'], function() {
                     dataType: "json",
                     success: function (data) {
                         if (data.code === 200) {
+                            //刷新table
+                            $(".layui-laypage-btn")[0].click();
                             layer.msg(data.msg,{icon: 1});
                         } else {
                             layer.msg(data.msg,{icon: 2});
@@ -176,8 +179,7 @@ layui.use(['jquery', 'admin', 'table','form'], function() {
                 });
                 //关闭弹出层
                 layer.closeAll();
-                //重新加载table
-                table.reload('menuList',{});
+
             });
 
         } else if(obj.event === 'edit'){    //更新

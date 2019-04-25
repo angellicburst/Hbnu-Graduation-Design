@@ -171,8 +171,12 @@
 
 		<script type="text/html" id="toolbar">
 			<div class="layui-btn-container">
-				<button class="layui-btn layui-btn-sm" onclick="javascript:window.location.href='/admin/template/download'">导入模板下载</button>
-				<button class="layui-btn layui-btn-sm" lay-event="addMult" id="addMult">批量导入</button>
+				<button class="layui-btn layui-btn-sm" onclick="javascript:window.location.href='/admin/template/download'" style="float: left">导入模板下载</button>
+<!--				<button class="layui-btn layui-btn-sm" id="addStus">批量导入</button>-->
+				<form class="layui-form" id="addStusForm" enctype="multipart/form-data" style="float: left">
+					<input type="file" name="file" id="addStus" style="display: none" />
+					<button type="button" class="layui-btn layui-btn-sm" id="addStusBtn">批量导入</button>
+				</form>
 				<button class="layui-btn layui-btn-sm" lay-event="delMult">批量删除</button>
 			</div>
 		</script>
