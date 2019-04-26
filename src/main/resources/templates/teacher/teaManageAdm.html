@@ -96,9 +96,6 @@
 					<div class="layui-inline">
 						<input type="text" name="name" placeholder="姓名" autocomplete="off" class="layui-input" id="searchName">
 					</div>
-					<div class="layui-inline">
-						<input class="layui-input" placeholder="入学时间" name="createDate" id="searchCreateDate">
-					</div>
 					<div class="layui-inline status">
 						<select name="level" lay-filter="status">
 							<option value="">状态</option>
@@ -109,16 +106,6 @@
 					<div class="layui-inline department">
 						<select name="department" lay-search="" lay-filter="department" id="searchDepartment">
 							<option value="">院系</option>
-						</select>
-					</div>
-					<div class="layui-inline major">
-						<select name="major" lay-search="" lay-filter="major" id="searchMajor">
-							<option value="">专业</option>
-						</select>
-					</div>
-					<div class="layui-inline cla">
-						<select name="cla" lay-search="" lay-filter="cla" id="searchCla">
-							<option value="">班级</option>
 						</select>
 					</div>
 				</form>
@@ -138,8 +125,23 @@
 
 		<script type="text/javascript" src="/js/common/common.js" charset="utf-8"></script>
 
-<!--		<script type="text/javascript" src="/js/student/stuAdm.js"  charset="utf-8"></script>-->
+		<script type="text/javascript" src="/js/teacher/teaAdm.js"  charset="utf-8"></script>
 
+		<script type="text/html" id="genderTpl">
+			{{#  if(d.gender == 0){ }}
+			男
+			{{#  } else if(d.gender == 1) { }}
+			女
+			{{#  } }}
+		</script>
+
+		<script type="text/html" id="statusTpl">
+			{{#  if(d.status == 0){ }}
+			有效
+			{{#  } else if(d.status == 1) { }}
+			失效
+			{{#  } }}
+		</script>
 
 		<script type="text/html" id="barTeaMange">
 			<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
@@ -153,7 +155,7 @@
 
 		<script type="text/html" id="toolbar">
 			<div class="layui-btn-container">
-				<button class="layui-btn layui-btn-sm" onclick="javascript:window.location.href='/admin/template/download'" style="float: left">导入模板下载</button>
+				<button class="layui-btn layui-btn-sm" onclick="javascript:window.location.href='/admin/teacher/template/download'" style="float: left">导入模板下载</button>
 				<form class="layui-form" id="addTeasForm" enctype="multipart/form-data" style="float: left">
 					<input type="file" name="file" id="addTeas" style="display: none" />
 					<button type="button" class="layui-btn layui-btn-sm" id="addTeasBtn">批量导入</button>

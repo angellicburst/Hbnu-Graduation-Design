@@ -1,0 +1,137 @@
+layui.config({
+    base: '/js/',
+}).use('admin');
+layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
+    const $ = layui.jquery,
+        table = layui.table,
+        laydate = layui.laydate,
+        form = layui.form,
+        upload = layui.upload;
+
+    $(function () {
+        /**
+         * layui加载层，支持0-2
+         */
+        let loading = layer.load(2, {shade: false});
+
+        /**
+         * @todo 定义table
+         */
+        table.render({
+            elem : '#teaListAdm',
+            url : '/admin/getTeachers',
+            toolbar : '#toolbar',
+            id: 'teaListAdm',
+            width:1300,
+            cellMinWidth : 80,
+            page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+                layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
+                ,groups: 1 //只显示 1 个连续页码
+                ,first: false //不显示首页
+                ,last: false //不显示尾页
+            },
+            cols : [ [ {type:'checkbox'},{
+                field : 'id',
+                title : 'ID',
+                align : 'center',
+                width : 80,
+                unresize : true,
+                sort : true
+            }, {
+                field : 'name',
+                title : '姓名',
+                align : 'center',
+                width : 150,
+                sort : true
+            }, {
+                field : 'gender',
+                title : '性别',
+                align : 'center',
+                width : 80,
+                templet: '#genderTpl'
+            }, {
+                field : 'phone',
+                title : '电话',
+                width : 150,
+                align : 'center'
+            }, {
+                field : 'email',
+                title : '邮箱',
+                width : 200,
+                align : 'center'
+            }, {
+                field : 'year',
+                title : '工龄',
+                width : 80,
+                align : 'center'
+            },{
+                field : 'status',
+                title : '状态',
+                align : 'center',
+                width : 80,
+                templet: '#statusTpl'
+            },{
+                field : 'department',
+                title : '院系',
+                align : 'center'
+            },{
+                field : 'departmentId',
+                title : '院系ID',
+                align : 'center',
+                width : 80,
+                hide: true
+            },{
+                fixed : 'right',
+                title :'操作',
+                toolbar : '#barTeaMange',
+                width : 180,
+                align : 'center'
+            } ] ],
+            page : true,
+            response: {
+                statusCode: 200,    //设置返回码为200，默认0
+                dataName: 'objs'    //设置返回对象为objs,默认data
+            }
+        });
+
+        /**
+         * @todo 获取所有的院系
+         */
+        $.ajax({
+            type: "POST",
+            url: "/getDepartments",
+            dataType: "json",
+            success: function (data) {
+                let departments = "";
+                layui.each(data.objs, function(index, obj) {
+                    departments += "<option value='"+obj.id+"'>"+obj.department+"</option>"
+                });
+                $("#searchDepartment").append(departments);
+                form.render();
+            }
+        });
+
+        /**
+         * @todo 关闭加载按钮
+         */
+        layer.close(loading);
+
+    });
+
+    /**
+     * @todo 模糊查询表单
+     */
+    form.on('submit(searchBtn)', function(){
+        table.reload('teaListAdm',{
+            where: {
+                id:$("#searchId").val(),
+                name:$("#searchName").val(),
+                status:$(".status .layui-this").attr("lay-value") == undefined?'':$(".status .layui-this").attr("lay-value"),
+                departmentId:$(".department .layui-this").attr("lay-value") == undefined?'':$(".department .layui-this").attr("lay-value")
+            }
+        });
+        return false;
+    });
+
+
+});

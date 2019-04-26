@@ -57,7 +57,7 @@ public class StudentController {
 	 * @return
 	 * @throws UnsupportedEncodingException
 	 */
-	@RequestMapping(value = "/admin/template/download",method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/student/template/download",method = RequestMethod.GET)
 	public PackData templateDownLoad(HttpServletResponse response) throws UnsupportedEncodingException {
 		return ss.templateDownLoad(response);
 	}

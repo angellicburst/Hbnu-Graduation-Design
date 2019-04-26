@@ -58,6 +58,7 @@ public class StudentServiceImpl implements StudentService {
 		if (studentDtos.isEmpty()) {
 			packData.setCode(404);
 			packData.setMsg("学生查询为空");
+			log.error("学生查询为空");
 		} else {
 			packData.setCode(200);
 			packData.setObjs(studentDtos);
@@ -101,18 +102,21 @@ public class StudentServiceImpl implements StudentService {
 					} else {
 						packData.setCode(400);
 						packData.setMsg("学生添加失败");
+						log.error("学生添加失败");
 						//手动事务回滚
 						TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 					}
 				} else {
 					packData.setCode(400);
 					packData.setMsg("学生关联的用户角色添加失败");
+					log.error("学生关联的用户角色添加失败");
 					//手动事务回滚
 					TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 				}
 			} else {
 				packData.setCode(400);
 				packData.setMsg("学生关联的用户添加失败");
+				log.error("学生关联的用户添加失败");
 				//手动事务回滚
 				TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 			}
@@ -192,10 +196,11 @@ public class StudentServiceImpl implements StudentService {
 		Integer re = sm.updateStudent(student);
 		if (re > 0) {
 			packData.setCode(200);
-			packData.setMsg("更新成功");
+			packData.setMsg("学生更新成功");
 		} else {
 			packData.setCode(400);
-			packData.setMsg("更新失败");
+			packData.setMsg("学生更新失败");
+			log.error("学生更新失败");
 			//手动事务回滚
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 		}

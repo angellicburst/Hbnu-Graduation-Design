@@ -99,10 +99,12 @@ public class FileUtil {
 		PackData packData = new PackData();
 
 		File file = new File(filePath);
+		String fileName = file.getName();
 
 		if(!file.exists()) {
 			packData.setCode(404);
 			packData.setMsg("文件不存在");
+			log.error("文件不存在");
 			throw new RuntimeException("文件不存在");
 		} else {
 			BufferedInputStream bin = null;// 输入流缓存流
@@ -110,7 +112,7 @@ public class FileUtil {
 
 			response.setHeader("content-type", "application/octet-stream");
 			response.setContentType("multipart/form-data;charset=UTF-8");
-			response.setHeader("Content-Disposition", "attachment; fileName=stuTemplate.xls;filename*=utf-8''"+ URLEncoder.encode("stuTemplate.xls","UTF-8"));
+			response.setHeader("Content-Disposition", "attachment; fileName=stuTemplate.xls;filename*=utf-8''"+ URLEncoder.encode(fileName,"UTF-8"));
 
 			try {
 				//缓存流

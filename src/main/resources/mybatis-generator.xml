@@ -46,16 +46,16 @@
 		</javaModelGenerator>
 
 		<!-- 生成映射文件的包名和位置-->
-<!--		<sqlMapGenerator targetPackage="mappers"-->
-<!--			targetProject=".\src\main\resources">-->
-<!--			<property name="enableSubPackages" value="true" />-->
-<!--		</sqlMapGenerator>-->
+		<sqlMapGenerator targetPackage="mappers"
+			targetProject=".\src\main\resources">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
 
 		<!-- 生成DAO的包名和位置-->
-<!--		<javaClientGenerator type="XMLMAPPER"-->
-<!--			targetPackage="com.hbnu.gradesign.dao" targetProject=".\src\main\java">-->
-<!--			<property name="enableSubPackages" value="true" />-->
-<!--		</javaClientGenerator>-->
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="com.hbnu.gradesign.dao" targetProject=".\src\main\java">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
 
 		<!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->
 		<!--<table tableName="menu" domainObjectName="Menu"></table>-->
@@ -69,7 +69,7 @@
 		<!--<table tableName="grade" domainObjectName="Grade"></table>-->
 <!--		<table tableName="major" domainObjectName="Major"></table>-->
 		<!--<table tableName="student" domainObjectName="Student"></table>-->
-		<table tableName="teacher" domainObjectName="teacher"></table>
+		<table tableName="teacher" domainObjectName="Teacher"></table>
 
 	</context>
 </generatorConfiguration>

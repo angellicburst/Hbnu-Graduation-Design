@@ -1,4 +1,4 @@
-package com.hbnu.gradesign.teacher;
+package com.hbnu.gradesign.controller.teacher;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
 
 @RestController
 public class TeacherController {
@@ -28,5 +31,10 @@ public class TeacherController {
 		packData.setCount((int) pageInfo.getTotal());
 
 		return packData;
+	}
+
+	@RequestMapping(value = "/admin/teacher/template/download",method = RequestMethod.GET)
+	public PackData templateDownLoad(HttpServletResponse response) throws UnsupportedEncodingException {
+		return ts.templateDownLoad(response);
 	}
 }

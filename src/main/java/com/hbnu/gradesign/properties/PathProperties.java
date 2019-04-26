@@ -19,4 +19,7 @@ public class PathProperties {
 
 	@Value("${student.add.templates.save.path}")
 	private String stuTemSavePath;
+
+	@Value("${teacher.add.templates.save.path}")
+	private String teaTemSavePath;
 }

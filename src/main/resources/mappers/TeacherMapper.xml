@@ -1,36 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hbnu.gradesign.dao.ClaMapper">
-  <resultMap id="BaseResultMap" type="com.hbnu.gradesign.entity.Cla">
+<mapper namespace="com.hbnu.gradesign.dao.TeacherMapper">
+  <resultMap id="BaseResultMap" type="com.hbnu.gradesign.entity.Teacher">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="cla" jdbcType="VARCHAR" property="cla" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="gender" jdbcType="INTEGER" property="gender" />
+    <result column="year" jdbcType="INTEGER" property="year" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="department_id" jdbcType="INTEGER" property="departmentId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
   </resultMap>
-  <select id="getClaById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    SELECT
-        id,
-        cla
-    FROM
-        cla
-    WHERE
-        id = #{id,jdbcType=INTEGER}
-  </select>
 
-  <select id="getClas" resultMap="BaseResultMap">
+  <resultMap id="TeaIncDep" type="com.hbnu.gradesign.entity.dto.TeacherDto">
+      <id column="id" jdbcType="INTEGER" property="id" />
+      <result column="name" jdbcType="VARCHAR" property="name" />
+      <result column="gender" jdbcType="INTEGER" property="gender" />
+      <result column="year" jdbcType="INTEGER" property="year" />
+      <result column="phone" jdbcType="VARCHAR" property="phone" />
+      <result column="email" jdbcType="VARCHAR" property="email" />
+      <result column="status" jdbcType="INTEGER" property="status" />
+      <result column="department_id" jdbcType="INTEGER" property="departmentId" />
+      <result column="user_id" jdbcType="INTEGER" property="userId" />
+      <result column="department" jdbcType="INTEGER" property="department" />
+  </resultMap>
+<!--  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">-->
+<!--    delete from teacher-->
+<!--    where id = #{id,jdbcType=INTEGER}-->
+<!--  </delete>-->
+<!--  <insert id="insert" parameterType="com.hbnu.gradesign.entity.Teacher">-->
+<!--    insert into teacher (id, name, gender, -->
+<!--      year, phone, email, -->
+<!--      status, department_id, user_id-->
+<!--      )-->
+<!--    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, -->
+<!--      #{year,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, -->
+<!--      #{status,jdbcType=INTEGER}, #{departmentId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}-->
+<!--      )-->
+<!--  </insert>-->
+<!--  <update id="updateByPrimaryKey" parameterType="com.hbnu.gradesign.entity.Teacher">-->
+<!--    update teacher-->
+<!--    set name = #{name,jdbcType=VARCHAR},-->
+<!--      gender = #{gender,jdbcType=INTEGER},-->
+<!--      year = #{year,jdbcType=INTEGER},-->
+<!--      phone = #{phone,jdbcType=VARCHAR},-->
+<!--      email = #{email,jdbcType=VARCHAR},-->
+<!--      status = #{status,jdbcType=INTEGER},-->
+<!--      department_id = #{departmentId,jdbcType=INTEGER},-->
+<!--      user_id = #{userId,jdbcType=INTEGER}-->
+<!--    where id = #{id,jdbcType=INTEGER}-->
+<!--  </update>-->
+<!--  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">-->
+<!--    select id, name, gender, year, phone, email, status, department_id, user_id-->
+<!--    from teacher-->
+<!--    where id = #{id,jdbcType=INTEGER}-->
+<!--  </select>-->
+  <select id="selectTeachers" parameterType="com.hbnu.gradesign.entity.dto.TeacherDto" resultMap="TeaIncDep">
     SELECT
-        id,
-        cla
+        t1.*,
+        t2.department
     FROM
-        cla
-  </select>
-
-  <select id="getClasByMajorId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    SELECT
-        t3.*
-    FROM
-        `major_cla` t1
-        LEFT JOIN `major` t2 ON ( t1.major_id = t2.id )
-        LEFT JOIN `cla` t3 ON ( t1.cla_id = t3.id )
-    WHERE
-        t2.id = #{majorId}
+        teacher t1
+        LEFT JOIN department t2 ON ( t1.department_id = t2.id )
+    <where>
+        <if test="id != null and id != ''">
+            t1.id = #{id}
+        </if>
+        <if test="name != null and name != ''">
+            <bind name="pattern" value="name + '%'" ></bind>
+            AND t1.name LIKE #{pattern}
+        </if>
+        <if test="status == 0 || status == 1">
+            AND t1.status = #{status}
+        </if>
+        <if test="departmentId != null and departmentId != ''">
+            AND t1.department_id = #{departmentId}
+        </if>
+    </where>
   </select>
 </mapper>
