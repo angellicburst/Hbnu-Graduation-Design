@@ -45,6 +45,16 @@ public class PagesController {
 	}
 
 	/**
+	 * admin
+	 * 跳转教师管理页面
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/teaManage")
+	public String teaManageByAdm() {
+		return "teacher/teaManageAdm";
+	}
+
+	/**
 	 * teacher
 	 * 跳转学生管理页面
 	 * @return
@@ -53,5 +63,6 @@ public class PagesController {
 	public String stuManageByTea() {
 		return "student/stuManageTea";
 	}
+
 
 }

@@ -30,7 +30,7 @@ import java.util.List;
 @Service
 public class StudentServiceImpl implements StudentService {
 
-	private static transient Log log = LogFactory.getLog(FileUtil.class);
+	private static transient Log log = LogFactory.getLog(StudentServiceImpl.class);
 
 	@Autowired
 	private StudentMapper sm;

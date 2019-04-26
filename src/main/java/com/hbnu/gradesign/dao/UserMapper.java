@@ -7,7 +7,11 @@ import org.springframework.stereotype.Repository;
 public interface UserMapper {
 	User findUserByUsername(String username);
 
+	User findUserById(Integer userId);
+
 	Integer addUser(User users);
 
 	Integer deleteUser(Integer id);
+
+	Integer updateUser(User user);
 }

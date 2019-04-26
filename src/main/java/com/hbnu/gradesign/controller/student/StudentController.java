@@ -3,9 +3,13 @@ package com.hbnu.gradesign.controller.student;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.hbnu.gradesign.entity.Student;
+import com.hbnu.gradesign.entity.User;
 import com.hbnu.gradesign.entity.dto.StudentDto;
 import com.hbnu.gradesign.entity.pojo.PackData;
 import com.hbnu.gradesign.service.StudentService;
+import com.hbnu.gradesign.service.UserService;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,9 +22,13 @@ import java.util.List;
 @RestController
 public class StudentController {
 
+	private static transient Log log = LogFactory.getLog(StudentController.class);
+
 	@Autowired
 	private StudentService ss;
 
+	@Autowired
+	private UserService us;
 
 	/**
 	 * admin
@@ -95,12 +103,33 @@ public class StudentController {
 	 */
 	@RequestMapping(value = "/admin/changeStatus",method = RequestMethod.POST)
 	public PackData changeStatus(@RequestBody Student student) {
+		User user = null;
+		PackData packData = null;
+		try {
+			user = us.findUserById(student.getUserId());
+		} catch (Exception e) {
+			packData = new PackData();
+			packData.setCode(404);
+			packData.setMsg("学生对应用户为空");
+			log.error("学生对应用户为空"+e);
+			return packData;
+		}
+
 		if (student.getStatus() == 0) {
 			student.setStatus(1);
-		} else {
+			user.setStatus(1);
+		} else if (student.getStatus() == 1) {
 			student.setStatus(0);
+			user.setStatus(0);
 		}
-		return ss.updateStudent(student);
+
+		packData = us.updateUser(user);
+
+		if (packData.getCode() == 200) {
+			packData = ss.updateStudent(student);
+		}
+
+		return packData;
 	}
 
 	/**

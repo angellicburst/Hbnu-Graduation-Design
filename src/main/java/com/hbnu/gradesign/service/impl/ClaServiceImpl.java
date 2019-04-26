@@ -4,6 +4,8 @@ import com.hbnu.gradesign.dao.ClaMapper;
 import com.hbnu.gradesign.entity.Cla;
 import com.hbnu.gradesign.entity.pojo.PackData;
 import com.hbnu.gradesign.service.ClaService;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,8 @@ import java.util.List;
 
 @Service
 public class ClaServiceImpl implements ClaService {
+
+	private static transient Log log = LogFactory.getLog(ClaServiceImpl.class);
 
 	@Autowired
 	private ClaMapper cm;
@@ -39,6 +43,7 @@ public class ClaServiceImpl implements ClaService {
 		if (clas.isEmpty()) {
 			packData.setCode(404);
 			packData.setMsg("班级查询为空");
+			log.error("班级查询为空");
 		} else {
 			packData.setCode(200);
 			packData.setObjs(clas);

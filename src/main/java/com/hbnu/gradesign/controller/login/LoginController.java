@@ -1,5 +1,6 @@
 package com.hbnu.gradesign.controller.login;
 
+import com.hbnu.gradesign.entity.User;
 import com.hbnu.gradesign.entity.pojo.PackData;
 import com.hbnu.gradesign.service.RoleService;
 import com.hbnu.gradesign.service.UserService;
@@ -56,14 +57,22 @@ public class LoginController {
 		//根据权限，指定返回数据
 		Set<String> role = rs.getRolesByUsername(username);
 
-		packData.setObj(SecurityUtils.getSubject().getPrincipal());
-		packData.setCode(200);
-		packData.setMsg("登陆成功");
+		User user = (User) SecurityUtils.getSubject().getPrincipal();
+		if (user.getStatus() == 1) {
+			packData.setCode(400);
+			packData.setMsg("该用户已经失效了");
+			log.error("该用户已经失效了");
+		} else {
+			packData.setObj(user);
+			packData.setCode(200);
+			packData.setMsg("登陆成功");
 
-		//存储用户角色
-		Map<String, String> params = new HashMap<>();
-		params.put("role", role.iterator().next());
-		packData.setParams(params);
+			//存储用户角色
+			Map<String, String> params = new HashMap<>();
+			params.put("role", role.iterator().next());
+			packData.setParams(params);
+		}
+
 		return packData;
 	}
 }
