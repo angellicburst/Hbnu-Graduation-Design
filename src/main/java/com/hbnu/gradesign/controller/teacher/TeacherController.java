@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
@@ -36,5 +37,10 @@ public class TeacherController {
 	@RequestMapping(value = "/admin/teacher/template/download",method = RequestMethod.GET)
 	public PackData templateDownLoad(HttpServletResponse response) throws UnsupportedEncodingException {
 		return ts.templateDownLoad(response);
+	}
+
+	@RequestMapping(value = "/admin/addTeachers",method = RequestMethod.POST)
+	public PackData addTeachers(@RequestParam("file") MultipartFile file) throws Exception {
+		return ts.addTeachersByExcel(file);
 	}
 }

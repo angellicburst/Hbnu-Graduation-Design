@@ -133,5 +133,39 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
         return false;
     });
 
+    $("#addTeasBtn").on("click",function () {
+        $('#addTeas').click();
+    });
+    $("#addTeas").change(function () {
+        if($(this).val() != ""){
+            let addForm=document.querySelector("#addTeasForm");
+            let formdata=new FormData(addForm);
+            $.ajax({
+                url: '/admin/addTeachers',
+                type: 'POST',
+                data: formdata,
+                async: false,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (res) {
+                    //关闭loading
+                    //layer.closeAll();
+                    form.render();
+                    $("#addTeasForm")[0].reset();
+                    //清空弹出层的数据
+                    //$("#addStusForm")[0].reset();
+                    if (res.code === 200) {
+                        //打印msg
+                        layer.msg(res.msg,{icon: 1});
+                        //刷新table
+                        $(".layui-laypage-btn")[0].click();
+                    } else {
+                        layer.msg(res.msg,{icon: 2});
+                    }
+                }
+            });
+        }
+    });
 
 });

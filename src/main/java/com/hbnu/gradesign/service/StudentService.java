@@ -13,7 +13,7 @@ public interface StudentService {
 
 	PackData getStusAdm(StudentDto studentDto);
 
-	PackData addStudentsByExcel(MultipartFile multipartFile) throws Exception;
+	PackData addStudentsByExcel(MultipartFile file) throws Exception;
 
 	PackData templateDownLoad(HttpServletResponse response) throws UnsupportedEncodingException;
 

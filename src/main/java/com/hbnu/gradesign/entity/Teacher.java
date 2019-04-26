@@ -16,7 +16,7 @@ import java.io.Serializable;
 public class Teacher implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private Integer id;
+    private String id;
 
     /**
      * 教师姓名

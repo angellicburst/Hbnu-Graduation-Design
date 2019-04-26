@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hbnu.gradesign.dao.TeacherMapper">
   <resultMap id="BaseResultMap" type="com.hbnu.gradesign.entity.Teacher">
-    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="gender" jdbcType="INTEGER" property="gender" />
     <result column="year" jdbcType="INTEGER" property="year" />
@@ -14,7 +14,7 @@
   </resultMap>
 
   <resultMap id="TeaIncDep" type="com.hbnu.gradesign.entity.dto.TeacherDto">
-      <id column="id" jdbcType="INTEGER" property="id" />
+      <id column="id" jdbcType="VARCHAR" property="id" />
       <result column="name" jdbcType="VARCHAR" property="name" />
       <result column="gender" jdbcType="INTEGER" property="gender" />
       <result column="year" jdbcType="INTEGER" property="year" />
@@ -29,16 +29,15 @@
 <!--    delete from teacher-->
 <!--    where id = #{id,jdbcType=INTEGER}-->
 <!--  </delete>-->
-<!--  <insert id="insert" parameterType="com.hbnu.gradesign.entity.Teacher">-->
-<!--    insert into teacher (id, name, gender, -->
-<!--      year, phone, email, -->
-<!--      status, department_id, user_id-->
-<!--      )-->
-<!--    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, -->
-<!--      #{year,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, -->
-<!--      #{status,jdbcType=INTEGER}, #{departmentId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}-->
-<!--      )-->
-<!--  </insert>-->
+  <insert id="addTeachers" parameterType="com.hbnu.gradesign.entity.excel.TeacherExcel">
+    INSERT INTO teacher ( id, NAME, gender, YEAR, phone, email, STATUS, department_id, user_id )
+    VALUES
+        (
+        #{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER},
+        #{year,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
+        #{status,jdbcType=INTEGER}, #{departmentId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}
+        )
+  </insert>
 <!--  <update id="updateByPrimaryKey" parameterType="com.hbnu.gradesign.entity.Teacher">-->
 <!--    update teacher-->
 <!--    set name = #{name,jdbcType=VARCHAR},-->

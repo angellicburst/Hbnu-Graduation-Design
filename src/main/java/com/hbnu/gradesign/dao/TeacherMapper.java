@@ -1,6 +1,7 @@
 package com.hbnu.gradesign.dao;
 
 import com.hbnu.gradesign.entity.dto.TeacherDto;
+import com.hbnu.gradesign.entity.excel.TeacherExcel;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
 public interface TeacherMapper {
 //    int deleteByPrimaryKey(Integer id);
 //
-//    int insert(Teacher record);
+    Integer addTeachers(TeacherExcel teacherExcel);
 //
 //    Teacher selectByPrimaryKey(Integer id);
 
