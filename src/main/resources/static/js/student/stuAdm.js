@@ -351,7 +351,7 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 				//改变状态
 				$.ajax({
 					type: "POST",
-					url: "/admin/changeStatus",
+					url: "/admin/student/changeStatus",
 					data: JSON.stringify(data),
 					dataType: "json",
 					contentType:'application/json;charset=UTF-8',

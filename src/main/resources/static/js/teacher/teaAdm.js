@@ -4,9 +4,7 @@ layui.config({
 layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
     const $ = layui.jquery,
         table = layui.table,
-        laydate = layui.laydate,
-        form = layui.form,
-        upload = layui.upload;
+        form = layui.form;
 
     $(function () {
         /**
@@ -107,6 +105,7 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
                     departments += "<option value='"+obj.id+"'>"+obj.department+"</option>"
                 });
                 $("#searchDepartment").append(departments);
+                $("#selectDepartment").append(departments);
                 form.render();
             }
         });
@@ -205,8 +204,8 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
             layer.open({
                 type : 1,
                 title : "学生编辑",
-                area: ['1000px', '550px'],
-                content: $('#editStuFrame'),
+                area: ['700px', '550px'],
+                content: $('#editTeaFrame'),
                 cancel: function(index, layero) {    //点击弹出层右上角X触发
                     //清除所有弹出层数据
                     $("#editForm")[0].reset();
@@ -216,94 +215,41 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 
             });
             //表单初始赋值
-            form.val('stuFilter', data);
-            //获取院系ID，专业ID，班级ID
-            let depId = data.departmentId;
-            let maId = data.majorId;
-            let claId = data.claId;
+            form.val('teaFilter', data);
 
             //id存入隐藏域
-            $("#saveStuId").val(data.id);
-            $("#saveStuStatus").val(data.status);
-
-            //三级联动
-            $.ajax({
-                type: "POST",
-                url: "/getMajorsByDep",
-                data: {
-                    departmentId : depId
-                },
-                dataType: "json",
-                success: function (data) {
-                    $("#selectMajor").empty();
-                    $("#selectCla").empty();
-                    let majors = "<option value=''>专业</option>";
-                    layui.each(data, function(index, obj) {
-
-                        if (maId == obj.id) {
-                            majors += "<option value='"+obj.id+"' selected>"+obj.major+"</option>"
-                        } else {
-                            majors += "<option value='"+obj.id+"'>"+obj.major+"</option>"
-                        }
-
-                    });
-                    $("#selectMajor").append(majors);
-                    form.render();
-                    $.ajax({
-                        type: "POST",
-                        url: "/getClasByMaj",
-                        data: {
-                            majorId : maId
-                        },
-                        dataType: "json",
-                        success: function (data) {
-                            $("#selectCla").empty();
-                            let clas = "<option value=''>班级</option>";
-                            layui.each(data, function(index, obj) {
-                                if (claId == obj.id) {
-                                    clas += "<option value='"+obj.id+"' selected>"+obj.cla+"</option>"
-                                } else {
-                                    clas += "<option value='"+obj.id+"'>"+obj.cla+"</option>"
-                                }
-
-                            });
-                            $("#selectCla").append(clas);
-                            form.render();
-                        }
-                    });
-                }
-            });
+            $("#saveTeaId").val(data.id);
+            $("#saveTeaStatus").val(data.status);
+            $("#saveTeaUserId").val(data.userId);
 
         } else if(obj.event === 'stop' ||obj.event === 'use') {			//状态变更
             layer.confirm(obj.event === 'stop'?'确认停用？':'确认启用？', function(index) {
                 //改变状态
                 $.ajax({
                     type: "POST",
-                    url: "/admin/changeStatus",
+                    url: "/admin/teacher/changeStatus",
                     data: JSON.stringify(data),
                     dataType: "json",
                     contentType:'application/json;charset=UTF-8',
                     success: function (data) {
                         if (data.code === 200) {
+                            //刷新table
+                            $(".layui-laypage-btn")[0].click();
                             layer.msg(data.msg,{icon: 1});
                         } else {
                             layer.msg(data.msg,{icon: 2});
                         }
                     }
                 });
-                form.render();
-                //刷新table
-                $(".layui-laypage-btn")[0].click();
+
                 //关闭弹出层
                 layer.closeAll();
             });
         }
     });
 
-
-
     /**
-     * @todo 批量导入学生
+     * @todo 批量导入教师
      */
     $("#addTeasBtn").on("click",function () {
         $('#addTeas').click();
@@ -338,6 +284,33 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
                 }
             });
         }
+    });
+
+    /**
+     * @todo 教师更新
+     */
+    form.on('submit(editTea)', function(data) {
+        $.ajax({
+            type: "POST",
+            url: "/admin/editTeacher",
+            data: JSON.stringify(data.field),
+            dataType: "json",
+            contentType:'application/json;charset=UTF-8',
+            success: function (data) {
+                //关闭弹出层
+                layer.closeAll();
+                if (data.code === 200) {
+                    //刷新table
+                    $(".layui-laypage-btn")[0].click();
+                    layer.msg(data.msg,{icon: 1});
+                } else {
+                    layer.msg(data.msg,{icon: 2});
+                }
+                //清空弹出层的数据
+                $("#editForm")[0].reset();
+            }
+        });
+        return false;
     });
 
 });

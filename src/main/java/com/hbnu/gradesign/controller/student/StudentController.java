@@ -101,7 +101,7 @@ public class StudentController {
 	 * @param student
 	 * @return
 	 */
-	@RequestMapping(value = "/admin/changeStatus",method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/student/changeStatus",method = RequestMethod.POST)
 	public PackData changeStatus(@RequestBody Student student) {
 		User user = null;
 		PackData packData = null;

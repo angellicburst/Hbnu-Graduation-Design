@@ -18,4 +18,6 @@ public interface TeacherService {
 	PackData addTeachersByExcel(MultipartFile file) throws Exception;
 
 	PackData delTeacher(List<Teacher> teachers);
+
+	PackData updateTeacher(Teacher teacher);
 }

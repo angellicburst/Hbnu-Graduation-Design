@@ -9,7 +9,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
 		<link rel="stylesheet" href="/css/common.css" />
 		<link rel="stylesheet" href="/css/font.css">
-<!--		<link rel="stylesheet" href="/css/student/stuAdm.css">-->
+		<link rel="stylesheet" href="/css/teacher/teaAdm.css">
 	</head>
 
 	<body>
@@ -17,8 +17,9 @@
 		<div style="display: none" disabled="true" id="editTeaFrame">
 			<form class="layui-form" action="" lay-filter="teaFilter" id="editForm">
 				<!-- 隐藏域存储ID -->
-<!--				<input type="hidden" name="id" id="saveStuId" />-->
-<!--				<input type="hidden" name="status" id="saveStuStatus" />-->
+				<input type="hidden" name="id" id="saveTeaId" />
+				<input type="hidden" name="status" id="saveTeaStatus" />
+				<input type="hidden" name="userId" id="saveTeaUserId" />
 
 				<div class="layui-form-item">
 					<label class="layui-form-label">姓名</label>
@@ -33,49 +34,33 @@
 							<option value="1">女</option>
 						</select>
 					</div>
+				</div>
+				<div class="layui-form-item">
 					<label class="layui-form-label">电话</label>
 					<div class="layui-input-inline">
 						<input type="text" name="phone" autocomplete="off" placeholder="请输入电话" class="layui-input">
 					</div>
-				</div>
-				<div class="layui-form-item">
 					<label class="layui-form-label">邮箱</label>
 					<div class="layui-input-inline">
 						<input type="text" name="email" autocomplete="off" placeholder="请输入邮箱" class="layui-input">
 					</div>
-					<label class="layui-form-label">学年制</label>
-					<div class="layui-input-inline">
-						<input type="number" name="year" lay-verify="required" autocomplete="off" placeholder="请输入学年制" class="layui-input" disabled="true">
-					</div>
-					<label class="layui-form-label">入学时间</label>
-					<div class="layui-input-inline">
-						<input class="layui-input" lay-verify="required" placeholder="请输入入学时间" name="createDate" id="addCreateDate" disabled="true">
-					</div>
 				</div>
 				<div class="layui-form-item">
+					<label class="layui-form-label">工龄</label>
+					<div class="layui-input-inline">
+						<input type="number" name="year" lay-verify="required" autocomplete="off" placeholder="请输入学年制" class="layui-input">
+					</div>
 					<label class="layui-form-label">院系</label>
 					<div class="layui-input-inline editDep">
 						<select name="departmentId" lay-verify="required" lay-search="" lay-filter="department" id="selectDepartment">
 							<option value="">院系</option>
 						</select>
 					</div>
-					<label class="layui-form-label">专业</label>
-					<div class="layui-input-inline editMa">
-						<select name="majorId" lay-verify="required" lay-search="" lay-filter="major" id="selectMajor">
-							<option value="">专业</option>
-						</select>
-					</div>
-					<label class="layui-form-label">班级</label>
-					<div class="layui-input-inline editCla">
-						<select name="claId" lay-verify="required" lay-search="" id="selectCla">
-							<option value="">班级</option>
-						</select>
-					</div>
 				</div>
 
 				<div class="layui-form-item">
 					<div class="layui-input-block">
-						<button class="layui-btn" lay-submit="" lay-filter="editStu">立即提交</button>
+						<button class="layui-btn" lay-submit="" lay-filter="editTea">立即提交</button>
 					</div>
 				</div>
 			</form>
