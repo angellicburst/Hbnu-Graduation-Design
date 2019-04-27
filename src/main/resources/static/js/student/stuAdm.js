@@ -296,6 +296,7 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 			//id存入隐藏域
 			$("#saveStuId").val(data.id);
 			$("#saveStuStatus").val(data.status);
+			$("#saveStuUserId").val(data.userId);
 
 			//三级联动
 			$.ajax({
@@ -356,15 +357,14 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 					contentType:'application/json;charset=UTF-8',
 					success: function (data) {
 						if (data.code === 200) {
+							//刷新table
+							$(".layui-laypage-btn")[0].click();
 							layer.msg(data.msg,{icon: 1});
 						} else {
 							layer.msg(data.msg,{icon: 2});
 						}
 					}
 				});
-				form.render();
-				//刷新table
-				$(".layui-laypage-btn")[0].click();
 				//关闭弹出层
 				layer.closeAll();
 			});
@@ -478,10 +478,10 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
                       //清空弹出层的数据
                       //$("#addStusForm")[0].reset();
                       if (res.code === 200) {
-                          //打印msg
-                          layer.msg(res.msg,{icon: 1});
 						  //刷新table
 						  $(".layui-laypage-btn")[0].click();
+                          //打印msg
+                          layer.msg(res.msg,{icon: 1});
                       } else {
                           layer.msg(res.msg,{icon: 2});
                       }
@@ -506,12 +506,12 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 				//关闭弹出层
 				layer.closeAll();
 				if (data.code === 200) {
+					//刷新table
+					$(".layui-laypage-btn")[0].click();
 					layer.msg(data.msg,{icon: 1});
 				} else {
 					layer.msg(data.msg,{icon: 2});
 				}
-				//刷新table
-				table.reload('stuListAdm',{});
 				//清空弹出层的数据
 				$("#editForm")[0].reset();
 			}

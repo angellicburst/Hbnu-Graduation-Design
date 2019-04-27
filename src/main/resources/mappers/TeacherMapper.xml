@@ -25,10 +25,14 @@
       <result column="user_id" jdbcType="INTEGER" property="userId" />
       <result column="department" jdbcType="INTEGER" property="department" />
   </resultMap>
-<!--  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">-->
-<!--    delete from teacher-->
-<!--    where id = #{id,jdbcType=INTEGER}-->
-<!--  </delete>-->
+
+  <delete id="deleteTeacher" parameterType="java.lang.String">
+    DELETE
+    FROM
+        teacher
+    WHERE
+        id = #{id,jdbcType=VARCHAR}
+  </delete>
   <insert id="addTeachers" parameterType="com.hbnu.gradesign.entity.excel.TeacherExcel">
     INSERT INTO teacher ( id, NAME, gender, YEAR, phone, email, STATUS, department_id, user_id )
     VALUES

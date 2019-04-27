@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface TeacherMapper {
-//    int deleteByPrimaryKey(Integer id);
+    Integer deleteTeacher(String id);
 //
     Integer addTeachers(TeacherExcel teacherExcel);
 //

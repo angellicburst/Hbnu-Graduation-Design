@@ -133,6 +133,178 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
         return false;
     });
 
+    /**
+     * @todo 监听头部操作按钮（添加，批量删除）
+     */
+    table.on('toolbar(teaAdm)', function(obj){
+        let checkStatus = table.checkStatus(obj.config.id);
+        let data = checkStatus.data;
+
+        if (obj.event === 'delMult') {   //批量删除
+            //删除提示
+            layer.confirm('确认删除'+data.length+'条？', function() {
+                $.ajax({
+                    type: "POST",
+                    url: "/admin/delTeachers",
+                    data: JSON.stringify(data),
+                    dataType: "json",
+                    contentType:"application/json",
+                    success: function (data) {
+                        if (data.code === 200) {
+                            //刷新table
+                            $(".layui-laypage-btn")[0].click();
+                            layer.msg(data.msg,{icon: 1});
+                        } else {
+                            layer.msg(data.msg,{icon: 2});
+                        }
+
+
+                    }
+                });
+
+                //关闭弹出层
+                layer.closeAll();
+            });
+        }
+    });
+
+    /**
+     * @todo table 监听表格操作按钮（删除，更新）
+     * @param obj
+     */
+    table.on('tool(teaAdm)', function(obj){
+        let data = obj.data;
+
+        if(obj.event === 'del') {    //删除
+            layer.confirm('确认删除？', function(index) {
+                //删除
+                $.ajax({
+                    type: "POST",
+                    url: "/admin/delTeacher",
+                    data: JSON.stringify(data),
+                    dataType: "json",
+                    contentType:'application/json;charset=UTF-8',
+                    success: function (data) {
+                        if (data.code === 200) {
+                            //刷新table
+                            $(".layui-laypage-btn")[0].click();
+                            layer.msg(data.msg,{icon: 1});
+
+                        } else {
+                            layer.msg(data.msg,{icon: 2});
+                        }
+
+                    }
+                });
+
+                //关闭弹出层
+                layer.closeAll();
+            });
+        } else if(obj.event === 'edit') {    //更新
+            //打开弹出层
+            layer.open({
+                type : 1,
+                title : "学生编辑",
+                area: ['1000px', '550px'],
+                content: $('#editStuFrame'),
+                cancel: function(index, layero) {    //点击弹出层右上角X触发
+                    //清除所有弹出层数据
+                    $("#editForm")[0].reset();
+                    //关闭弹出层
+                    layer.closeAll();
+                }
+
+            });
+            //表单初始赋值
+            form.val('stuFilter', data);
+            //获取院系ID，专业ID，班级ID
+            let depId = data.departmentId;
+            let maId = data.majorId;
+            let claId = data.claId;
+
+            //id存入隐藏域
+            $("#saveStuId").val(data.id);
+            $("#saveStuStatus").val(data.status);
+
+            //三级联动
+            $.ajax({
+                type: "POST",
+                url: "/getMajorsByDep",
+                data: {
+                    departmentId : depId
+                },
+                dataType: "json",
+                success: function (data) {
+                    $("#selectMajor").empty();
+                    $("#selectCla").empty();
+                    let majors = "<option value=''>专业</option>";
+                    layui.each(data, function(index, obj) {
+
+                        if (maId == obj.id) {
+                            majors += "<option value='"+obj.id+"' selected>"+obj.major+"</option>"
+                        } else {
+                            majors += "<option value='"+obj.id+"'>"+obj.major+"</option>"
+                        }
+
+                    });
+                    $("#selectMajor").append(majors);
+                    form.render();
+                    $.ajax({
+                        type: "POST",
+                        url: "/getClasByMaj",
+                        data: {
+                            majorId : maId
+                        },
+                        dataType: "json",
+                        success: function (data) {
+                            $("#selectCla").empty();
+                            let clas = "<option value=''>班级</option>";
+                            layui.each(data, function(index, obj) {
+                                if (claId == obj.id) {
+                                    clas += "<option value='"+obj.id+"' selected>"+obj.cla+"</option>"
+                                } else {
+                                    clas += "<option value='"+obj.id+"'>"+obj.cla+"</option>"
+                                }
+
+                            });
+                            $("#selectCla").append(clas);
+                            form.render();
+                        }
+                    });
+                }
+            });
+
+        } else if(obj.event === 'stop' ||obj.event === 'use') {			//状态变更
+            layer.confirm(obj.event === 'stop'?'确认停用？':'确认启用？', function(index) {
+                //改变状态
+                $.ajax({
+                    type: "POST",
+                    url: "/admin/changeStatus",
+                    data: JSON.stringify(data),
+                    dataType: "json",
+                    contentType:'application/json;charset=UTF-8',
+                    success: function (data) {
+                        if (data.code === 200) {
+                            layer.msg(data.msg,{icon: 1});
+                        } else {
+                            layer.msg(data.msg,{icon: 2});
+                        }
+                    }
+                });
+                form.render();
+                //刷新table
+                $(".layui-laypage-btn")[0].click();
+                //关闭弹出层
+                layer.closeAll();
+            });
+        }
+    });
+
+
+
+    /**
+     * @todo 批量导入学生
+     */
     $("#addTeasBtn").on("click",function () {
         $('#addTeas').click();
     });

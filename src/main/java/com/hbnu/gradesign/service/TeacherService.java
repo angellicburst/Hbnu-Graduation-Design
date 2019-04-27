@@ -1,11 +1,13 @@
 package com.hbnu.gradesign.service;
 
+import com.hbnu.gradesign.entity.Teacher;
 import com.hbnu.gradesign.entity.dto.TeacherDto;
 import com.hbnu.gradesign.entity.pojo.PackData;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 public interface TeacherService {
 
@@ -14,4 +16,6 @@ public interface TeacherService {
 	PackData templateDownLoad(HttpServletResponse response) throws UnsupportedEncodingException;
 
 	PackData addTeachersByExcel(MultipartFile file) throws Exception;
+
+	PackData delTeacher(List<Teacher> teachers);
 }

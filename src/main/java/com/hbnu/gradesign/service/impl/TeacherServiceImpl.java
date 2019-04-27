@@ -4,6 +4,7 @@ import com.alibaba.excel.support.ExcelTypeEnum;
 import com.hbnu.gradesign.dao.RoleMapper;
 import com.hbnu.gradesign.dao.TeacherMapper;
 import com.hbnu.gradesign.dao.UserMapper;
+import com.hbnu.gradesign.entity.Teacher;
 import com.hbnu.gradesign.entity.User;
 import com.hbnu.gradesign.entity.dto.TeacherDto;
 import com.hbnu.gradesign.entity.excel.TeacherExcel;
@@ -108,6 +109,47 @@ public class TeacherServiceImpl implements TeacherService {
 				packData.setCode(400);
 				packData.setMsg("教师关联的用户添加失败");
 				log.error("教师关联的用户添加失败");
+				//手动事务回滚
+				TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			}
+		}
+
+		return packData;
+	}
+
+	@Override
+	public PackData delTeacher(List<Teacher> teachers) {
+		PackData packData = new PackData();
+
+		for (Teacher teacher: teachers) {
+			Integer res = tm.deleteTeacher(teacher.getId());
+
+			if (res > 0) {
+				Integer rer = rm.deleteRoleRelateUser(teacher.getUserId(),2);
+				if (rer > 0) {
+					Integer reu = um.deleteUser(teacher.getUserId());
+					if (reu > 0) {
+						packData.setCode(200);
+						packData.setMsg("删除成功");
+					} else {
+						packData.setCode(400);
+						packData.setMsg("教师对应用户删除失败");
+						log.error("教师对应用户删除失败");
+						//手动事务回滚
+						TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+					}
+
+				} else {
+					packData.setCode(400);
+					packData.setMsg("教师对应角色关系删除失败");
+					log.error("教师对应角色关系删除失败");
+					//手动事务回滚
+					TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+				}
+			} else {
+				packData.setCode(400);
+				packData.setMsg("教师删除失败");
+				log.error("教师删除失败");
 				//手动事务回滚
 				TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 			}

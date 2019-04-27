@@ -2,18 +2,18 @@ package com.hbnu.gradesign.controller.teacher;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.hbnu.gradesign.entity.Teacher;
 import com.hbnu.gradesign.entity.dto.TeacherDto;
 import com.hbnu.gradesign.entity.pojo.PackData;
 import com.hbnu.gradesign.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class TeacherController {
@@ -42,5 +42,17 @@ public class TeacherController {
 	@RequestMapping(value = "/admin/addTeachers",method = RequestMethod.POST)
 	public PackData addTeachers(@RequestParam("file") MultipartFile file) throws Exception {
 		return ts.addTeachersByExcel(file);
+	}
+
+	@RequestMapping(value = "/admin/delTeachers",method = RequestMethod.POST)
+	public PackData delStudents(@RequestBody List<Teacher> teachers) {
+		return ts.delTeacher(teachers);
+	}
+
+	@RequestMapping(value = "/admin/delTeacher",method = RequestMethod.POST)
+	public PackData delStudent(@RequestBody Teacher teacher) {
+		List<Teacher> teachers = new ArrayList<>();
+		teachers.add(teacher);
+		return ts.delTeacher(teachers);
 	}
 }
