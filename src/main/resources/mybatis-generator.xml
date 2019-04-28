@@ -69,7 +69,8 @@
 		<!--<table tableName="grade" domainObjectName="Grade"></table>-->
 <!--		<table tableName="major" domainObjectName="Major"></table>-->
 		<!--<table tableName="student" domainObjectName="Student"></table>-->
-		<table tableName="teacher" domainObjectName="Teacher"></table>
+		<table tableName="arrange_course" domainObjectName="ArrangeCourse"></table>
+		<table tableName="course" domainObjectName="Course"></table>
 
 	</context>
 </generatorConfiguration>

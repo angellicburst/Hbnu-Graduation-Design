@@ -454,14 +454,17 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
             statusCode: 200   //设置返回码为200，默认0
         }
     });*/
-
     $("#addStusBtn").on("click",function () {
         $('#addStus').click();
+
     });
     $("#addStus").change(function () {
         if($(this).val() != ""){
             let addForm=document.querySelector("#addStusForm");
             let formdata=new FormData(addForm);
+
+			layer.load(1, {shade: false});
+
             $.ajax({
                 url: '/admin/addStudent',
                 type: 'POST',
@@ -472,7 +475,7 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
                 processData: false,
                 success: function (res) {
                       //关闭loading
-                      //layer.closeAll();
+                      layer.closeAll();
                       form.render();
                       $("#addStusForm")[0].reset();
                       //清空弹出层的数据

@@ -55,14 +55,17 @@ public class PagesController {
 	}
 
 	/**
-	 * teacher
-	 * 跳转学生管理页面
+	 * admin
+	 * 跳转课程管理页面
 	 * @return
 	 */
-	@RequestMapping(value = "/teacher/stuManage")
-	public String stuManageByTea() {
-		return "student/stuManageTea";
+	@RequestMapping(value = "/admin/couManage")
+	public String couManageByAdm() {
+		return "course/couManageAdm";
 	}
 
-
+	@RequestMapping(value = "/admin/examManage")
+	public String examManageByAdm() {
+		return "exam/examManage";
+	}
 }

@@ -258,6 +258,9 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
         if($(this).val() != ""){
             let addForm=document.querySelector("#addTeasForm");
             let formdata=new FormData(addForm);
+
+            layer.load(1, {shade: false});
+
             $.ajax({
                 url: '/admin/addTeachers',
                 type: 'POST',
@@ -268,7 +271,7 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
                 processData: false,
                 success: function (res) {
                     //关闭loading
-                    //layer.closeAll();
+                    layer.closeAll();
                     form.render();
                     $("#addTeasForm")[0].reset();
                     //清空弹出层的数据
