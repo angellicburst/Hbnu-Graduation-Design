@@ -203,7 +203,7 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
             //打开弹出层
             layer.open({
                 type : 1,
-                title : "学生编辑",
+                title : "教师编辑",
                 area: ['700px', '550px'],
                 content: $('#editTeaFrame'),
                 cancel: function(index, layero) {    //点击弹出层右上角X触发

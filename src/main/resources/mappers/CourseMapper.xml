@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hbnu.gradesign.dao.CourseMapper">
+  <resultMap id="BaseResultMap" type="com.hbnu.gradesign.entity.Course">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="course" jdbcType="VARCHAR" property="course" />
+    <result column="num" jdbcType="INTEGER" property="num" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+  </resultMap>
+
+  <select id="getCourseById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT
+        *
+    FROM
+        course
+    WHERE
+        id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="getCourses" resultMap="BaseResultMap">
+    SELECT
+        *
+    FROM
+        course
+  </select>
+</mapper>

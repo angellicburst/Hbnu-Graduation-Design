@@ -5,8 +5,7 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 	const $ = layui.jquery,
 		table = layui.table,
 		laydate = layui.laydate,
-		form = layui.form,
-		upload = layui.upload;
+		form = layui.form;
 
 	$(function () {
 		/**
@@ -388,11 +387,12 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 				$("#selectMajor").empty();
 				$("#selectCla").empty();
 				let majors = "<option value=''>专业</option>";
+				let clas = "<option value=''>班级</option>";
 				layui.each(data, function(index, obj) {
 					majors += "<option value='"+obj.id+"'>"+obj.major+"</option>"
 				});
 				$("#selectMajor").append(majors);
-
+				$("#selectCla").append(clas);
 				form.render();
 			}
 		});

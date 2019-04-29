@@ -88,8 +88,8 @@ public class MenuServiceImpl implements MenuService {
 	 * @param menuDto
 	 * @return
 	 */
-	@Transactional
 	@Override
+	@Transactional
 	public PackData addMenu(MenuDto menuDto) {
 		PackData packData = null;
 		//限制只有一级菜单才能添加图片

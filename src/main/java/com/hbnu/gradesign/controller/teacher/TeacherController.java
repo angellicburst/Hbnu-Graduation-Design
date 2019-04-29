@@ -139,4 +139,14 @@ public class TeacherController {
 	public PackData editStudent(@RequestBody Teacher teacher) {
 		return ts.updateTeacher(teacher);
 	}
+
+	/**
+	 * 获取所有的教师
+	 * @return
+	 */
+	@RequestMapping(value = "/getAllTeachers",method = RequestMethod.POST)
+	public PackData getAllTeachers() {
+		return ts.getAllTeachers();
+	}
+
 }

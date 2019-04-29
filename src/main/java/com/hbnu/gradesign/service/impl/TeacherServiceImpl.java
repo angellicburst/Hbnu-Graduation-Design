@@ -205,4 +205,27 @@ public class TeacherServiceImpl implements TeacherService {
 		}
 		return packData;
 	}
+
+	/**
+	 * 仅仅获取全部的老师
+	 * @return
+	 */
+	@Override
+	public PackData getAllTeachers() {
+		PackData packData = new PackData();
+
+		List<Teacher> teachers = tm.getAllTeachers();
+
+		if (teachers.isEmpty()) {
+			packData.setCode(400);
+			packData.setMsg("教师查询失败");
+			log.error("教师查询失败");
+		} else {
+			packData.setCode(200);
+			packData.setMsg("教师查询成功");
+			packData.setObjs(teachers);
+		}
+
+		return packData;
+	}
 }

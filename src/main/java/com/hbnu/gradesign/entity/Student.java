@@ -56,7 +56,6 @@ public class Student implements Serializable {
      */
     private Integer year;
 
-
     @JSONField(format = "yyyy-MM-dd")
     private Date createDate;
 

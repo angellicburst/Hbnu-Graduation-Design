@@ -79,4 +79,11 @@
         </if>
     </where>
   </select>
+
+  <select id="getAllTeachers" parameterType="com.hbnu.gradesign.entity.Teacher" resultMap="BaseResultMap">
+      SELECT
+        *
+      FROM
+        teacher
+  </select>
 </mapper>

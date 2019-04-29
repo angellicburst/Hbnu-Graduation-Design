@@ -9,58 +9,220 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
 		<link rel="stylesheet" href="/css/common/common.css" />
 		<link rel="stylesheet" href="/css/font/font.css">
-		<link rel="stylesheet" href="/css/teacher/teaAdm.css">
+		<link rel="stylesheet" href="/css/course/arrCouAdm.css">
 	</head>
 
 	<body>
-		<!-- 编辑菜单弹出层 -->
-		<div style="display: none" disabled="true" id="editTeaFrame">
-			<form class="layui-form" action="" lay-filter="teaFilter" id="editForm">
-				<!-- 隐藏域存储ID -->
-				<input type="hidden" name="id" id="saveTeaId" />
-				<input type="hidden" name="status" id="saveTeaStatus" />
-				<input type="hidden" name="userId" id="saveTeaUserId" />
-
+		<!-- 添加弹出层 -->
+		<div style="display: none" disabled="true" id="addFrame">
+			<form class="layui-form" action="" lay-filter="" id="addForm">
 				<div class="layui-form-item">
-					<label class="layui-form-label">姓名</label>
+					<label class="layui-form-label">课程</label>
 					<div class="layui-input-inline">
-						<input type="text" name="name" lay-verify="required" autocomplete="off" placeholder="请输入姓名" class="layui-input">
+						<select class="selectCourse" name="courseId" lay-search="" lay-verify="required" id="addCourse">
+							<option value="">课程</option>
+						</select>
 					</div>
-					<label class="layui-form-label">性别</label>
+					<label class="layui-form-label">教师</label>
 					<div class="layui-input-inline">
-						<select name="gender" lay-filter="addGender">
-							<option value=""></option>
-							<option value="0">男</option>
-							<option value="1">女</option>
+						<select class="selectTeacher" name="teacherId" lay-search="" lay-verify="required" id="addTeacher">
+							<option value="">教师</option>
 						</select>
 					</div>
 				</div>
+
 				<div class="layui-form-item">
-					<label class="layui-form-label">电话</label>
-					<div class="layui-input-inline">
-						<input type="text" name="phone" autocomplete="off" placeholder="请输入电话" class="layui-input">
-					</div>
-					<label class="layui-form-label">邮箱</label>
-					<div class="layui-input-inline">
-						<input type="text" name="email" autocomplete="off" placeholder="请输入邮箱" class="layui-input">
+					<label class="layui-form-label">地址</label>
+					<div class="layui-input-inline addMenuLevel">
+						<input type="text" name="address" autocomplete="off" lay-verify="required" placeholder="请输入地址" class="layui-input">
 					</div>
 				</div>
+
 				<div class="layui-form-item">
-					<label class="layui-form-label">工龄</label>
+					<label class="layui-form-label">时间范围</label>
 					<div class="layui-input-inline">
-						<input type="number" name="year" lay-verify="required" autocomplete="off" placeholder="请输入学年制" class="layui-input">
+						<input class="layui-input" autocomplete="off" lay-verify="required" placeholder="请输入时间范围" name="dateScope" id="addDateScope">
 					</div>
+					<label class="layui-form-label">考试科目</label>
+					<div class="layui-input-inline">
+						<select name="isExam" lay-verify="required">
+							<option value="">是否是考试科目</option>
+							<option value="0">是</option>
+							<option value="1">否</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">上课方式</label>
+					<div class="layui-input-inline">
+						<select name="method" lay-verify="required">
+							<option value="">上课方式</option>
+							<option value="0">每周</option>
+							<option value="1">单周</option>
+							<option value="2">双周</option>
+						</select>
+					</div>
+					<label class="layui-form-label">上课时间</label>
+					<div class="layui-input-inline">
+						<select name="week" lay-verify="required">
+							<option value="">上课时间</option>
+							<option value="0">星期天</option>
+							<option value="1">星期一</option>
+							<option value="2">星期二</option>
+							<option value="3">星期三</option>
+							<option value="4">星期四</option>
+							<option value="5">星期五</option>
+							<option value="6">星期六</option>
+						</select>
+					</div>
+					<label class="layui-form-label">具体时间</label>
+					<div class="layui-input-inline">
+						<select name="node" lay-verify="required">
+							<option value="">具体时间</option>
+							<option value="1">1~2节</option>
+							<option value="3">3~4节</option>
+							<option value="5">5~6节</option>
+							<option value="7">7~8节</option>
+							<option value="9">9~10节</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="layui-form-item">
 					<label class="layui-form-label">院系</label>
-					<div class="layui-input-inline editDep">
-						<select name="departmentId" lay-verify="required" lay-search="" lay-filter="department" id="selectDepartment">
+					<div class="layui-input-inline addDep">
+						<select name="departmentId" lay-verify="required" lay-search="" lay-filter="department" id="addDepartment">
 							<option value="">院系</option>
+						</select>
+					</div>
+					<label class="layui-form-label">专业</label>
+					<div class="layui-input-inline addMa">
+						<select name="majorId" lay-verify="required" lay-search="" lay-filter="major" id="addMajor">
+							<option value="">专业</option>
+						</select>
+					</div>
+					<label class="layui-form-label">班级</label>
+					<div class="layui-input-inline addCla">
+						<select name="claId" lay-verify="required" lay-search="" id="addCla">
+							<option value="">班级</option>
 						</select>
 					</div>
 				</div>
 
 				<div class="layui-form-item">
 					<div class="layui-input-block">
-						<button class="layui-btn" lay-submit="" lay-filter="editTea">立即提交</button>
+						<button class="layui-btn" lay-submit="" lay-filter="addArrCou">立即提交</button>
+					</div>
+				</div>
+
+
+
+			</form>
+		</div>
+		<!-- 编辑弹出层 -->
+		<div style="display: none" disabled="true" id="editFrame">
+			<form class="layui-form" action="" lay-filter="arrCouFilter" id="editForm">
+				<!-- 隐藏域存储 -->
+				<input type="hidden" name="id" id="saveTeaId" />
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">课程</label>
+					<div class="layui-input-inline">
+						<select class="selectCourse" name="courseId" lay-search="" lay-verify="required" id="editCourse">
+							<option value="">课程</option>
+						</select>
+					</div>
+					<label class="layui-form-label">教师</label>
+					<div class="layui-input-inline">
+						<select class="selectTeacher" name="teacherId" lay-search="" lay-verify="required" id="editTeacher">
+							<option value="">教师</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">地址</label>
+					<div class="layui-input-inline addMenuLevel">
+						<input type="text" name="address" autocomplete="off" lay-verify="required" placeholder="请输入地址" class="layui-input">
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">时间范围</label>
+					<div class="layui-input-inline">
+						<input class="layui-input" autocomplete="off" lay-verify="required" placeholder="请输入时间范围" name="dateScope" id="editDateScope">
+					</div>
+					<label class="layui-form-label">考试科目</label>
+					<div class="layui-input-inline">
+						<select name="isExam" lay-verify="required">
+							<option value="">是否是考试科目</option>
+							<option value="0">是</option>
+							<option value="1">否</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">上课方式</label>
+					<div class="layui-input-inline">
+						<select name="method" lay-verify="required">
+							<option value="">上课方式</option>
+							<option value="0">每周</option>
+							<option value="1">单周</option>
+							<option value="2">双周</option>
+						</select>
+					</div>
+					<label class="layui-form-label">上课时间</label>
+					<div class="layui-input-inline">
+						<select name="week" lay-verify="required">
+							<option value="">上课时间</option>
+							<option value="0">星期天</option>
+							<option value="1">星期一</option>
+							<option value="2">星期二</option>
+							<option value="3">星期三</option>
+							<option value="4">星期四</option>
+							<option value="5">星期五</option>
+							<option value="6">星期六</option>
+						</select>
+					</div>
+					<label class="layui-form-label">具体时间</label>
+					<div class="layui-input-inline">
+						<select name="node" lay-verify="required">
+							<option value="">具体时间</option>
+							<option value="1">1~2节</option>
+							<option value="3">3~4节</option>
+							<option value="5">5~6节</option>
+							<option value="7">7~8节</option>
+							<option value="9">9~10节</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">院系</label>
+					<div class="layui-input-inline addDep">
+						<select name="departmentId" lay-verify="required" lay-search="" lay-filter="department" id="editDepartment">
+							<option value="">院系</option>
+						</select>
+					</div>
+					<label class="layui-form-label">专业</label>
+					<div class="layui-input-inline addMa">
+						<select name="majorId" lay-verify="required" lay-search="" lay-filter="major" id="editMajor">
+							<option value="">专业</option>
+						</select>
+					</div>
+					<label class="layui-form-label">班级</label>
+					<div class="layui-input-inline addCla">
+						<select name="claId" lay-verify="required" lay-search="" id="editCla">
+							<option value="">班级</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<div class="layui-input-block">
+						<button class="layui-btn" lay-submit="" lay-filter="editArrCou">立即提交</button>
 					</div>
 				</div>
 			</form>
@@ -75,17 +237,9 @@
 		<div class="page-body">
 			<div class="layui-row">
 				<form class="layui-form" style="float: left;">
-					<div class="layui-inline">
-						<input type="text" name="id" placeholder="ID" autocomplete="off" class="layui-input" id="searchId">
-					</div>
-					<div class="layui-inline">
-						<input type="text" name="name" placeholder="姓名" autocomplete="off" class="layui-input" id="searchName">
-					</div>
-					<div class="layui-inline status">
-						<select name="level" lay-filter="status">
-							<option value="">状态</option>
-							<option value="0">有效</option>
-							<option value="1">失效</option>
+					<div class="layui-inline course">
+						<select name="level" lay-search="" lay-filter="course" id="searchCourse">
+							<option value="">课程</option>
 						</select>
 					</div>
 					<div class="layui-inline department">
@@ -93,12 +247,22 @@
 							<option value="">院系</option>
 						</select>
 					</div>
+					<div class="layui-inline major">
+						<select name="major" lay-search="" lay-filter="major" id="searchMajor">
+							<option value="">专业</option>
+						</select>
+					</div>
+					<div class="layui-inline cla">
+						<select name="cla" lay-search="" lay-filter="cla" id="searchCla">
+							<option value="">班级</option>
+						</select>
+					</div>
 				</form>
 				<button class="layui-btn" lay-submit="" lay-filter="searchBtn" style="float: left;margin-left: 10px">
 					<i class="layui-icon">&#xe615;</i>
 				</button>
 			</div>
-			<table class="layui-table" id="teaListAdm" lay-filter="teaAdm">
+			<table class="layui-table" id="arrCouListAdm" lay-filter="arrCouAdm">
 			</table>
 		</div>
 
@@ -110,43 +274,61 @@
 
 		<script type="text/javascript" src="/js/common/common.js" charset="utf-8"></script>
 
-		<script type="text/javascript" src="/js/teacher/teaAdm.js"  charset="utf-8"></script>
+		<script type="text/javascript" src="/js/course/arrCou.js" charset="utf-8"></script>
 
-		<script type="text/html" id="genderTpl">
-			{{#  if(d.gender == 0){ }}
-			男
-			{{#  } else if(d.gender == 1) { }}
-			女
+		<script type="text/html" id="methodTpl">
+			{{#  if(d.method == 0){ }}
+			每周
+			{{#  } else if(d.method == 1) { }}
+			单周
+			{{#  } else if(d.method == 2) { }}
+			双周
 			{{#  } }}
 		</script>
 
-		<script type="text/html" id="statusTpl">
-			{{#  if(d.status == 0){ }}
-			有效
-			{{#  } else if(d.status == 1) { }}
-			失效
+		<script type="text/html" id="nodeTpl">
+			{{#  if(d.node == 1){ }}
+			1~2节
+			{{#  } else if(d.node == 3) { }}
+			3~4节
+			{{#  } else if(d.node == 5) { }}
+			5~6节
+			{{#  } else if(d.node == 7) { }}
+			7~8节
+			{{#  } else if(d.node == 9) { }}
+			9~10节
 			{{#  } }}
 		</script>
 
-		<script type="text/html" id="barTeaMange">
+		<script type="text/html" id="weekTpl">
+			{{#  if(d.week == 1){ }}
+			星期一
+			{{#  } else if(d.week == 2) { }}
+			星期二
+			{{#  } else if(d.week == 3) { }}
+			星期三
+			{{#  } else if(d.week == 4) { }}
+			星期四
+			{{#  } else if(d.week == 5) { }}
+			星期五
+			{{#  } else if(d.week == 6) { }}
+			星期六
+			{{#  } else if(d.week == 0) { }}
+			星期天
+			{{#  } }}
+		</script>
+
+		<script type="text/html" id="barCouMange">
 			<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
 			<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-			{{#  if(d.status == 0){ }}
-			<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="stop">停用</a>
-			{{#  } else if(d.status == 1) { }}
-			<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="use">启用</a>
-			{{#  } }}
 		</script>
 
 		<script type="text/html" id="toolbar">
 			<div class="layui-btn-container">
-				<button class="layui-btn layui-btn-sm" onclick="javascript:window.location.href='/admin/teacher/template/download'" style="float: left">导入模板下载</button>
-				<form class="layui-form" id="addTeasForm" enctype="multipart/form-data" style="float: left">
-					<input type="file" name="file" id="addTeas" style="display: none" />
-					<button type="button" class="layui-btn layui-btn-sm" id="addTeasBtn">批量导入</button>
-				</form>
+				<button class="layui-btn layui-btn-sm" lay-event="add">添加</button>
 				<button class="layui-btn layui-btn-sm" lay-event="delMult">批量删除</button>
 			</div>
 		</script>
+
 	</body>
 </html>

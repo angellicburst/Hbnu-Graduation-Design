@@ -20,4 +20,6 @@ public interface TeacherService {
 	PackData delTeacher(List<Teacher> teachers);
 
 	PackData updateTeacher(Teacher teacher);
+
+	PackData getAllTeachers();
 }
