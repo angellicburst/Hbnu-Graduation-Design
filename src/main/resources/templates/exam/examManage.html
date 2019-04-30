@@ -8,132 +8,132 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
 		<link rel="stylesheet" href="/css/common/common.css" />
 		<link rel="stylesheet" href="/css/font/font.css">
-		<link rel="stylesheet" href="/css/menu/menu.css">
+
 	</head>
 
 	<body>
-		<!-- 添加菜单弹出层 -->
-		<div style="display: none" disabled="true" id="addFrame">
-			<form class="layui-form" action="" lay-filter="menuFilter" id="addForm" enctype="multipart/form-data">
-				<div class="layui-form-item">
-					<label class="layui-form-label">菜单名称</label>
-					<div class="layui-input-inline">
-						<input type="text" name="menuName" lay-verify="required" autocomplete="off" placeholder="请输入菜单名称" class="layui-input">
-					</div>
-				</div>
-				<div class="layui-form-item">
-					<label class="layui-form-label">URL</label>
-					<div class="layui-input-inline">
-						<input type="text" name="url" autocomplete="off" placeholder="请输入URL" class="layui-input">
-					</div>
-				</div>
+		<!-- 添加弹出层 -->
+<!--		<div style="display: none" disabled="true" id="addFrame">-->
+<!--			<form class="layui-form" action="" lay-filter="menuFilter" id="addForm" enctype="multipart/form-data">-->
+<!--				<div class="layui-form-item">-->
+<!--					<label class="layui-form-label">菜单名称</label>-->
+<!--					<div class="layui-input-inline">-->
+<!--						<input type="text" name="menuName" lay-verify="required" autocomplete="off" placeholder="请输入菜单名称" class="layui-input">-->
+<!--					</div>-->
+<!--				</div>-->
+<!--				<div class="layui-form-item">-->
+<!--					<label class="layui-form-label">URL</label>-->
+<!--					<div class="layui-input-inline">-->
+<!--						<input type="text" name="url" autocomplete="off" placeholder="请输入URL" class="layui-input">-->
+<!--					</div>-->
+<!--				</div>-->
 
-				<div class="layui-form-item">
-					<label class="layui-form-label">菜单等级</label>
-					<div class="layui-input-inline addMenuLevel">
-						<select name="level" lay-verify="required"  lay-filter="addLevel">
-							<option value=""></option>
-							<option value="1">1</option>
-							<option value="2">2</option>
-						</select>
-					</div>
-				</div>
+<!--				<div class="layui-form-item">-->
+<!--					<label class="layui-form-label">菜单等级</label>-->
+<!--					<div class="layui-input-inline addMenuLevel">-->
+<!--						<select name="level" lay-verify="required"  lay-filter="addLevel">-->
+<!--							<option value=""></option>-->
+<!--							<option value="1">1</option>-->
+<!--							<option value="2">2</option>-->
+<!--						</select>-->
+<!--					</div>-->
+<!--				</div>-->
 
-				<div class="layui-form-item">
-					<label class="layui-form-label">菜单图片</label>
-					<div class="layui-input-inline">
-						<button type="button" class="layui-btn layui-btn-danger" id="addMenuImgBtn"><i class="layui-icon"></i>上传图片</button>
-						<input type="text" name="img" autocomplete="off" class="layui-input" id="addMenuFileName" disabled="disabled" />
-						<input type="file" name="imgFile" id="addMenuImg" style="display: none"/>
-					</div>
-				</div>
+<!--				<div class="layui-form-item">-->
+<!--					<label class="layui-form-label">菜单图片</label>-->
+<!--					<div class="layui-input-inline">-->
+<!--						<button type="button" class="layui-btn layui-btn-danger" id="addMenuImgBtn"><i class="layui-icon"></i>上传图片</button>-->
+<!--						<input type="text" name="img" autocomplete="off" class="layui-input" id="addMenuFileName" disabled="disabled" />-->
+<!--						<input type="file" name="imgFile" id="addMenuImg" style="display: none"/>-->
+<!--					</div>-->
+<!--				</div>-->
 
-				<div class="layui-form-item">
-					<label class="layui-form-label">父节点</label>
-					<div class="layui-input-inline">
-						<input type="number" name="parentId" autocomplete="off" placeholder="请输入父节点" class="layui-input" id="addParentId">
-					</div>
-				</div>
+<!--				<div class="layui-form-item">-->
+<!--					<label class="layui-form-label">父节点</label>-->
+<!--					<div class="layui-input-inline">-->
+<!--						<input type="number" name="parentId" autocomplete="off" placeholder="请输入父节点" class="layui-input" id="addParentId">-->
+<!--					</div>-->
+<!--				</div>-->
 
-				<div class="layui-form-item">
-					<label class="layui-form-label">访问角色</label>
-					<div class="layui-input-inline">
-						<select class="selectRoles" name="roleId" lay-verify="required">
-						</select>
-					</div>
-				</div>
+<!--				<div class="layui-form-item">-->
+<!--					<label class="layui-form-label">访问角色</label>-->
+<!--					<div class="layui-input-inline">-->
+<!--						<select class="selectRoles" name="roleId" lay-verify="required">-->
+<!--						</select>-->
+<!--					</div>-->
+<!--				</div>-->
 
-				<div class="layui-form-item">
-					<div class="layui-input-block">
-						<button class="layui-btn" lay-submit="" lay-filter="addMenu">立即提交</button>
-					</div>
-				</div>
-			</form>
-		</div>
+<!--				<div class="layui-form-item">-->
+<!--					<div class="layui-input-block">-->
+<!--						<button class="layui-btn" lay-submit="" lay-filter="addMenu">立即提交</button>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--			</form>-->
+<!--		</div>-->
 
 		<!-- 修改菜单弹出层 -->
-		<div style="display: none" disabled="true" id="editFrame">
-			<form class="layui-form" action="" lay-filter="menuFilter" id="editForm" enctype="multipart/form-data">
-				<input type="hidden" name="id" id="saveId" />
-				<input type="hidden" name="img" id="saveImg" />
-				<input type="hidden" name="level" id="saveLevel" />
-				<input type="hidden" name="roleId" id="saveRole" />
+<!--		<div style="display: none" disabled="true" id="editFrame">-->
+<!--			<form class="layui-form" action="" lay-filter="menuFilter" id="editForm" enctype="multipart/form-data">-->
+<!--				<input type="hidden" name="id" id="saveId" />-->
+<!--				<input type="hidden" name="img" id="saveImg" />-->
+<!--				<input type="hidden" name="level" id="saveLevel" />-->
+<!--				<input type="hidden" name="roleId" id="saveRole" />-->
 
-				<div class="layui-form-item">
-					<label class="layui-form-label">菜单名称</label>
-					<div class="layui-input-inline">
-						<input type="text" name="menuName" lay-verify="required" autocomplete="off" placeholder="请输入菜单名称" class="layui-input">
-					</div>
-				</div>
-				<div class="layui-form-item">
-					<label class="layui-form-label">URL</label>
-					<div class="layui-input-inline">
-						<input type="text" name="url" autocomplete="off" placeholder="请输入URL" class="layui-input">
-					</div>
-				</div>
+<!--				<div class="layui-form-item">-->
+<!--					<label class="layui-form-label">菜单名称</label>-->
+<!--					<div class="layui-input-inline">-->
+<!--						<input type="text" name="menuName" lay-verify="required" autocomplete="off" placeholder="请输入菜单名称" class="layui-input">-->
+<!--					</div>-->
+<!--				</div>-->
+<!--				<div class="layui-form-item">-->
+<!--					<label class="layui-form-label">URL</label>-->
+<!--					<div class="layui-input-inline">-->
+<!--						<input type="text" name="url" autocomplete="off" placeholder="请输入URL" class="layui-input">-->
+<!--					</div>-->
+<!--				</div>-->
 
-				<div class="layui-form-item">
-					<label class="layui-form-label">菜单等级</label>
-					<div class="layui-input-inline editMenuLevel">
-						<select name="level" lay-verify="required"  lay-filter="editLevel" disabled="true">
-							<option value=""></option>
-							<option value="1">1</option>
-							<option value="2">2</option>
-						</select>
-					</div>
-				</div>
+<!--				<div class="layui-form-item">-->
+<!--					<label class="layui-form-label">菜单等级</label>-->
+<!--					<div class="layui-input-inline editMenuLevel">-->
+<!--						<select name="level" lay-verify="required"  lay-filter="editLevel" disabled="true">-->
+<!--							<option value=""></option>-->
+<!--							<option value="1">1</option>-->
+<!--							<option value="2">2</option>-->
+<!--						</select>-->
+<!--					</div>-->
+<!--				</div>-->
 
-				<div class="layui-form-item">
-					<label class="layui-form-label">菜单图片</label>
-					<div class="layui-input-inline">
-						<button type="button" class="layui-btn layui-btn-danger" id="editMenuImgBtn"><i class="layui-icon"></i>上传图片</button>
-						<input type="text" name="img" autocomplete="off" class="layui-input" id="editMenuFileName" disabled="disabled" />
-						<input type="file" name="imgFile" id="editMenuImg" style="display: none"/>
-					</div>
-				</div>
+<!--				<div class="layui-form-item">-->
+<!--					<label class="layui-form-label">菜单图片</label>-->
+<!--					<div class="layui-input-inline">-->
+<!--						<button type="button" class="layui-btn layui-btn-danger" id="editMenuImgBtn"><i class="layui-icon"></i>上传图片</button>-->
+<!--						<input type="text" name="img" autocomplete="off" class="layui-input" id="editMenuFileName" disabled="disabled" />-->
+<!--						<input type="file" name="imgFile" id="editMenuImg" style="display: none"/>-->
+<!--					</div>-->
+<!--				</div>-->
 
-				<div class="layui-form-item">
-					<label class="layui-form-label">父节点</label>
-					<div class="layui-input-inline">
-						<input type="number" name="parentId" autocomplete="off" placeholder="请输入父节点" class="layui-input" id="editParentId">
-					</div>
-				</div>
+<!--				<div class="layui-form-item">-->
+<!--					<label class="layui-form-label">父节点</label>-->
+<!--					<div class="layui-input-inline">-->
+<!--						<input type="number" name="parentId" autocomplete="off" placeholder="请输入父节点" class="layui-input" id="editParentId">-->
+<!--					</div>-->
+<!--				</div>-->
 
-				<div class="layui-form-item">
-					<label class="layui-form-label">访问角色</label>
-					<div class="layui-input-inline">
-						<select class="selectRoles" name="roleId" lay-verify="required" disabled="true">
-						</select>
-					</div>
-				</div>
+<!--				<div class="layui-form-item">-->
+<!--					<label class="layui-form-label">访问角色</label>-->
+<!--					<div class="layui-input-inline">-->
+<!--						<select class="selectRoles" name="roleId" lay-verify="required" disabled="true">-->
+<!--						</select>-->
+<!--					</div>-->
+<!--				</div>-->
 
-				<div class="layui-form-item">
-					<div class="layui-input-block">
-						<button class="layui-btn" lay-submit="" lay-filter="editMenu">立即提交</button>
-					</div>
-				</div>
-			</form>
-		</div>
+<!--				<div class="layui-form-item">-->
+<!--					<div class="layui-input-block">-->
+<!--						<button class="layui-btn" lay-submit="" lay-filter="editMenu">立即提交</button>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--			</form>-->
+<!--		</div>-->
 
 
 		<div class="page-nav">
@@ -143,7 +143,27 @@
 			<a class="layui-btn layui-btn-sm" style="line-height:1.6em;margin-top:5px;float:right" href="javascript:location.replace(location.href);" title="刷新"><i class="layui-icon" style="line-height:30px">&#xe669;</i></a>
 		</div>
 		<div class="page-body" style="width: auto">
-			<table class="layui-table" id="menuList" lay-filter="menu">
+			<div class="layui-row">
+				<form class="layui-form" style="float: left;">
+					<div class="layui-inline">
+						<input type="text" name="examName" placeholder="考试名称" autocomplete="off" class="layui-input" id="searchExamName">
+					</div>
+					<div class="layui-inline course">
+						<select name="level" lay-search="" lay-filter="course" id="searchCourse">
+							<option value="">课程</option>
+						</select>
+					</div>
+					<div class="layui-inline teacher">
+						<select name="teacher" lay-search="" lay-filter="teacher" id="searchTeacher">
+							<option value="">教师</option>
+						</select>
+					</div>
+				</form>
+				<button class="layui-btn" lay-submit="" lay-filter="searchBtn" style="float: left;margin-left: 10px">
+					<i class="layui-icon">&#xe615;</i>
+				</button>
+			</div>
+			<table class="layui-table" id="examListAdm" lay-filter="exam">
 			</table>
 		</div>
 
@@ -155,20 +175,11 @@
 
 		<script type="text/javascript" src="/js/common/common.js" charset="utf-8"></script>
 
-		<script type="text/javascript" src="/js/menu/menu.js" charset="utf-8"></script>
-		<script type="text/javascript" src="/js/menu/addMenu.js" charset="utf-8"></script>
-		<script type="text/javascript" src="/js/menu/editMenu.js" charset="utf-8"></script>
-		<script type="text/html" id="roleTpl">
-			{{#  if(d.roleId == 1){ }}
-			admin
-			{{#  } else if(d.roleId == 2) { }}
-			teacher
-			{{#  } else{ }}
-			student
-			{{#  }  }}
-		</script>
+		<script type="text/javascript" src="/js/exam/examAdm.js" charset="utf-8"></script>
 
-		<script type="text/html" id="barMenuMange">
+
+
+		<script type="text/html" id="barExamMange">
 			<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
 			<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 		</script>

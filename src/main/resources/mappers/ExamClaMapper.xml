@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hbnu.gradesign.dao.ExamClaMapper">
+  <resultMap id="BaseResultMap" type="com.hbnu.gradesign.entity.ExamCla">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="exam_id" jdbcType="INTEGER" property="examId" />
+    <result column="department_id" jdbcType="INTEGER" property="departmentId" />
+    <result column="major_id" jdbcType="INTEGER" property="majorId" />
+    <result column="cla_id" jdbcType="INTEGER" property="claId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from exam_cla
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hbnu.gradesign.entity.ExamCla">
+    insert into exam_cla (id, exam_id, department_id, 
+      major_id, cla_id)
+    values (#{id,jdbcType=INTEGER}, #{examId,jdbcType=INTEGER}, #{departmentId,jdbcType=INTEGER}, 
+      #{majorId,jdbcType=INTEGER}, #{claId,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.hbnu.gradesign.entity.ExamCla">
+    update exam_cla
+    set exam_id = #{examId,jdbcType=INTEGER},
+      department_id = #{departmentId,jdbcType=INTEGER},
+      major_id = #{majorId,jdbcType=INTEGER},
+      cla_id = #{claId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, exam_id, department_id, major_id, cla_id
+    from exam_cla
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, exam_id, department_id, major_id, cla_id
+    from exam_cla
+  </select>
+</mapper>

@@ -12,7 +12,7 @@ public interface StudentMapper {
 
     Integer addStudent(StudentExcel students);
 
-    List<StudentDto> getStudentsAdm(Student student);
+    List<StudentDto> getStudentsAdm(StudentDto studentDto);
 
     Integer deleteStudent(String id);
 

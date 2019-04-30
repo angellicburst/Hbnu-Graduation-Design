@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hbnu.gradesign.dao.ExamMapper">
+  <resultMap id="BaseResultMap" type="com.hbnu.gradesign.entity.Exam">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="exam_name" jdbcType="VARCHAR" property="examName" />
+    <result column="info" jdbcType="VARCHAR" property="info" />
+    <result column="total" jdbcType="INTEGER" property="total" />
+    <result column="course_id" jdbcType="INTEGER" property="courseId" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="start_time" jdbcType="TIME" property="startTime" />
+    <result column="end_time" jdbcType="TIME" property="endTime" />
+    <result column="teacher_id" jdbcType="VARCHAR" property="teacherId" />
+    <result column="create_date" jdbcType="DATE" property="createDate" />
+  </resultMap>
+
+  <resultMap id="ExamIncCouTea" type="com.hbnu.gradesign.entity.dto.ExamDto">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="exam_name" jdbcType="VARCHAR" property="examName" />
+    <result column="info" jdbcType="VARCHAR" property="info" />
+    <result column="total" jdbcType="INTEGER" property="total" />
+    <result column="course" jdbcType="VARCHAR" property="course" />
+    <result column="course_id" jdbcType="INTEGER" property="courseId" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="start_time" jdbcType="TIME" property="startTime" />
+    <result column="end_time" jdbcType="TIME" property="endTime" />
+    <result column="teacher" jdbcType="VARCHAR" property="teacher" />
+    <result column="teacher_id" jdbcType="VARCHAR" property="teacherId" />
+    <result column="create_date" jdbcType="DATE" property="createDate" />
+  </resultMap>
+<!--  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">-->
+<!--    delete from exam-->
+<!--    where id = #{id,jdbcType=INTEGER}-->
+<!--  </delete>-->
+<!--  <insert id="insert" parameterType="com.hbnu.gradesign.entity.Exam">-->
+<!--    insert into exam (id, exam_name, info, -->
+<!--      total, course_id, address, -->
+<!--      start_time, end_time, teacher_id, -->
+<!--      create_date)-->
+<!--    values (#{id,jdbcType=INTEGER}, #{examName,jdbcType=VARCHAR}, #{info,jdbcType=VARCHAR}, -->
+<!--      #{total,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, -->
+<!--      #{startTime,jdbcType=TIME}, #{endTime,jdbcType=TIME}, #{teacherId,jdbcType=VARCHAR}, -->
+<!--      #{createDate,jdbcType=DATE})-->
+<!--  </insert>-->
+<!--  <update id="updateByPrimaryKey" parameterType="com.hbnu.gradesign.entity.Exam">-->
+<!--    update exam-->
+<!--    set exam_name = #{examName,jdbcType=VARCHAR},-->
+<!--      info = #{info,jdbcType=VARCHAR},-->
+<!--      total = #{total,jdbcType=INTEGER},-->
+<!--      course_id = #{courseId,jdbcType=INTEGER},-->
+<!--      address = #{address,jdbcType=VARCHAR},-->
+<!--      start_time = #{startTime,jdbcType=TIME},-->
+<!--      end_time = #{endTime,jdbcType=TIME},-->
+<!--      teacher_id = #{teacherId,jdbcType=VARCHAR},-->
+<!--      create_date = #{createDate,jdbcType=DATE}-->
+<!--    where id = #{id,jdbcType=INTEGER}-->
+<!--  </update>-->
+<!--  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">-->
+<!--    select id, exam_name, info, total, course_id, address, start_time, end_time, teacher_id, -->
+<!--    create_date-->
+<!--    from exam-->
+<!--    where id = #{id,jdbcType=INTEGER}-->
+<!--  </select>-->
+  <select id="getExams" parameterType="com.hbnu.gradesign.entity.dto.ExamDto" resultMap="ExamIncCouTea">
+    SELECT
+        t1.id,
+        t1.exam_name,
+        t1.info,
+        t1.total,
+        t2.course,
+        t1.course_id,
+        t1.address,
+        t1.start_time,
+        t1.end_time,
+        t3.NAME AS teacher,
+        t1.teacher_id,
+        t1.create_date
+    FROM
+        exam t1
+        LEFT JOIN course t2 ON ( t1.course_id = t2.id )
+        LEFT JOIN teacher t3 ON ( t1.teacher_id = t3.id )
+    <where>
+      <if test="examName != null and examName != ''">
+        <bind name="pattern" value="examName + '%'" ></bind>
+        t1.exam_name LIKE #{pattern}
+      </if>
+      <if test="courseId != null and courseId != ''">
+        t1.course_id = #{courseId}
+      </if>
+      <if test="teacherId != null and teacherId != ''">
+        t1.teacher_id = #{teacherId}
+      </if>
+    </where>
+  </select>
+</mapper>
