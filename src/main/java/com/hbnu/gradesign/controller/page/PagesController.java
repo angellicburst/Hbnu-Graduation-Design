@@ -25,6 +25,15 @@ public class PagesController {
 	}
 
 	/**
+	 * 跳转欢迎页
+	 * @return
+	 */
+	@RequestMapping(value = "/welcome")
+	public String welcome() {
+		return "welcome";
+	}
+
+	/**
 	 * admin
 	 * 跳转菜单管理页面
 	 * @return

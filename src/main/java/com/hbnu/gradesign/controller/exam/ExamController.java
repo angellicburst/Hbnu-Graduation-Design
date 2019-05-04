@@ -2,14 +2,15 @@ package com.hbnu.gradesign.controller.exam;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.hbnu.gradesign.entity.Exam;
 import com.hbnu.gradesign.entity.dto.ExamDto;
 import com.hbnu.gradesign.entity.pojo.PackData;
 import com.hbnu.gradesign.service.ExamService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class ExamController {
@@ -35,6 +36,48 @@ public class ExamController {
 		packData.setCount((int) pageInfo.getTotal());
 
 		return packData;
+	}
+
+	/**
+	 * 添加考试
+	 * @param examDto
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/addExam",method = RequestMethod.POST)
+	public PackData addExam(ExamDto examDto) {
+		return es.addExam(examDto);
+	}
+
+	/**
+	 * 删除考试
+	 * @param exams
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/delExams",method = RequestMethod.POST)
+	public PackData delExams(@RequestBody List<Exam> exams) {
+		return es.delExam(exams);
+	}
+
+	/**
+	 * 删除考试
+	 * @param exam
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/delExam",method = RequestMethod.POST)
+	public PackData delExam(@RequestBody Exam exam) {
+		List<Exam> exams = new ArrayList<>();
+		exams.add(exam);
+		return es.delExam(exams);
+	}
+
+	/**
+	 * 更新考试
+	 * @param examDto
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/editExam",method = RequestMethod.POST)
+	public PackData editExam(ExamDto examDto) {
+		return es.editExam(examDto);
 	}
 
 }

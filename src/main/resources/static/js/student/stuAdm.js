@@ -292,7 +292,7 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 			let maId = data.majorId;
 			let claId = data.claId;
 
-			//id存入隐藏域
+			//存入隐藏域
 			$("#saveStuId").val(data.id);
 			$("#saveStuStatus").val(data.status);
 			$("#saveStuUserId").val(data.userId);

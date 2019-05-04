@@ -8,31 +8,53 @@
     <result column="major_id" jdbcType="INTEGER" property="majorId" />
     <result column="cla_id" jdbcType="INTEGER" property="claId" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from exam_cla
-    where id = #{id,jdbcType=INTEGER}
+
+  <resultMap id="ExamClaIncDepMaCla" type="com.hbnu.gradesign.entity.dto.ExamClaDto">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="exam" jdbcType="VARCHAR" property="exam" />
+    <result column="exam_id" jdbcType="INTEGER" property="examId" />
+    <result column="department" jdbcType="VARCHAR" property="department" />
+    <result column="department_id" jdbcType="INTEGER" property="departmentId" />
+    <result column="major" jdbcType="VARCHAR" property="major" />
+    <result column="major_id" jdbcType="INTEGER" property="majorId" />
+    <result column="cla" jdbcType="VARCHAR" property="cla" />
+    <result column="cla_id" jdbcType="INTEGER" property="claId" />
+  </resultMap>
+
+  <delete id="deleteExamCla" parameterType="java.lang.Integer">
+    DELETE
+    FROM
+        exam_cla
+    WHERE
+        id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.hbnu.gradesign.entity.ExamCla">
-    insert into exam_cla (id, exam_id, department_id, 
-      major_id, cla_id)
-    values (#{id,jdbcType=INTEGER}, #{examId,jdbcType=INTEGER}, #{departmentId,jdbcType=INTEGER}, 
-      #{majorId,jdbcType=INTEGER}, #{claId,jdbcType=INTEGER})
+  <insert id="addExamCla" parameterType="com.hbnu.gradesign.entity.ExamCla">
+    INSERT INTO exam_cla
+        ( exam_id, department_id, major_id, cla_id )
+    VALUES
+        (
+        #{examId,jdbcType=INTEGER}, #{departmentId,jdbcType=INTEGER},
+        #{majorId,jdbcType=INTEGER}, #{claId,jdbcType=INTEGER}
+        )
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.hbnu.gradesign.entity.ExamCla">
-    update exam_cla
-    set exam_id = #{examId,jdbcType=INTEGER},
-      department_id = #{departmentId,jdbcType=INTEGER},
-      major_id = #{majorId,jdbcType=INTEGER},
-      cla_id = #{claId,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select id, exam_id, department_id, major_id, cla_id
-    from exam_cla
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select id, exam_id, department_id, major_id, cla_id
-    from exam_cla
+  <select id="getExamClas" parameterType="java.lang.Integer" resultMap="ExamClaIncDepMaCla">
+    SELECT
+        t1.id,
+        t2.exam_name AS exam,
+        t1.exam_id,
+        t3.department,
+        t1.department_id,
+        t4.major,
+        t1.major_id,
+        t5.cla,
+        t1.cla_id
+    FROM
+        exam_cla t1
+        LEFT JOIN exam t2 ON ( t1.exam_id = t2.id )
+        LEFT JOIN department t3 ON ( t1.department_id = t3.id )
+        LEFT JOIN major t4 ON ( t1.major_id = t4.id )
+        LEFT JOIN cla t5 ON ( t1.cla_id = t5.id )
+    WHERE
+        t1.exam_id = #{examId,jdbcType=INTEGER}
   </select>
 </mapper>

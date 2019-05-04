@@ -1,0 +1,15 @@
+.layui-textarea {
+    width: 450px;
+}
+.layui-form .layui-form-item {
+    padding-top: 20px;
+}
+
+#addClaFrame {
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.addCla .layui-form-select .layui-input {
+    width: 130px;
+}

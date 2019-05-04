@@ -11,4 +11,6 @@ public class ExamDto extends Exam {
 	private String course;
 
 	private String teacher;
+
+	private String timeScope;
 }

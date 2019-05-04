@@ -54,14 +54,14 @@ public class Exam implements Serializable {
      * 开始时间
      * start_time
      */
-    @JSONField(format = "hh:MM:ss")
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date startTime;
 
     /**
      * 结束时间
      * end_time
      */
-    @JSONField(format = "hh:MM:ss")
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date endTime;
 
     /**

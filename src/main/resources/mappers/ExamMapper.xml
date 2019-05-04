@@ -8,8 +8,8 @@
     <result column="total" jdbcType="INTEGER" property="total" />
     <result column="course_id" jdbcType="INTEGER" property="courseId" />
     <result column="address" jdbcType="VARCHAR" property="address" />
-    <result column="start_time" jdbcType="TIME" property="startTime" />
-    <result column="end_time" jdbcType="TIME" property="endTime" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
     <result column="teacher_id" jdbcType="VARCHAR" property="teacherId" />
     <result column="create_date" jdbcType="DATE" property="createDate" />
   </resultMap>
@@ -22,45 +22,47 @@
     <result column="course" jdbcType="VARCHAR" property="course" />
     <result column="course_id" jdbcType="INTEGER" property="courseId" />
     <result column="address" jdbcType="VARCHAR" property="address" />
-    <result column="start_time" jdbcType="TIME" property="startTime" />
-    <result column="end_time" jdbcType="TIME" property="endTime" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
     <result column="teacher" jdbcType="VARCHAR" property="teacher" />
     <result column="teacher_id" jdbcType="VARCHAR" property="teacherId" />
     <result column="create_date" jdbcType="DATE" property="createDate" />
   </resultMap>
-<!--  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">-->
-<!--    delete from exam-->
-<!--    where id = #{id,jdbcType=INTEGER}-->
-<!--  </delete>-->
-<!--  <insert id="insert" parameterType="com.hbnu.gradesign.entity.Exam">-->
-<!--    insert into exam (id, exam_name, info, -->
-<!--      total, course_id, address, -->
-<!--      start_time, end_time, teacher_id, -->
-<!--      create_date)-->
-<!--    values (#{id,jdbcType=INTEGER}, #{examName,jdbcType=VARCHAR}, #{info,jdbcType=VARCHAR}, -->
-<!--      #{total,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, -->
-<!--      #{startTime,jdbcType=TIME}, #{endTime,jdbcType=TIME}, #{teacherId,jdbcType=VARCHAR}, -->
-<!--      #{createDate,jdbcType=DATE})-->
-<!--  </insert>-->
-<!--  <update id="updateByPrimaryKey" parameterType="com.hbnu.gradesign.entity.Exam">-->
-<!--    update exam-->
-<!--    set exam_name = #{examName,jdbcType=VARCHAR},-->
-<!--      info = #{info,jdbcType=VARCHAR},-->
-<!--      total = #{total,jdbcType=INTEGER},-->
-<!--      course_id = #{courseId,jdbcType=INTEGER},-->
-<!--      address = #{address,jdbcType=VARCHAR},-->
-<!--      start_time = #{startTime,jdbcType=TIME},-->
-<!--      end_time = #{endTime,jdbcType=TIME},-->
-<!--      teacher_id = #{teacherId,jdbcType=VARCHAR},-->
-<!--      create_date = #{createDate,jdbcType=DATE}-->
-<!--    where id = #{id,jdbcType=INTEGER}-->
-<!--  </update>-->
-<!--  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">-->
-<!--    select id, exam_name, info, total, course_id, address, start_time, end_time, teacher_id, -->
-<!--    create_date-->
-<!--    from exam-->
-<!--    where id = #{id,jdbcType=INTEGER}-->
-<!--  </select>-->
+
+  <insert id="addExam" parameterType="com.hbnu.gradesign.entity.dto.ExamDto">
+    INSERT INTO exam ( exam_name, info, total, course_id, address, start_time, end_time, teacher_id, create_date )
+    VALUES
+    (
+        #{examName,jdbcType=VARCHAR}, #{info,jdbcType=VARCHAR},#{total,jdbcType=INTEGER},
+        #{courseId,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP},
+        #{endTime,jdbcType=TIMESTAMP}, #{teacherId,jdbcType=VARCHAR}, #{createDate,jdbcType=DATE}
+    )
+  </insert>
+  <delete id="deleteExam" parameterType="java.lang.Integer">
+    DELETE
+    FROM
+        exam
+    WHERE
+      id IN
+      <foreach collection="ids" item="id" open="(" separator="," close=")">
+          #{id,jdbcType=INTEGER}
+      </foreach>
+  </delete>
+  <update id="updateExam" parameterType="com.hbnu.gradesign.entity.dto.ExamDto">
+    UPDATE exam
+    SET
+        exam_name = #{examName,jdbcType=VARCHAR},
+        info = #{info,jdbcType=VARCHAR},
+        total = #{total,jdbcType=INTEGER},
+        course_id = #{courseId,jdbcType=INTEGER},
+        address = #{address,jdbcType=VARCHAR},
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+        teacher_id = #{teacherId,jdbcType=VARCHAR},
+        create_date = #{createDate,jdbcType=DATE}
+    WHERE
+        id = #{id,jdbcType=INTEGER}
+  </update>
   <select id="getExams" parameterType="com.hbnu.gradesign.entity.dto.ExamDto" resultMap="ExamIncCouTea">
     SELECT
         t1.id,

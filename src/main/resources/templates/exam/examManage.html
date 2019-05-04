@@ -8,132 +8,160 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
 		<link rel="stylesheet" href="/css/common/common.css" />
 		<link rel="stylesheet" href="/css/font/font.css">
-
+		<link rel="stylesheet" href="/css/exam/exam.css">
 	</head>
 
 	<body>
 		<!-- 添加弹出层 -->
-<!--		<div style="display: none" disabled="true" id="addFrame">-->
-<!--			<form class="layui-form" action="" lay-filter="menuFilter" id="addForm" enctype="multipart/form-data">-->
-<!--				<div class="layui-form-item">-->
-<!--					<label class="layui-form-label">菜单名称</label>-->
-<!--					<div class="layui-input-inline">-->
-<!--						<input type="text" name="menuName" lay-verify="required" autocomplete="off" placeholder="请输入菜单名称" class="layui-input">-->
-<!--					</div>-->
-<!--				</div>-->
-<!--				<div class="layui-form-item">-->
-<!--					<label class="layui-form-label">URL</label>-->
-<!--					<div class="layui-input-inline">-->
-<!--						<input type="text" name="url" autocomplete="off" placeholder="请输入URL" class="layui-input">-->
-<!--					</div>-->
-<!--				</div>-->
+		<div style="display: none" disabled="true" id="addFrame">
+			<form class="layui-form" action="" lay-filter="menuFilter" id="addForm">
+				<div class="layui-form-item">
+					<label class="layui-form-label">考试名称</label>
+					<div class="layui-input-inline">
+						<input type="text" name="examName" lay-verify="required" autocomplete="off" placeholder="请输入考试名称" class="layui-input">
+					</div>
+				</div>
 
-<!--				<div class="layui-form-item">-->
-<!--					<label class="layui-form-label">菜单等级</label>-->
-<!--					<div class="layui-input-inline addMenuLevel">-->
-<!--						<select name="level" lay-verify="required"  lay-filter="addLevel">-->
-<!--							<option value=""></option>-->
-<!--							<option value="1">1</option>-->
-<!--							<option value="2">2</option>-->
-<!--						</select>-->
-<!--					</div>-->
-<!--				</div>-->
+				<div class="layui-form-item">
+					<label class="layui-form-label">考试描述</label>
+					<div class="layui-input-block">
+						<textarea placeholder="请输入内容" class="layui-textarea" autocomplete="off" name="info"></textarea>
+					</div>
+				</div>
 
-<!--				<div class="layui-form-item">-->
-<!--					<label class="layui-form-label">菜单图片</label>-->
-<!--					<div class="layui-input-inline">-->
-<!--						<button type="button" class="layui-btn layui-btn-danger" id="addMenuImgBtn"><i class="layui-icon"></i>上传图片</button>-->
-<!--						<input type="text" name="img" autocomplete="off" class="layui-input" id="addMenuFileName" disabled="disabled" />-->
-<!--						<input type="file" name="imgFile" id="addMenuImg" style="display: none"/>-->
-<!--					</div>-->
-<!--				</div>-->
+				<div class="layui-form-item">
+					<label class="layui-form-label">课程</label>
+					<div class="layui-input-inline">
+						<select class="selectCourse" name="courseId" lay-search="" lay-verify="required" id="addCourse">
+							<option value="">课程</option>
+						</select>
+					</div>
+					<label class="layui-form-label">考试总分</label>
+					<div class="layui-input-inline">
+						<input type="number" name="total" lay-verify="required" autocomplete="off" placeholder="请输入考试总分" class="layui-input">
+					</div>
+				</div>
 
-<!--				<div class="layui-form-item">-->
-<!--					<label class="layui-form-label">父节点</label>-->
-<!--					<div class="layui-input-inline">-->
-<!--						<input type="number" name="parentId" autocomplete="off" placeholder="请输入父节点" class="layui-input" id="addParentId">-->
-<!--					</div>-->
-<!--				</div>-->
+				<div class="layui-form-item">
+					<label class="layui-form-label">考试地点</label>
+					<div class="layui-input-inline">
+						<input type="text" name="address" lay-verify="required" autocomplete="off" placeholder="请输入考试地点" class="layui-input">
+					</div>
+					<label class="layui-form-label">时间范围</label>
+					<div class="layui-input-inline">
+						<input type="text" class="layui-input" name="timeScope" autocomplete="off" id="addTimeScope" placeholder="请输入时间范围">
+					</div>
+				</div>
 
-<!--				<div class="layui-form-item">-->
-<!--					<label class="layui-form-label">访问角色</label>-->
-<!--					<div class="layui-input-inline">-->
-<!--						<select class="selectRoles" name="roleId" lay-verify="required">-->
-<!--						</select>-->
-<!--					</div>-->
-<!--				</div>-->
+				<div class="layui-form-item">
+					<label class="layui-form-label">教师</label>
+					<div class="layui-input-inline">
+						<select class="selectTeacher" name="teacherId" lay-search="" lay-verify="required" id="addTeacher">
+							<option value="">教师</option>
+						</select>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-input-block">
+						<button class="layui-btn" lay-submit="" lay-filter="addExam">立即提交</button>
+					</div>
+				</div>
+			</form>
+		</div>
 
-<!--				<div class="layui-form-item">-->
-<!--					<div class="layui-input-block">-->
-<!--						<button class="layui-btn" lay-submit="" lay-filter="addMenu">立即提交</button>-->
-<!--					</div>-->
-<!--				</div>-->
-<!--			</form>-->
-<!--		</div>-->
+		<!-- 修改弹出层 -->
+		<div style="display: none" disabled="true" id="editFrame">
+			<form class="layui-form" action="" lay-filter="examFilter" id="editForm" >
+				<input type="hidden" name="id" id="saveExamId" />
 
-		<!-- 修改菜单弹出层 -->
-<!--		<div style="display: none" disabled="true" id="editFrame">-->
-<!--			<form class="layui-form" action="" lay-filter="menuFilter" id="editForm" enctype="multipart/form-data">-->
-<!--				<input type="hidden" name="id" id="saveId" />-->
-<!--				<input type="hidden" name="img" id="saveImg" />-->
-<!--				<input type="hidden" name="level" id="saveLevel" />-->
-<!--				<input type="hidden" name="roleId" id="saveRole" />-->
+				<div class="layui-form-item">
+					<label class="layui-form-label">考试名称</label>
+					<div class="layui-input-inline">
+						<input type="text" name="examName" lay-verify="required" autocomplete="off" placeholder="请输入考试名称" class="layui-input">
+					</div>
+				</div>
 
-<!--				<div class="layui-form-item">-->
-<!--					<label class="layui-form-label">菜单名称</label>-->
-<!--					<div class="layui-input-inline">-->
-<!--						<input type="text" name="menuName" lay-verify="required" autocomplete="off" placeholder="请输入菜单名称" class="layui-input">-->
-<!--					</div>-->
-<!--				</div>-->
-<!--				<div class="layui-form-item">-->
-<!--					<label class="layui-form-label">URL</label>-->
-<!--					<div class="layui-input-inline">-->
-<!--						<input type="text" name="url" autocomplete="off" placeholder="请输入URL" class="layui-input">-->
-<!--					</div>-->
-<!--				</div>-->
+				<div class="layui-form-item">
+					<label class="layui-form-label">考试描述</label>
+					<div class="layui-input-block">
+						<textarea placeholder="请输入内容" class="layui-textarea" autocomplete="off" name="info"></textarea>
+					</div>
+				</div>
 
-<!--				<div class="layui-form-item">-->
-<!--					<label class="layui-form-label">菜单等级</label>-->
-<!--					<div class="layui-input-inline editMenuLevel">-->
-<!--						<select name="level" lay-verify="required"  lay-filter="editLevel" disabled="true">-->
-<!--							<option value=""></option>-->
-<!--							<option value="1">1</option>-->
-<!--							<option value="2">2</option>-->
-<!--						</select>-->
-<!--					</div>-->
-<!--				</div>-->
+				<div class="layui-form-item">
+					<label class="layui-form-label">课程</label>
+					<div class="layui-input-inline">
+						<select class="selectCourse" name="courseId" lay-search="" lay-verify="required" id="editCourse">
+							<option value="">课程</option>
+						</select>
+					</div>
+					<label class="layui-form-label">考试总分</label>
+					<div class="layui-input-inline">
+						<input type="number" name="total" lay-verify="required" autocomplete="off" placeholder="请输入考试总分" class="layui-input">
+					</div>
+				</div>
 
-<!--				<div class="layui-form-item">-->
-<!--					<label class="layui-form-label">菜单图片</label>-->
-<!--					<div class="layui-input-inline">-->
-<!--						<button type="button" class="layui-btn layui-btn-danger" id="editMenuImgBtn"><i class="layui-icon"></i>上传图片</button>-->
-<!--						<input type="text" name="img" autocomplete="off" class="layui-input" id="editMenuFileName" disabled="disabled" />-->
-<!--						<input type="file" name="imgFile" id="editMenuImg" style="display: none"/>-->
-<!--					</div>-->
-<!--				</div>-->
+				<div class="layui-form-item">
+					<label class="layui-form-label">考试地点</label>
+					<div class="layui-input-inline">
+						<input type="text" name="address" lay-verify="required" autocomplete="off" placeholder="请输入考试地点" class="layui-input">
+					</div>
+					<label class="layui-form-label">时间范围</label>
+					<div class="layui-input-inline">
+						<input type="text" class="layui-input" name="timeScope" autocomplete="off" id="editTimeScope" placeholder="请输入时间范围">
+					</div>
+				</div>
 
-<!--				<div class="layui-form-item">-->
-<!--					<label class="layui-form-label">父节点</label>-->
-<!--					<div class="layui-input-inline">-->
-<!--						<input type="number" name="parentId" autocomplete="off" placeholder="请输入父节点" class="layui-input" id="editParentId">-->
-<!--					</div>-->
-<!--				</div>-->
+				<div class="layui-form-item">
+					<label class="layui-form-label">教师</label>
+					<div class="layui-input-inline">
+						<select class="selectTeacher" name="teacherId" lay-search="" lay-verify="required" id="editTeacher">
+							<option value="">教师</option>
+						</select>
+					</div>
+				</div>
 
-<!--				<div class="layui-form-item">-->
-<!--					<label class="layui-form-label">访问角色</label>-->
-<!--					<div class="layui-input-inline">-->
-<!--						<select class="selectRoles" name="roleId" lay-verify="required" disabled="true">-->
-<!--						</select>-->
-<!--					</div>-->
-<!--				</div>-->
+				<div class="layui-form-item">
+					<div class="layui-input-block">
+						<button class="layui-btn" lay-submit="" lay-filter="editExam">立即提交</button>
+					</div>
+				</div>
+			</form>
+		</div>
 
-<!--				<div class="layui-form-item">-->
-<!--					<div class="layui-input-block">-->
-<!--						<button class="layui-btn" lay-submit="" lay-filter="editMenu">立即提交</button>-->
-<!--					</div>-->
-<!--				</div>-->
-<!--			</form>-->
-<!--		</div>-->
+		<!-- 班级管理弹出层 -->
+		<div style="display: none" disabled="true" id="claManage">
+			<div class="layui-row" id="addClaFrame">
+				<form class="layui-form addCla" id="addClaForm">
+					<input type="hidden" name="examId" id="examId" />
+
+					<div class="layui-form-item">
+						<div class="layui-inline Dep">
+							<select name="departmentId" lay-verify="required" lay-search="" lay-filter="department" id="addDepartment">
+								<option value="">院系</option>
+							</select>
+						</div>
+						<div class="layui-inline Ma">
+							<select name="majorId" lay-verify="required" lay-search="" lay-filter="major" id="addMajor">
+								<option value="">专业</option>
+							</select>
+						</div>
+						<div class="layui-inline Cla">
+							<select name="claId" lay-verify="required" lay-search="" lay-filter="cla" id="addCla">
+								<option value="">班级</option>
+							</select>
+						</div>
+						<button class="layui-btn" lay-submit="" lay-filter="addCla">
+							<i class="layui-icon">&#xe654;</i>
+						</button>
+					</div>
+				</form>
+
+			</div>
+			<table class="layui-table" id="claManageList" lay-filter="examCla">
+			</table>
+		</div>
+
 
 
 		<div class="page-nav">
@@ -182,6 +210,11 @@
 		<script type="text/html" id="barExamMange">
 			<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
 			<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+			<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="claManage">班级管理</a>
+		</script>
+
+		<script type="text/html" id="barClaMange">
+			<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 		</script>
 
 		<script type="text/html" id="toolbar">
@@ -190,6 +223,7 @@
 				<button class="layui-btn layui-btn-sm" lay-event="delMult">批量删除</button>
 			</div>
 		</script>
+
 
 	</body>
 
