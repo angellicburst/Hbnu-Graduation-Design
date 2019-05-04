@@ -86,4 +86,10 @@
       FROM
         teacher
   </select>
+  <select id="getTeacherCount" resultType="java.lang.Integer">
+    SELECT
+        count( * ) count
+    FROM
+        teacher
+  </select>
 </mapper>

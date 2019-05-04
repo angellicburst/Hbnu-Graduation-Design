@@ -18,4 +18,6 @@ public interface TeacherMapper {
     Integer updateTeacher(Teacher teacher);
 
     List<Teacher> getAllTeachers();
+
+    Integer getTeacherCount();
 }

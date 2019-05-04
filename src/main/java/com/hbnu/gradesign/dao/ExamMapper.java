@@ -17,4 +17,8 @@ public interface ExamMapper {
 
     Integer updateExam(ExamDto examDto);
 
+    List<Integer> getExamCountGroupByYear();
+
+    Integer getExamCount();
+
 }

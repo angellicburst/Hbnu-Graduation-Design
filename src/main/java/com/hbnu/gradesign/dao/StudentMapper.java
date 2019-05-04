@@ -17,4 +17,10 @@ public interface StudentMapper {
     Integer deleteStudent(String id);
 
     Integer updateStudent(Student student);
+
+    List<Integer> getStuCountGroupByYear();
+
+    List<Integer> getStuYear();
+
+    Integer getStudentCount();
 }

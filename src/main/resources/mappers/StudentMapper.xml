@@ -104,4 +104,27 @@
         </if>
     </where>
   </select>
+  <select id="getStuCountGroupByYear" resultType="java.lang.Integer">
+    SELECT
+        count( id ) count
+    FROM
+        student
+    GROUP BY
+        YEAR ( create_date )
+  </select>
+  <select id="getStuYear" resultType="java.lang.Integer">
+    SELECT
+        YEAR ( create_date ) year
+    FROM
+        student
+    GROUP BY
+        YEAR ( create_date )
+  </select>
+
+  <select id="getStudentCount" resultType="java.lang.Integer">
+    SELECT
+        count( * ) count
+    FROM
+        student
+  </select>
 </mapper>
