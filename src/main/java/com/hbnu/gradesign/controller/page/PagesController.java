@@ -73,8 +73,23 @@ public class PagesController {
 		return "course/couManageAdm";
 	}
 
+	/**
+	 * admin
+	 * 跳转考试管理页面
+	 * @return
+	 */
 	@RequestMapping(value = "/admin/examManage")
 	public String examManageByAdm() {
 		return "exam/examManage";
+	}
+
+	/**
+	 * admin
+	 * 跳转成绩管理页面
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/gradeManage")
+	public String gradeManageByAdm() {
+		return "grade/gradeManageAdm";
 	}
 }

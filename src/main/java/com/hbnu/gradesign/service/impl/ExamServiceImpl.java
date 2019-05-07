@@ -1,6 +1,8 @@
 package com.hbnu.gradesign.service.impl;
 
+import com.hbnu.gradesign.dao.ExamClaMapper;
 import com.hbnu.gradesign.dao.ExamMapper;
+import com.hbnu.gradesign.dao.GradeMapper;
 import com.hbnu.gradesign.entity.Exam;
 import com.hbnu.gradesign.entity.dto.ExamDto;
 import com.hbnu.gradesign.entity.pojo.PackData;
@@ -27,6 +29,12 @@ public class ExamServiceImpl implements ExamService {
 	@Autowired
 	private ExamMapper em;
 
+	@Autowired
+	private ExamClaMapper ecm;
+
+	@Autowired
+	private GradeMapper gm;
+
 	/**
 	 * 获取所有的考试信息
 	 * @param examDto
@@ -37,6 +45,28 @@ public class ExamServiceImpl implements ExamService {
 		PackData packData = new PackData();
 
 		List<ExamDto> examDtos = em.getExams(examDto);
+		if (examDtos.isEmpty()) {
+			packData.setCode(404);
+			packData.setMsg("考试查询为空");
+			log.error("考试查询为空");
+		} else {
+			packData.setCode(200);
+			packData.setObjs(examDtos);
+			packData.setMsg("考试查询成功");
+		}
+		return packData;
+	}
+
+	/**
+	 * 获取所有已经结束的考试信息
+	 * @param examDto
+	 * @return
+	 */
+	@Override
+	public PackData getEndExamsAdm(ExamDto examDto) {
+		PackData packData = new PackData();
+
+		List<ExamDto> examDtos = em.getEndExams(examDto);
 		if (examDtos.isEmpty()) {
 			packData.setCode(404);
 			packData.setMsg("考试查询为空");
@@ -74,6 +104,9 @@ public class ExamServiceImpl implements ExamService {
 			return packData;
 		}
 
+		//设置默认状态值
+		examDto.setStatus(0);
+
 		Integer re = em.addExam(examDto);
 		if (re != null) {
 			packData.setCode(200);
@@ -97,22 +130,32 @@ public class ExamServiceImpl implements ExamService {
 	@Transactional
 	public PackData delExam(List<Exam> exams) {
 		PackData packData = new PackData();
-		List<Integer> ids = new ArrayList<>();
 
-		for (Exam exam : exams) {
-			ids.add(exam.getId());
-		}
-		Integer re = em.deleteExam(ids);
+		Integer rec = ecm.deleteExamClaByExamId(exams.get(0).getId());
+		if (rec != null) {
+			List<Integer> ids = new ArrayList<>();
 
-		if (re != null) {
-			packData.setCode(200);
-			packData.setMsg("删除成功");
+			for (Exam exam : exams) {
+				ids.add(exam.getId());
+			}
+			Integer re = em.deleteExam(ids);
+
+			if (re != null) {
+				packData.setCode(200);
+				packData.setMsg("删除成功");
+			} else {
+				packData.setCode(400);
+				packData.setMsg("删除失败");
+				log.error("删除失败");
+				TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			}
 		} else {
 			packData.setCode(400);
 			packData.setMsg("删除失败");
 			log.error("删除失败");
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 		}
+
 		return packData;
 	}
 

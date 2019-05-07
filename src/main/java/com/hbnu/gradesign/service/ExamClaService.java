@@ -9,5 +9,5 @@ public interface ExamClaService {
 
 	PackData addExamCla(ExamCla examCla);
 
-	PackData delExamCla(Integer id);
+	PackData delExamCla(ExamCla examCla);
 }

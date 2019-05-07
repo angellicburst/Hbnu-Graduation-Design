@@ -55,6 +55,6 @@ public class ExamClaController {
 	 */
 	@RequestMapping(value = "/admin/delExamCla",method = RequestMethod.POST)
 	public PackData delExam(ExamCla examCla) {
-		return ecs.delExamCla(examCla.getId());
+		return ecs.delExamCla(examCla);
 	}
 }

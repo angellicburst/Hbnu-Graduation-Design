@@ -12,6 +12,7 @@
     <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
     <result column="teacher_id" jdbcType="VARCHAR" property="teacherId" />
     <result column="create_date" jdbcType="DATE" property="createDate" />
+    <result column="status" jdbcType="INTEGER" property="status" />
   </resultMap>
 
   <resultMap id="ExamIncCouTea" type="com.hbnu.gradesign.entity.dto.ExamDto">
@@ -27,15 +28,16 @@
     <result column="teacher" jdbcType="VARCHAR" property="teacher" />
     <result column="teacher_id" jdbcType="VARCHAR" property="teacherId" />
     <result column="create_date" jdbcType="DATE" property="createDate" />
+    <result column="status" jdbcType="INTEGER" property="status" />
   </resultMap>
 
   <insert id="addExam" parameterType="com.hbnu.gradesign.entity.dto.ExamDto">
-    INSERT INTO exam ( exam_name, info, total, course_id, address, start_time, end_time, teacher_id, create_date )
+    INSERT INTO exam ( exam_name, info, total, course_id, address, start_time, end_time, teacher_id, create_date, status )
     VALUES
     (
         #{examName,jdbcType=VARCHAR}, #{info,jdbcType=VARCHAR},#{total,jdbcType=INTEGER},
         #{courseId,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP},
-        #{endTime,jdbcType=TIMESTAMP}, #{teacherId,jdbcType=VARCHAR}, #{createDate,jdbcType=DATE}
+        #{endTime,jdbcType=TIMESTAMP}, #{teacherId,jdbcType=VARCHAR}, #{createDate,jdbcType=DATE}, #{status,jdbcType=INTEGER}
     )
   </insert>
   <delete id="deleteExam" parameterType="java.lang.Integer">
@@ -60,6 +62,7 @@
         end_time = #{endTime,jdbcType=TIMESTAMP},
         teacher_id = #{teacherId,jdbcType=VARCHAR},
         create_date = #{createDate,jdbcType=DATE}
+        status = #{status,jdbcType=INTEGER}
     WHERE
         id = #{id,jdbcType=INTEGER}
   </update>
@@ -76,7 +79,8 @@
         t1.end_time,
         t3.NAME AS teacher,
         t1.teacher_id,
-        t1.create_date
+        t1.create_date,
+        t1.status
     FROM
         exam t1
         LEFT JOIN course t2 ON ( t1.course_id = t2.id )
@@ -93,6 +97,34 @@
         t1.teacher_id = #{teacherId}
       </if>
     </where>
+  </select>
+  <select id="getEndExams" parameterType="com.hbnu.gradesign.entity.dto.ExamDto" resultMap="ExamIncCouTea">
+      SELECT
+          t1.id,
+          t1.exam_name,
+          t1.info,
+          t1.total,
+          t2.course,
+          t1.course_id,
+          t3.NAME AS teacher,
+          t1.teacher_id,
+          t1.status
+      FROM
+          exam t1
+          LEFT JOIN course t2 ON ( t1.course_id = t2.id )
+          LEFT JOIN teacher t3 ON ( t1.teacher_id = t3.id )
+      WHERE
+          <![CDATA[ t1.end_time < NOW()]]>
+          <if test="examName != null and examName != ''">
+              <bind name="pattern" value="examName + '%'" ></bind>
+              and t1.exam_name LIKE #{pattern}
+          </if>
+          <if test="courseId != null and courseId != ''">
+              and t1.course_id = #{courseId}
+          </if>
+          <if test="teacherId != null and teacherId != ''">
+              and t1.teacher_id = #{teacherId}
+          </if>
   </select>
   <select id="getExamCountGroupByYear" resultType="java.lang.Integer">
     SELECT
@@ -111,6 +143,17 @@
     SELECT
         count( * ) count
     FROM
+        exam t1,
+        exam_cla t2
+    WHERE
+        t1.id = t2.exam_id
+  </select>
+  <select id="getExam" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT
+        *
+    FROM
         exam
+    WHERE
+        id = #{id,jdbcType=INTEGER}
   </select>
 </mapper>

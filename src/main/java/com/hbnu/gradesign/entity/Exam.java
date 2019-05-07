@@ -77,4 +77,12 @@ public class Exam implements Serializable {
     @JSONField(format = "yyyy-MM-dd")
     private Date createDate;
 
+    /**
+     * 考试批改状态
+     * ---0：未批改
+     * ---1：已批改
+     * status
+     */
+    private Integer status;
+
 }

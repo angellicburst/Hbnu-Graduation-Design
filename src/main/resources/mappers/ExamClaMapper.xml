@@ -21,13 +21,6 @@
     <result column="cla_id" jdbcType="INTEGER" property="claId" />
   </resultMap>
 
-  <delete id="deleteExamCla" parameterType="java.lang.Integer">
-    DELETE
-    FROM
-        exam_cla
-    WHERE
-        id = #{id,jdbcType=INTEGER}
-  </delete>
   <insert id="addExamCla" parameterType="com.hbnu.gradesign.entity.ExamCla">
     INSERT INTO exam_cla
         ( exam_id, department_id, major_id, cla_id )
@@ -37,6 +30,20 @@
         #{majorId,jdbcType=INTEGER}, #{claId,jdbcType=INTEGER}
         )
   </insert>
+  <delete id="deleteExamCla" parameterType="java.lang.Integer">
+    DELETE
+    FROM
+        exam_cla
+    WHERE
+        id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteExamClaByExamId" parameterType="java.lang.Integer">
+    DELETE
+    FROM
+        exam_cla
+    WHERE
+        exam_id = #{examId,jdbcType=INTEGER}
+  </delete>
   <select id="getExamClas" parameterType="java.lang.Integer" resultMap="ExamClaIncDepMaCla">
     SELECT
         t1.id,

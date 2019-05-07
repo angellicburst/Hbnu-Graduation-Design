@@ -12,24 +12,34 @@
     <link rel="stylesheet" href="/css/welcome/welcome.css" />
 </head>
 <body>
-    <div class = 'showPiece'>
-        <div class="showCountPiece">
-            <i class='iconfont'><img src="/images/welcome/student.png" /></i>
-            <span>学生数量：</span>
-            <span id="stuCounts"></span>
+    <fieldset class="layui-elem-field">
+        <legend>总览</legend>
+        <div class="layui-field-box">
+            <div class="showCountPiece">
+                <i class='iconfont'><img src="/images/welcome/student.png" /></i>
+                <span>学生数量：</span>
+                <span id="stuCounts"></span>
+            </div>
+            <div class="showCountPiece">
+                <i class='iconfont'><img src="/images/welcome/teacher.png" /></i>
+                <span>教师数量：</span>
+                <span id="teaCounts"></span>
+            </div>
+            <div class="showCountPiece">
+                <i class='iconfont'><img src="/images/welcome/exam.png" /></i>
+                <span>考试数量：</span>
+                <span id="examCounts"></span>
+            </div>
         </div>
-        <div class="showCountPiece">
-            <i class='iconfont'><img src="/images/welcome/teacher.png" /></i>
-            <span>教师数量：</span>
-            <span id="teaCounts"></span>
+    </fieldset>
+
+    <fieldset class="layui-elem-field" id="histogram">
+        <legend>表格</legend>
+        <div class="layui-field-box">
+            <div id="container"></div>
         </div>
-        <div class="showCountPiece">
-            <i class='iconfont'><img src="/images/welcome/exam.png" /></i>
-            <span>考试数量：</span>
-            <span id="examCounts"></span>
-        </div>
-    </div>
-    <div id="container"></div>
+    </fieldset>
+
 
     <!-- layui -->
     <script type="text/javascript" src="/lib/layui/layui.js" charset="utf-8"></script>

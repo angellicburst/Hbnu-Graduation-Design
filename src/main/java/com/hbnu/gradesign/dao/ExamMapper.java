@@ -1,5 +1,6 @@
 package com.hbnu.gradesign.dao;
 
+import com.hbnu.gradesign.entity.Exam;
 import com.hbnu.gradesign.entity.dto.ExamDto;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -10,6 +11,10 @@ import java.util.List;
 public interface ExamMapper {
 
     List<ExamDto> getExams(ExamDto examDto);
+
+    List<ExamDto> getEndExams(ExamDto examDto);
+
+    Exam getExam(Integer id);
 
     Integer addExam(ExamDto examDto);
 

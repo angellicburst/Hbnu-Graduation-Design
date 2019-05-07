@@ -39,6 +39,26 @@ public class ExamController {
 	}
 
 	/**
+	 * 获取所有已经结束的考试
+	 * @param pageIndex
+	 * @param pageSize
+	 * @param examDto
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/getEndExams",method = RequestMethod.GET)
+	public PackData getEndExamsAdmin(@RequestParam(value = "page", defaultValue = "1") String pageIndex,
+								  @RequestParam(value = "limit", defaultValue = "10") String pageSize,
+								  ExamDto examDto) {
+		PageHelper.startPage(Integer.parseInt(pageIndex), Integer.parseInt(pageSize));
+		PackData packData = es.getEndExamsAdm(examDto);
+		PageInfo pageInfo = new PageInfo(packData.getObjs());
+
+		packData.setCount((int) pageInfo.getTotal());
+
+		return packData;
+	}
+
+	/**
 	 * 添加考试
 	 * @param examDto
 	 * @return

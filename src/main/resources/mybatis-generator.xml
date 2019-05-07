@@ -52,10 +52,10 @@
 		</sqlMapGenerator>
 
 		<!-- 生成DAO的包名和位置-->
-<!--		<javaClientGenerator type="XMLMAPPER"-->
-<!--			targetPackage="com.hbnu.gradesign.dao" targetProject=".\src\main\java">-->
-<!--			<property name="enableSubPackages" value="true" />-->
-<!--		</javaClientGenerator>-->
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="com.hbnu.gradesign.dao" targetProject=".\src\main\java">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
 
 		<!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->
 		<!--<table tableName="menu" domainObjectName="Menu"></table>-->
@@ -71,7 +71,7 @@
 		<!--<table tableName="student" domainObjectName="Student"></table>-->
 <!--		<table tableName="arrange_course" domainObjectName="ArrangeCourse"></table>-->
 <!--		<table tableName="course" domainObjectName="Course"></table>-->
-		<table tableName="exam" domainObjectName="Exam1"></table>
+		<table tableName="grade" domainObjectName="Grade"></table>
 <!--		<table tableName="exam_cla" domainObjectName="ExamCla"></table>-->
 	</context>
 </generatorConfiguration>

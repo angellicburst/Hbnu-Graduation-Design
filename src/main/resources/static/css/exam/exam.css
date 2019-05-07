@@ -13,3 +13,7 @@
 .addCla .layui-form-select .layui-input {
     width: 130px;
 }
+
+.addCla .layui-btn {
+    margin-bottom: 5px;
+}

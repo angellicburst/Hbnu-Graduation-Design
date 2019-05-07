@@ -1,7 +1,10 @@
 package com.hbnu.gradesign.service.impl;
 
 import com.hbnu.gradesign.dao.ExamClaMapper;
+import com.hbnu.gradesign.dao.ExamMapper;
+import com.hbnu.gradesign.dao.GradeMapper;
 import com.hbnu.gradesign.entity.ExamCla;
+import com.hbnu.gradesign.entity.Grade;
 import com.hbnu.gradesign.entity.dto.ExamClaDto;
 import com.hbnu.gradesign.entity.pojo.PackData;
 import com.hbnu.gradesign.service.ExamClaService;
@@ -21,6 +24,12 @@ public class ExamClaServiceImpl implements ExamClaService {
 
 	@Autowired
 	private ExamClaMapper ecm;
+
+	@Autowired
+	private GradeMapper gm;
+
+	@Autowired
+	private ExamMapper em;
 
 	/**
 	 * 根据考试ID获取所有的考试班级
@@ -55,15 +64,25 @@ public class ExamClaServiceImpl implements ExamClaService {
 	public PackData addExamCla(ExamCla examCla) {
 		PackData packData = new PackData();
 
-		System.out.println(examCla.getClaId().toString());
-
-//		examCla.setDepartmentId(Integer.parseInt(examCla.getClaId().toString().substring(2,3)));
-//		examCla.setMajorId(Integer.parseInt(examCla.getClaId().toString().substring(4,5)));
-
 		Integer re = ecm.addExamCla(examCla);
 		if (re != null) {
-			packData.setCode(200);
-			packData.setMsg("添加成功");
+			List<Grade> grades = gm.getGradeDataByExam(examCla.getExamId(),examCla.getClaId());
+			if (grades.isEmpty()) {
+				packData.setCode(404);
+				packData.setMsg("该班级下学生信息查询为空");
+				return packData;
+			} else {
+				for (Grade grade : grades) {
+					Integer reg = gm.addGradeByCla(grade);
+					if (reg == null) {
+						packData.setCode(400);
+						packData.setMsg("添加失败");
+						return packData;
+					}
+				}
+				packData.setCode(200);
+				packData.setMsg("添加成功");
+			}
 		} else {
 			packData.setCode(400);
 			packData.setMsg("添加失败");
@@ -76,19 +95,27 @@ public class ExamClaServiceImpl implements ExamClaService {
 
 	/**
 	 * 根据考试ID删除其考试班级
-	 * @param id
+	 * @param examCla
 	 * @return
 	 */
 	@Override
 	@Transactional
-	public PackData delExamCla(Integer id) {
+	public PackData delExamCla(ExamCla examCla) {
 		PackData packData = new PackData();
 
-		Integer re = ecm.deleteExamCla(id);
+		Integer re = ecm.deleteExamCla(examCla.getId());
 
 		if (re != null) {
-			packData.setCode(200);
-			packData.setMsg("删除成功");
+			Integer reg = gm.deleteGradeByCouIdClaId(em.getExam(examCla.getExamId()).getCourseId(),examCla.getClaId());
+			if (reg != null) {
+				packData.setCode(200);
+				packData.setMsg("删除成功");
+			} else {
+				packData.setCode(400);
+				packData.setMsg("删除失败");
+				log.error("删除失败");
+				TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			}
 		} else {
 			packData.setCode(400);
 			packData.setMsg("删除失败");

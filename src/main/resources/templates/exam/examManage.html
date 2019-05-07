@@ -156,9 +156,16 @@
 						</button>
 					</div>
 				</form>
-
 			</div>
+			<input type="hidden" id="saveEndTime" />
+			<input type="hidden" id="courseId" />
 			<table class="layui-table" id="claManageList" lay-filter="examCla">
+			</table>
+		</div>
+
+		<!-- 成绩管弹出层 -->
+		<div style="display: none" disabled="true" id="gradeManage">
+			<table class="layui-table" id="gradeManageList" lay-filter="examClaGrade">
 			</table>
 		</div>
 
@@ -215,6 +222,11 @@
 
 		<script type="text/html" id="barClaMange">
 			<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+			<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="grade">成绩上传</a>
+		</script>
+
+		<script type="text/html" id="barGradeMange">
+			<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="addGrade">上传成绩</a>
 		</script>
 
 		<script type="text/html" id="toolbar">
@@ -224,6 +236,13 @@
 			</div>
 		</script>
 
+		<script type="text/html" id="statusTpl">
+			{{#  if(d.status == 0){ }}
+			未批改
+			{{#  } else if(d.status == 1) { }}
+			已批改
+			{{#  }  }}
+		</script>
 
 	</body>
 

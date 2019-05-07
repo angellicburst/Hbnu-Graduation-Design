@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hbnu.gradesign.dao.GradeMapper">
+  <resultMap id="BaseResultMap" type="com.hbnu.gradesign.entity.Grade">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="student_id" jdbcType="VARCHAR" property="studentId" />
+    <result column="course_id" jdbcType="INTEGER" property="courseId" />
+    <result column="cla_id" jdbcType="INTEGER" property="claId" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+  </resultMap>
+
+  <resultMap id="GradeIncStuExaCla" type="com.hbnu.gradesign.entity.dto.GradeDto">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="student" jdbcType="VARCHAR" property="student" />
+    <result column="student_id" jdbcType="VARCHAR" property="studentId" />
+    <result column="course" jdbcType="VARCHAR" property="course" />
+    <result column="course_id" jdbcType="INTEGER" property="courseId" />
+    <result column="cla" jdbcType="VARCHAR" property="cla" />
+    <result column="cla_id" jdbcType="INTEGER" property="claId" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+  </resultMap>
+<!--  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">-->
+<!--    delete from grade-->
+<!--    where id = #{id,jdbcType=INTEGER}-->
+<!--  </delete>-->
+  <insert id="addGradeByCla" parameterType="com.hbnu.gradesign.entity.Grade">
+    INSERT INTO grade ( student_id, course_id, cla_id )
+    VALUES
+    (
+      #{studentId,jdbcType=VARCHAR}, #{courseId,jdbcType=INTEGER},
+      #{claId,jdbcType=INTEGER}
+    )
+  </insert>
+  <delete id="deleteGradeByClaId" parameterType="java.lang.Integer">
+    DELETE
+    FROM
+        grade
+    WHERE
+        cla_id = #{claId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteGradeByCouIdClaId" parameterType="java.lang.Integer">
+    DELETE
+    FROM
+        grade
+    WHERE
+        course_id = #{courseId,jdbcType=INTEGER}
+        AND cla_id = #{claId,jdbcType=INTEGER}
+  </delete>
+  <update id="updateGrade" parameterType="com.hbnu.gradesign.entity.Grade">
+    UPDATE grade
+    SET
+        student_id = #{studentId,jdbcType=VARCHAR},
+        course_id = #{courseId,jdbcType=INTEGER},
+        cla_id = #{claId,jdbcType=INTEGER},
+        score = #{score,jdbcType=INTEGER}
+    WHERE
+        id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="getGradeDataByExam" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT
+        t2.id AS student_id,
+        t3.course_id,
+        t1.cla_id
+    FROM
+        exam_cla t1
+        LEFT JOIN student t2 ON ( t1.cla_id = t2.cla_id )
+        LEFT JOIN exam t3 ON ( t1.exam_id = t3.id )
+    WHERE
+        t1.exam_id = #{examId,jdbcType=INTEGER}
+        AND t1.cla_id = #{claId,jdbcType=INTEGER}
+  </select>
+  <select id="getGradesByExamIdAndClaId" parameterType="java.lang.Integer" resultMap="GradeIncStuExaCla">
+    SELECT
+        t1.id,
+        t2.NAME student,
+        t1.student_id,
+        t3.course,
+        t1.course_id,
+        t4.cla,
+        t1.cla_id,
+        t1.score
+    FROM
+        grade t1
+        LEFT JOIN student t2 ON ( t1.student_id = t2.id )
+        LEFT JOIN course t3 ON ( t1.course_id = t3.id )
+        LEFT JOIN cla t4 ON ( t1.cla_id = t4.id )
+    WHERE
+        t1.course_id = #{courseId,jdbcType=INTEGER}
+        AND t1.cla_id = #{claId,jdbcType=INTEGER}
+  </select>
+  <select id="getNumGradeIsNull" resultType="java.lang.Integer">
+    SELECT
+        COUNT( * )
+    FROM
+        grade
+    WHERE
+        course_id = 32
+        AND score IS NULL;
+  </select>
+
+</mapper>

@@ -13,5 +13,7 @@ public interface ExamClaMapper {
 
 	Integer deleteExamCla(Integer id);
 
+	Integer deleteExamClaByExamId(Integer examId);
+
 	Integer addExamCla(ExamCla examCla);
 }
