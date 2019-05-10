@@ -87,16 +87,16 @@ public class ShiroConfiguration {
 		//LinkedHashMap是有序的，进行顺序拦截器配置
 		Map<String, String> filterChainMap = new LinkedHashMap<>();
 		//可以匿名访问
-//		filterChainMap.put("/js/**", "anon");
-//		filterChainMap.put("/css/**", "anon");
-//		filterChainMap.put("/lib/**", "anon");
-//		filterChainMap.put("/dologin", "anon");
+		filterChainMap.put("/js/**", "anon");
+		filterChainMap.put("/css/**", "anon");
+		filterChainMap.put("/lib/**", "anon");
+		filterChainMap.put("/dologin", "anon");
 		filterChainMap.put("/logout", "logout");
-		filterChainMap.put("/**", "anon");
+//		filterChainMap.put("/**", "anon");
 		//所有url必须通过认证才可以访问
-		//filterChainMap.put("/**", "authc");
-		//filterChainMap.put("/*", "authc");
-		//filterChainMap.put("/*.*", "authc");
+		filterChainMap.put("/**", "authc");
+		filterChainMap.put("/*", "authc");
+		filterChainMap.put("/*.*", "authc");
 		//设置shiroFilterFactoryBean的FilterChainDefinitionMap
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainMap);
 		return shiroFilterFactoryBean;

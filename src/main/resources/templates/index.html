@@ -15,6 +15,38 @@
 	</head>
 
 	<body>
+		<!-- 修改密码弹出层 -->
+		<div style="display: none" disabled="true" id="passFrame">
+			<form class="layui-form editPass" action="" lay-filter="stuFilter" id="updatePassForm">
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">原密码</label>
+					<div class="layui-input-inline">
+						<input type="password" name="oldPassWord" lay-verify="required" autocomplete="off" placeholder="请输入原密码" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">新密码</label>
+					<div class="layui-input-inline">
+						<input type="password" name="newPassWord" lay-verify="required" autocomplete="off" placeholder="请输入新密码" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">确定新密码</label>
+					<div class="layui-input-inline">
+						<input type="password" name="reNewPassWord" lay-verify="required" autocomplete="off" placeholder="请再次输入新密码" class="layui-input">
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<div class="layui-input-block">
+						<button class="layui-btn" lay-submit="" lay-filter="editPass">立即提交</button>
+					</div>
+				</div>
+			</form>
+		</div>
+
+
 		<!--
         	作者：fyc
         	时间：2018-12-14
@@ -67,7 +99,7 @@
 						<dl class="layui-nav-child">
 							<!-- 二级菜单 -->
 							<dd>
-								<a onclick="WeAdminShow('个人信息','http://www.baidu.com')">个人信息</a>
+								<a id="editPassWord">修改密码</a>
 							</dd>
 							<dd>
 								<a class="loginout">退出</a>

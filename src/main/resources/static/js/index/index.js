@@ -75,7 +75,59 @@ layui.use(['jquery','form'], function() {
             location.href = '/logout';
         });
 
+
     });
+
+    /**
+     * @todo 修改密码弹框
+     */
+    $("#editPassWord").on('click',function () {
+        //打开弹出层
+        layer.open({
+            type : 1,
+            title : "成绩管理",
+            area: ['500px', '500px'],
+            content: $('#passFrame'),
+            cancel: function(index, layero){    //点击弹出层右上角X触发
+                //关闭弹出层
+                layer.closeAll();
+            }
+        });
+    });
+
+    /**
+     * @todo 修改密码
+     */
+    form.on('submit(editPass)', function(data) {
+        console.log(data.field);
+        const  passinfo = data.field;
+        if (passinfo.newPassWord === passinfo.reNewPassWord) {
+            $.ajax({
+                type: "POST",
+                url: "/user/editPassword",
+                data: JSON.stringify(data.field),
+                dataType: "json",
+                contentType:'application/json;charset=UTF-8',
+                success: function (data) {
+                    if (data.code === 200) {
+                        layer.msg(data.msg + ",请重新登陆", {icon: 1}, function() {
+                            location.href = '/logout';
+                        });
+                    } else {
+                        layer.msg(data.msg,{icon: 2});
+                    }
+                }
+            });
+            //关闭弹出层
+            layer.closeAll();
+        } else {
+            layer.msg("新输入的两次密码前后不一致",{icon: 2});
+        }
+
+        return false;
+    });
+
+
 
 
 });

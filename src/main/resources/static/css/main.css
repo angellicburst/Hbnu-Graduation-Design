@@ -268,6 +268,11 @@
   color: #666;
 }
 
+.editPass .layui-form-item {
+  padding-top: 40px;
+  padding-left: 30px;
+}
+
 /*针对不同的媒体类型定义不同的样式*/
 @media screen and (max-width: 768px) {
   .fast-add {

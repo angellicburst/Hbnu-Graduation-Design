@@ -10,6 +10,7 @@ import com.hbnu.gradesign.service.StudentService;
 import com.hbnu.gradesign.service.UserService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -38,6 +39,7 @@ public class StudentController {
 	 * @param studentDto
 	 * @return
 	 */
+	@RequiresRoles("admin")
 	@RequestMapping(value = "/admin/getStudents",method = RequestMethod.GET)
 	public PackData getStuAdmin(@RequestParam(value = "page", defaultValue = "1") String pageIndex,
 								@RequestParam(value = "limit", defaultValue = "10") String pageSize,
