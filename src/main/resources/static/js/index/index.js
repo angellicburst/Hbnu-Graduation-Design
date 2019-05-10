@@ -26,6 +26,24 @@ layui.use(['jquery','form'], function() {
         });
 
         /**
+         * @todo 判断是否显示首页
+         * admin显示
+         * student，teacher不显示
+         */
+        $.ajax({
+            type: "POST",
+            url: "/user/isAdmin",
+            dataType: "json",
+            success: function (data) {
+                if (data.code === 200) {
+                    $("#tabName").append("<li>我的桌面</li>");
+                    $(".layui-show").append("<iframe src='/welcome' frameborder='0' scrolling='yes' class='weIframe'></iframe>")
+                    form.render();
+                }
+            }
+        });
+
+        /**
          * @todo 左侧菜单显示和顶部菜单搜索框
          */
         $.ajax({

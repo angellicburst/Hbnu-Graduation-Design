@@ -36,7 +36,7 @@ public class MenuController {
 	 */
 	@RequestMapping(value = "/getMenus", method = RequestMethod.POST)
 	public List<MenuDto> getMenus() {
-		return ms.getMenusByRoleId(1);
+		return ms.getMenusByRoleId();
 	}
 
 	/**

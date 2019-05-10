@@ -36,8 +36,7 @@ public class FileUtil {
 				//获取文件名
 				String fileName = fileUpload.getOriginalFilename();
 				//加上时间毫秒避免重名
-				//newFileName = System.currentTimeMillis() + "_" + fileName;
-				newFileName = fileName;
+				newFileName = System.currentTimeMillis() + "_" + fileName;
 				//指定路径存储图片
 				File file = new File(savePath + newFileName);
 				//不存在新建

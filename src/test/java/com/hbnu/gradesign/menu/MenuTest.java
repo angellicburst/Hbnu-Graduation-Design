@@ -18,11 +18,11 @@ public class MenuTest {
 
 	@Test
 	public void getMenu() {
-		for (MenuDto m:ms.getMenusByRoleId(1)
-			 ) {
-			System.out.println(m.getMenuName());
-			System.out.println(m);
-		}
+//		for (MenuDto m:ms.getMenusByRoleId(1)
+//			 ) {
+//			System.out.println(m.getMenuName());
+//			System.out.println(m);
+//		}
 	}
 
 	@Test

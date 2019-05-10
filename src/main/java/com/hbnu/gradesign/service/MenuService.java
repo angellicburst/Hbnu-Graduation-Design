@@ -11,7 +11,7 @@ public interface MenuService {
 
 	PackData getMenus();
 
-	List<MenuDto> getMenusByRoleId(Integer roleId);
+	List<MenuDto> getMenusByRoleId();
 
 	MenuDto getCurMenu(Integer id,Integer level);
 

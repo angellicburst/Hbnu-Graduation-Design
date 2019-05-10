@@ -1,7 +1,10 @@
 package com.hbnu.gradesign.service.impl;
 
 import com.hbnu.gradesign.dao.MenuMapper;
+import com.hbnu.gradesign.dao.RoleMapper;
 import com.hbnu.gradesign.entity.Menu;
+import com.hbnu.gradesign.entity.Role;
+import com.hbnu.gradesign.entity.User;
 import com.hbnu.gradesign.entity.dto.MenuDto;
 import com.hbnu.gradesign.entity.pojo.PackData;
 import com.hbnu.gradesign.properties.PathProperties;
@@ -9,6 +12,8 @@ import com.hbnu.gradesign.service.MenuService;
 import com.hbnu.gradesign.util.FileUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +29,9 @@ public class MenuServiceImpl implements MenuService {
 
 	@Autowired
 	private MenuMapper mm;
+
+	@Autowired
+	private RoleMapper rm;
 
 	@Autowired
 	private PathProperties pathProperties;
@@ -60,12 +68,16 @@ public class MenuServiceImpl implements MenuService {
 
 	/**
 	 * 根据角色获取菜单
-	 * @param roleId
 	 * @return
 	 */
 	@Override
-	public List<MenuDto> getMenusByRoleId(Integer roleId) {
-		return mm.getMenuByRoleId(roleId);
+	public List<MenuDto> getMenusByRoleId() {
+		//获取登陆用户
+		Subject sub = SecurityUtils.getSubject();
+		User user = (User) sub.getPrincipal();
+
+		Role role = rm.getUserRole(user.getId());
+		return mm.getMenuByRoleId(role.getId());
 	}
 
 	/**
