@@ -52,6 +52,28 @@ public class StudentController {
 	}
 
 	/**
+	 * admin
+	 * 获取所有学生
+	 * 用于成绩管理
+	 * @param pageIndex
+	 * @param pageSize
+	 * @param studentDto
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/getStuGrades",method = RequestMethod.GET)
+	public PackData getStuToGradeAdmin(@RequestParam(value = "page", defaultValue = "1") String pageIndex,
+								@RequestParam(value = "limit", defaultValue = "10") String pageSize,
+								StudentDto studentDto) {
+		PageHelper.startPage(Integer.parseInt(pageIndex), Integer.parseInt(pageSize));
+		PackData packData = ss.getStuToGrade(studentDto);
+		PageInfo pageInfo = new PageInfo(packData.getObjs());
+
+		packData.setCount((int) pageInfo.getTotal());
+
+		return packData;
+	}
+
+	/**
 	 * 批量导入学生模板下载下载
 	 * @param response
 	 * @return

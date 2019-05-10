@@ -8,12 +8,13 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
 		<link rel="stylesheet" href="/css/common/common.css" />
 		<link rel="stylesheet" href="/css/font/font.css">
-<!--		<link rel="stylesheet" href="/css/exam/exam.css">-->
 	</head>
 
 	<body>
-
-
+		<div style="display: none" disabled="true" id="graManage">
+			<table class="layui-table" id="graManageList" lay-filter="gradeManage">
+			</table>
+		</div>
 
 
 		<div class="page-nav">
@@ -26,16 +27,24 @@
 			<div class="layui-row">
 				<form class="layui-form" style="float: left;">
 					<div class="layui-inline">
-						<input type="text" name="examName" placeholder="考试名称" autocomplete="off" class="layui-input" id="searchExamName">
+						<input type="text" name="id" placeholder="ID" autocomplete="off" class="layui-input" id="searchId">
 					</div>
-					<div class="layui-inline course">
-						<select name="level" lay-search="" lay-filter="course" id="searchCourse">
-							<option value="">课程</option>
+					<div class="layui-inline">
+						<input type="text" name="name" placeholder="姓名" autocomplete="off" class="layui-input" id="searchName">
+					</div>
+					<div class="layui-inline department">
+						<select name="department" lay-search="" lay-filter="department" id="searchDepartment">
+							<option value="">院系</option>
 						</select>
 					</div>
-					<div class="layui-inline teacher">
-						<select name="teacher" lay-search="" lay-filter="teacher" id="searchTeacher">
-							<option value="">教师</option>
+					<div class="layui-inline major">
+						<select name="major" lay-search="" lay-filter="major" id="searchMajor">
+							<option value="">专业</option>
+						</select>
+					</div>
+					<div class="layui-inline cla">
+						<select name="cla" lay-search="" lay-filter="cla" id="searchCla">
+							<option value="">班级</option>
 						</select>
 					</div>
 				</form>
@@ -43,7 +52,7 @@
 					<i class="layui-icon">&#xe615;</i>
 				</button>
 			</div>
-			<table class="layui-table" id="endExamListAdm" lay-filter="endExam">
+			<table class="layui-table" id="stuGraListAdm" lay-filter="grade">
 			</table>
 		</div>
 
@@ -58,13 +67,21 @@
 		<script type="text/javascript" src="/js/grade/gradeAdm.js" charset="utf-8"></script>
 
 
-
-		<script type="text/html" id="barExamMange">
-			<a class="layui-btn layui-btn-sm" lay-event="claManage">成绩管理</a>
+		<script type="text/html" id="barStuMange">
+			<a class="layui-btn layui-btn-sm" lay-event="gradeManage">成绩管理</a>
 		</script>
 
+		<script type="text/html" id="barGradeMange">
+			<a class="layui-btn layui-btn-sm" lay-event="edit">修改</a>
+		</script>
 
-
+		<script type="text/html" id="typeTpl">
+			{{#  if(d.type == 0){ }}
+			必修
+			{{#  } else if(d.type == 1) { }}
+			选修
+			{{#  } }}
+		</script>
 
 	</body>
 

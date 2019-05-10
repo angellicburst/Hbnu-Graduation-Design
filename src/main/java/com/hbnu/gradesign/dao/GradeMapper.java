@@ -21,5 +21,7 @@ public interface GradeMapper {
 
       List<GradeDto> getGradesByExamIdAndClaId(Integer courseId,Integer claId);
 
+      List<GradeDto> getGradeByCourse(String studentId);
+
       Integer getNumGradeIsNull(Integer courseId,Integer examId);
 }

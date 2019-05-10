@@ -68,6 +68,29 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	/**
+	 * 获取学生列表
+	 * 用于成绩管理
+	 * @param studentDto
+	 * @return
+	 */
+	@Override
+	public PackData getStuToGrade(StudentDto studentDto) {
+		PackData packData = new PackData();
+
+		List<StudentDto> studentDtos = sm.getStudentsToGradeAdm(studentDto);
+		if (studentDtos.isEmpty()) {
+			packData.setCode(404);
+			packData.setMsg("学生查询为空");
+			log.error("学生查询为空");
+		} else {
+			packData.setCode(200);
+			packData.setObjs(studentDtos);
+			packData.setMsg("学生查询成功");
+		}
+		return packData;
+	}
+
+	/**
 	 * excel批量添加学生
 	 * 先添加用户
 	 * @param file

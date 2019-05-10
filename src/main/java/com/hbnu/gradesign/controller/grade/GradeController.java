@@ -35,8 +35,43 @@ public class GradeController {
 		return packData;
 	}
 
+	/**
+	 * 获取学生ID获取该学生的所有成绩
+	 * @param pageIndex
+	 * @param pageSize
+	 * @param studentId
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/getGraByStudentId",method = RequestMethod.GET)
+	public PackData getGradeByStudentId(@RequestParam(value = "page", defaultValue = "1") String pageIndex,
+										@RequestParam(value = "limit", defaultValue = "10") String pageSize,
+										@RequestParam(value = "studentId") String studentId) {
+		PageHelper.startPage(Integer.parseInt(pageIndex), Integer.parseInt(pageSize));
+		PackData packData = gs.getGradeByStu(studentId);
+		PageInfo pageInfo = new PageInfo(packData.getObjs());
+
+		packData.setCount((int) pageInfo.getTotal());
+
+		return packData;
+	}
+
+	/**
+	 * 成绩修改，有校验
+	 * @param gradeDto
+	 * @return
+	 */
 	@RequestMapping(value = "/admin/editGrade",method = RequestMethod.POST)
 	public PackData editGrade(@RequestBody GradeDto gradeDto) {
 		return gs.updateGrade(gradeDto);
+	}
+
+	/**
+	 * 成绩修改，无校验
+	 * @param gradeDto
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/editGradeNC",method = RequestMethod.POST)
+	public PackData editGradeNoCheck(@RequestBody GradeDto gradeDto) {
+		return gs.updateGradeNC(gradeDto);
 	}
 }
