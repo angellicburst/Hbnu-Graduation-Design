@@ -96,7 +96,7 @@ public class ExamController {
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/editExam",method = RequestMethod.POST)
-	public PackData editExam(ExamDto examDto) {
+	public PackData editExam(@RequestBody ExamDto examDto) {
 		return es.editExam(examDto);
 	}
 

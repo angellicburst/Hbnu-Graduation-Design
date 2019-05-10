@@ -299,7 +299,7 @@ layui.use(['laydate','jquery', 'admin', 'table','form'], function() {
             layer.open({
                 type : 1,
                 title : "考试添加",
-                area: ['850px', '750px'],
+                area: ['850px', '600px'],
                 content: $('#addFrame'),
                 cancel: function(index, layero){   //点击弹出层右上角X触发
                     //清除所有弹出层数据
@@ -374,7 +374,7 @@ layui.use(['laydate','jquery', 'admin', 'table','form'], function() {
             layer.open({
                 type : 1,
                 title : "考试编辑",
-                area: ['850px', '750px'],
+                area: ['850px', '600px'],
                 content: $('#editFrame'),
                 cancel: function(index, layero){    //点击弹出层右上角X触发
                     //清除所有弹出层数据
@@ -499,8 +499,7 @@ layui.use(['laydate','jquery', 'admin', 'table','form'], function() {
                     success: function (data) {
                         if (data.code === 200) {
                             //刷新table
-                            $(".layui-laypage-btn")[0].click();
-                            table.reload('examListAdm',{});
+                            table.reload('claManageList',{});
                             layer.msg(data.msg, {icon: 1});
                         } else {
                             layer.msg(data.msg, {icon: 2});
@@ -612,6 +611,8 @@ layui.use(['laydate','jquery', 'admin', 'table','form'], function() {
     table.on('tool(examClaGrade)', function(obj) {
         let data = obj.data;
 
+        data.examId = $("#examId").val();
+
         if (obj.event === 'addGrade') {    //添加成绩
             $.ajax({
                 type: "POST",
@@ -623,7 +624,7 @@ layui.use(['laydate','jquery', 'admin', 'table','form'], function() {
                     if (data.code === 200) {
                         //刷新table
                         table.reload('gradeManageList',{});
-                        $(".layui-laypage-btn")[0].click();
+                        table.reload('examListAdm',{});
                         layer.msg(data.msg,{icon: 1});
                     } else {
                         layer.msg(data.msg,{icon: 2});
@@ -648,7 +649,6 @@ layui.use(['laydate','jquery', 'admin', 'table','form'], function() {
                 if (data.code === 200) {
                     //刷新table
                     table.reload('examListAdm',{});
-                    $(".layui-laypage-btn")[0].click();
                     layer.msg(data.msg,{icon: 1});
                 } else {
                     layer.msg(data.msg,{icon: 2});
@@ -667,15 +667,15 @@ layui.use(['laydate','jquery', 'admin', 'table','form'], function() {
         $.ajax({
             type: "POST",
             url: "/admin/editExam",
-            data: data.field,
+            data: JSON.stringify(data.field),
             dataType: "json",
+            contentType:'application/json;charset=UTF-8',
             success: function (data) {
                 //关闭弹出层
                 layer.closeAll();
                 if (data.code === 200) {
                     //刷新table
                     table.reload('examListAdm',{});
-                    $(".layui-laypage-btn")[0].click();
                     layer.msg(data.msg,{icon: 1});
                 } else {
                     layer.msg(data.msg,{icon: 2});

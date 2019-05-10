@@ -73,6 +73,8 @@
 		<div style="display: none" disabled="true" id="editFrame">
 			<form class="layui-form" action="" lay-filter="examFilter" id="editForm" >
 				<input type="hidden" name="id" id="saveExamId" />
+				<input type="hidden" name="createDate" id="saveCreateDate" />
+				<input type="hidden" name="status" id="saveStatus" />
 
 				<div class="layui-form-item">
 					<label class="layui-form-label">考试名称</label>
@@ -91,7 +93,7 @@
 				<div class="layui-form-item">
 					<label class="layui-form-label">课程</label>
 					<div class="layui-input-inline">
-						<select class="selectCourse" name="courseId" lay-search="" lay-verify="required" id="editCourse">
+						<select class="selectCourse" name="courseId" lay-search="" lay-verify="required" id="editCourse" disabled="true">
 							<option value="">课程</option>
 						</select>
 					</div>
@@ -115,7 +117,7 @@
 				<div class="layui-form-item">
 					<label class="layui-form-label">教师</label>
 					<div class="layui-input-inline">
-						<select class="selectTeacher" name="teacherId" lay-search="" lay-verify="required" id="editTeacher">
+						<select class="selectTeacher" name="teacherId" lay-search="" lay-verify="required" id="editTeacher" disabled="true">
 							<option value="">教师</option>
 						</select>
 					</div>

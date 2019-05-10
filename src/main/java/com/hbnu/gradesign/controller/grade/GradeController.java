@@ -2,7 +2,7 @@ package com.hbnu.gradesign.controller.grade;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.hbnu.gradesign.entity.Grade;
+import com.hbnu.gradesign.entity.dto.GradeDto;
 import com.hbnu.gradesign.entity.pojo.PackData;
 import com.hbnu.gradesign.service.GradeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +36,7 @@ public class GradeController {
 	}
 
 	@RequestMapping(value = "/admin/editGrade",method = RequestMethod.POST)
-	public PackData editGrade(@RequestBody Grade grade) {
-		return gs.updateGrade(grade);
+	public PackData editGrade(@RequestBody GradeDto gradeDto) {
+		return gs.updateGrade(gradeDto);
 	}
 }

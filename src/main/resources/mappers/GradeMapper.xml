@@ -88,14 +88,29 @@
         t1.course_id = #{courseId,jdbcType=INTEGER}
         AND t1.cla_id = #{claId,jdbcType=INTEGER}
   </select>
-  <select id="getNumGradeIsNull" resultType="java.lang.Integer">
+  <select id="getNumGradeIsNull" parameterType="java.lang.Integer" resultType="java.lang.Integer">
     SELECT
-        COUNT( * )
+        count( * )
     FROM
-        grade
+        exam t1
+        LEFT JOIN exam_cla t2 ON ( t1.id = t2.exam_id )
+        LEFT JOIN grade t3 ON ( t2.cla_id = t3.cla_id )
     WHERE
-        course_id = 32
-        AND score IS NULL;
+        t1.id = #{examId,jdbcType=INTEGER}
+        AND t3.course_id = #{courseId,jdbcType=INTEGER}
+        AND t3.score IS NULL
+  </select>
+  <select id="getStuGrades" parameterType="" resultType="java.lang.Integer">
+    SELECT
+        count( * )
+    FROM
+        exam t1
+        LEFT JOIN exam_cla t2 ON ( t1.id = t2.exam_id )
+        LEFT JOIN grade t3 ON ( t2.cla_id = t3.cla_id )
+    WHERE
+        t1.id = #{examId,jdbcType=INTEGER}
+        AND t3.course_id = #{courseId,jdbcType=INTEGER}
+        AND t3.score IS NULL
   </select>
 
 </mapper>

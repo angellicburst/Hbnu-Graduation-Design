@@ -96,9 +96,9 @@ public class ShiroRealm extends AuthorizingRealm {
 		//查询用户的角色和权限存到SimpleAuthenticationInfo中，这样在其它地方
 		//SecurityUtils.getSubject().getPrincipal()就能拿出用户的所有信息，包括角色和权限
 		Set<String> roles = roleService.getRolesByUsername(userDB.getUsername());
-		Set<String> perms = permService.getPermsByUserId(userDB.getId());
+		//Set<String> perms = permService.getPermsByUserId(userDB.getId());
 		roleService.getRolesByUsername(userDB.getUsername()).addAll(roles);
-		permService.getPermsByUserId(userDB.getId()).addAll(perms);
+		//permService.getPermsByUserId(userDB.getId()).addAll(perms);
 
 		SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(userDB, userDB.getPassword(), getName());
 

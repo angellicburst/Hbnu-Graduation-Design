@@ -13,14 +13,14 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class SaltMD5 {
 
-//	eefe4bcee417ae082fb3e7bf04b78bef
+//	5b0cb6c2864c3c6c058e0cc1a609d342
 //	KtcIXLbJ19rYhkT6E2OI3A==
 	@Test
 	public void salt() {
 		//所需加密的参数  即  密码
 		String source = "123456";
 		//[盐] 一般为用户名 或 随机数
-		String salt = "KtcIXLbJ19rYhkT6E2OI3A==";
+		String salt = "pTF1Ej7HzEjvVcoloVlVzw==";
 		//加密次数
 		int hashIterations = 1024;
 

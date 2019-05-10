@@ -2,12 +2,13 @@ package com.hbnu.gradesign.service.impl;
 
 import com.hbnu.gradesign.dao.ExamMapper;
 import com.hbnu.gradesign.dao.GradeMapper;
-import com.hbnu.gradesign.entity.Grade;
+import com.hbnu.gradesign.entity.dto.ExamDto;
 import com.hbnu.gradesign.entity.dto.GradeDto;
 import com.hbnu.gradesign.entity.pojo.PackData;
 import com.hbnu.gradesign.service.GradeService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,15 +53,18 @@ public class GradeServiceImpl implements GradeService {
 
 	@Override
 	@Transactional
-	public PackData updateGrade(Grade grade) {
+	public PackData updateGrade(GradeDto gradeDto) {
 
 		PackData packData = new PackData();
 
-		Integer re = gm.updateGrade(grade);
+		Integer re = gm.updateGrade(gradeDto);
 
 		if (re != null) {
-			if (gm.getNumGradeIsNull() == 0) {
-
+			if (gm.getNumGradeIsNull(gradeDto.getCourseId(),gradeDto.getExamId()) == 0) {
+				ExamDto examDto = new ExamDto();
+				BeanUtils.copyProperties(em.getExam(gradeDto.getExamId()), examDto);
+				examDto.setStatus(1);
+				em.updateExam(examDto);
 			}
 			packData.setCode(200);
 			packData.setMsg("更新成功");

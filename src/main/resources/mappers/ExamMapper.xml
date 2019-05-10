@@ -61,7 +61,7 @@
         start_time = #{startTime,jdbcType=TIMESTAMP},
         end_time = #{endTime,jdbcType=TIMESTAMP},
         teacher_id = #{teacherId,jdbcType=VARCHAR},
-        create_date = #{createDate,jdbcType=DATE}
+        create_date = #{createDate,jdbcType=DATE},
         status = #{status,jdbcType=INTEGER}
     WHERE
         id = #{id,jdbcType=INTEGER}

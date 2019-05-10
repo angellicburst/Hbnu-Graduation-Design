@@ -14,4 +14,6 @@ public class GradeDto extends Grade {
 
 	private String cla;
 
+	private Integer examId;
+
 }

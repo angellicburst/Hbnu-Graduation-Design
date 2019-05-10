@@ -174,9 +174,6 @@ public class ExamServiceImpl implements ExamService {
 			String endTime = StringUtils.substringAfter(examDto.getTimeScope()," - ");
 			examDto.setStartTime(simpleDateFormat.parse(startTime));
 			examDto.setEndTime(simpleDateFormat.parse(endTime));
-
-			simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-			examDto.setCreateDate(simpleDateFormat.parse(simpleDateFormat.format(new Date())) );
 		} catch (ParseException e) {
 			packData.setCode(400);
 			packData.setMsg("日期格式转换错误");
