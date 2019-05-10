@@ -45,8 +45,8 @@ public class StudentServiceImpl implements StudentService {
 	private PathProperties pathProperties;
 
 	/**
+	 * admin
 	 * 获取学生列表
-	 *
 	 * @param studentDto
 	 * @return
 	 */
@@ -55,6 +55,29 @@ public class StudentServiceImpl implements StudentService {
 		PackData packData = new PackData();
 
 		List<StudentDto> studentDtos = sm.getStudentsAdm(studentDto);
+		if (studentDtos.isEmpty()) {
+			packData.setCode(404);
+			packData.setMsg("学生查询为空");
+			log.error("学生查询为空");
+		} else {
+			packData.setCode(200);
+			packData.setObjs(studentDtos);
+			packData.setMsg("学生查询成功");
+		}
+		return packData;
+	}
+
+	/**
+	 * teacher
+	 * 获取学生列表
+	 * @param studentDto
+	 * @return
+	 */
+	@Override
+	public PackData getStusTea(StudentDto studentDto) {
+		PackData packData = new PackData();
+
+		List<StudentDto> studentDtos = sm.getStudentsTea(studentDto);
 		if (studentDtos.isEmpty()) {
 			packData.setCode(404);
 			packData.setMsg("学生查询为空");

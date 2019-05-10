@@ -25,6 +25,11 @@ public class ClaController {
 		return cs.getClas();
 	}
 
+	/**
+	 * 通过专业ID获取班级
+	 * @param majorId
+	 * @return
+	 */
 	@RequestMapping(value = "/getClasByMaj",method = RequestMethod.POST)
 	public List<Cla> getClasByMaj(Integer majorId) {
 		return cs.getClasByMajorId(majorId);

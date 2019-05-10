@@ -13,6 +13,8 @@ public interface StudentService {
 
 	PackData getStusAdm(StudentDto studentDto);
 
+	PackData getStusTea(StudentDto studentDto);
+
 	PackData getStuToGrade(StudentDto studentDto);
 
 	PackData addStudentsByExcel(MultipartFile file) throws Exception;

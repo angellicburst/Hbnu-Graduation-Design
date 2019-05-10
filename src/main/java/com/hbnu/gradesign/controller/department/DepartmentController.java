@@ -13,6 +13,10 @@ public class DepartmentController {
 	@Autowired
 	private DepartmentService ds;
 
+	/**
+	 * 获取所有的院系
+	 * @return
+	 */
 	@RequestMapping(value = "/getDepartments",method = RequestMethod.POST)
 	public PackData getDepartments() {
 		return ds.getDepartments();

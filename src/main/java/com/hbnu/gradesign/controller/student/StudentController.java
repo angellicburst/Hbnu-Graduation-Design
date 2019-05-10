@@ -56,12 +56,35 @@ public class StudentController {
 	/**
 	 * admin
 	 * 获取所有学生
+	 * @param pageIndex
+	 * @param pageSize
+	 * @param studentDto
+	 * @return
+	 */
+	@RequiresRoles("teacher")
+	@RequestMapping(value = "/teacher/getStudents",method = RequestMethod.GET)
+	public PackData getStuTeacher(@RequestParam(value = "page", defaultValue = "1") String pageIndex,
+								@RequestParam(value = "limit", defaultValue = "10") String pageSize,
+								StudentDto studentDto) {
+		PageHelper.startPage(Integer.parseInt(pageIndex), Integer.parseInt(pageSize));
+		PackData packData = ss.getStusAdm(studentDto);
+		PageInfo pageInfo = new PageInfo(packData.getObjs());
+
+		packData.setCount((int) pageInfo.getTotal());
+
+		return packData;
+	}
+
+	/**
+	 * admin
+	 * 获取所有学生
 	 * 用于成绩管理
 	 * @param pageIndex
 	 * @param pageSize
 	 * @param studentDto
 	 * @return
 	 */
+	@RequiresRoles("admin")
 	@RequestMapping(value = "/admin/getStuGrades",method = RequestMethod.GET)
 	public PackData getStuToGradeAdmin(@RequestParam(value = "page", defaultValue = "1") String pageIndex,
 								@RequestParam(value = "limit", defaultValue = "10") String pageSize,
@@ -81,6 +104,7 @@ public class StudentController {
 	 * @return
 	 * @throws UnsupportedEncodingException
 	 */
+	@RequiresRoles("admin")
 	@RequestMapping(value = "/admin/student/template/download",method = RequestMethod.GET)
 	public PackData templateDownLoad(HttpServletResponse response) throws UnsupportedEncodingException {
 		return ss.templateDownLoad(response);
@@ -91,6 +115,7 @@ public class StudentController {
 	 * @param file
 	 * @return
 	 */
+	@RequiresRoles("admin")
 	@RequestMapping(value = "/admin/addStudent",method = RequestMethod.POST)
 	public PackData addStudent(@RequestParam("file") MultipartFile file) throws Exception {
 		return ss.addStudentsByExcel(file);
@@ -101,6 +126,7 @@ public class StudentController {
 	 * @param students
 	 * @return
 	 */
+	@RequiresRoles("admin")
 	@RequestMapping(value = "/admin/delStudents",method = RequestMethod.POST)
 	public PackData delStudents(@RequestBody List<Student> students) {
 		return ss.delStudent(students);
@@ -111,6 +137,7 @@ public class StudentController {
 	 * @param student
 	 * @return
 	 */
+	@RequiresRoles("admin")
 	@RequestMapping(value = "/admin/delStudent",method = RequestMethod.POST)
 	public PackData delStudent(@RequestBody Student student) {
 		List<Student> students = new ArrayList<>();
@@ -125,6 +152,7 @@ public class StudentController {
 	 * @param student
 	 * @return
 	 */
+	@RequiresRoles("admin")
 	@RequestMapping(value = "/admin/student/changeStatus",method = RequestMethod.POST)
 	public PackData changeStatus(@RequestBody Student student) {
 		User user = null;
@@ -161,6 +189,7 @@ public class StudentController {
 	 * @param student
 	 * @return
 	 */
+	@RequiresRoles("admin")
 	@RequestMapping(value = "/admin/editStudent",method = RequestMethod.POST)
 	public PackData editStudent(@RequestBody Student student) {
 		return ss.updateStudent(student);

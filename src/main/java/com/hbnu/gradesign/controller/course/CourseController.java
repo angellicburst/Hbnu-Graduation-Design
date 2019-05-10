@@ -13,6 +13,10 @@ public class CourseController {
 	@Autowired
 	private CourseService cs;
 
+	/**
+	 * 获取所有课程
+	 * @return
+	 */
 	@RequestMapping(value = "/getCourses",method = RequestMethod.POST)
 	public PackData getCourses() {
 		return cs.getCourses();

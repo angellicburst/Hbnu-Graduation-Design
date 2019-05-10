@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.hbnu.gradesign.entity.ExamCla;
 import com.hbnu.gradesign.entity.pojo.PackData;
 import com.hbnu.gradesign.service.ExamClaService;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,12 +19,14 @@ public class ExamClaController {
 	private ExamClaService ecs;
 
 	/**
+	 * admin
 	 * 获取某一考试的所有班级
 	 * @param pageIndex
 	 * @param pageSize
 	 * @param examId
 	 * @return
 	 */
+	@RequiresRoles("admin")
 	@RequestMapping(value = "/admin/getExamClas",method = RequestMethod.GET)
 	public PackData getExamsAdmin(@RequestParam(value = "page", defaultValue = "1") String pageIndex,
 								  @RequestParam(value = "limit", defaultValue = "10") String pageSize,
@@ -38,10 +41,12 @@ public class ExamClaController {
 	}
 
 	/**
+	 * admin
 	 * 为某一考试添加班级
 	 * @param examCla
 	 * @return
 	 */
+	@RequiresRoles("admin")
 	@RequestMapping(value = "/admin/addExamCla",method = RequestMethod.POST)
 	public PackData addExam(ExamCla examCla) {
 		return ecs.addExamCla(examCla);
@@ -49,10 +54,12 @@ public class ExamClaController {
 
 
 	/**
+	 * admin
 	 * 删除考试
 	 * @param examCla
 	 * @return
 	 */
+	@RequiresRoles("admin")
 	@RequestMapping(value = "/admin/delExamCla",method = RequestMethod.POST)
 	public PackData delExam(ExamCla examCla) {
 		return ecs.delExamCla(examCla);

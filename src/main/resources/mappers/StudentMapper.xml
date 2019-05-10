@@ -104,6 +104,37 @@
         </if>
     </where>
   </select>
+  <select id="getStudentsTea" parameterType="com.hbnu.gradesign.entity.dto.StudentDto" resultMap="StuIncDeMaCl">
+      SELECT
+      id,
+      NAME,
+      gender,
+      phone,
+      email,
+      department_id,
+      major_id,
+      cla_id
+      FROM
+      student
+      WHERE
+      cla_id IN ( SELECT DISTINCT cla_id FROM arrange_course WHERE teacher_id = 1 )
+      <if test="id != null and id != ''">
+          AND t1.id = #{id}
+      </if>
+      <if test="name != null and name != ''">
+          <bind name="pattern" value="name + '%'" ></bind>
+          AND t1.name LIKE #{pattern}
+      </if>
+      <if test="departmentId != null and departmentId != ''">
+          AND t1.department_id = #{departmentId}
+      </if>
+      <if test="majorId != null and majorId != ''">
+          AND t1.major_id = #{majorId}
+      </if>
+      <if test="claId != null and claId != ''">
+          AND t1.cla_id = #{claId}
+      </if>
+  </select>
   <select id="getStudentsToGradeAdm" parameterType="com.hbnu.gradesign.entity.dto.StudentDto" resultMap="StuIncDeMaCl">
       SELECT
           t1.id,

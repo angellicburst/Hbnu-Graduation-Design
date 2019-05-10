@@ -4,7 +4,6 @@ layui.config({
 layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 	const $ = layui.jquery,
 		table = layui.table,
-		laydate = layui.laydate,
 		form = layui.form;
 
 	$(function () {
@@ -13,23 +12,14 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 		 */
 		let loading = layer.load(2, {shade: false});
 
-		//执行laydate实例
-		laydate.render({
-			elem: '#searchCreateDate'//指定元素
-		});
-		laydate.render({
-			elem: '#addCreateDate'//指定元素
-		});
-
 		/**
 		 * @todo 定义table
 		 */
 		table.render({
-			elem : '#stuListAdm',
-			url : '/admin/getStudents',
+			elem : '#stuListTea',
+			url : '/teacher/getStudents',
 			toolbar : '#toolbar',
-			id: 'stuListAdm',
-			//width : 1200,
+			id: 'stuListTea',
 			cellMinWidth : 80,
 			page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
 				layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
@@ -66,16 +56,6 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 				width : 200,
 				align : 'center'
 			}, {
-				field : 'year',
-				title : '学年制',
-				width : 80,
-				align : 'center'
-			}, {
-				field : 'createDate',
-				title : '入学时间',
-				width : 120,
-				align : 'center'
-			},{
 				field : 'status',
 				title : '状态',
 				align : 'center',
@@ -207,171 +187,6 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 	});
 
 	/**
-	 * @todo 监听头部操作按钮（添加，批量删除）
-	 */
-	table.on('toolbar(stuAdm)', function(obj){
-		let checkStatus = table.checkStatus(obj.config.id);
-		let data = checkStatus.data;
-
-		if (obj.event === 'delMult') {   //批量删除
-			//删除提示
-			layer.confirm('确认删除'+data.length+'条？', function() {
-				$.ajax({
-					type: "POST",
-					url: "/admin/delStudents",
-					data: JSON.stringify(data),
-					dataType: "json",
-					contentType:"application/json",
-					success: function (data) {
-						if (data.code === 200) {
-							//刷新table
-							$(".layui-laypage-btn")[0].click();
-							layer.msg(data.msg,{icon: 1});
-						} else {
-							layer.msg(data.msg,{icon: 2});
-						}
-					}
-				});
-
-				//关闭弹出层
-				layer.closeAll();
-			});
-		}
-	});
-
-	/**
-	 * @todo table 监听表格操作按钮（删除，更新）
-	 * @param obj
-	 */
-	table.on('tool(stuAdm)', function(obj){
-		let data = obj.data;
-
-		if(obj.event === 'del') {    //删除
-			layer.confirm('确认删除？', function(index) {
-				//删除
-				$.ajax({
-					type: "POST",
-					url: "/admin/delStudent",
-					data: JSON.stringify(data),
-					dataType: "json",
-					contentType:'application/json;charset=UTF-8',
-					success: function (data) {
-						if (data.code === 200) {
-							//刷新table
-							$(".layui-laypage-btn")[0].click();
-							layer.msg(data.msg,{icon: 1});
-						} else {
-							layer.msg(data.msg,{icon: 2});
-						}
-					}
-				});
-
-				//关闭弹出层
-				layer.closeAll();
-
-			});
-		} else if(obj.event === 'edit') {    //更新
-			//打开弹出层
-			layer.open({
-				type : 1,
-				title : "学生编辑",
-				area: ['1000px', '550px'],
-				content: $('#editStuFrame'),
-				cancel: function(index, layero) {    //点击弹出层右上角X触发
-					//清除所有弹出层数据
-					$("#editForm")[0].reset();
-					//关闭弹出层
-					layer.closeAll();
-				}
-
-			});
-			//表单初始赋值
-			form.val('stuFilter', data);
-			//获取院系ID，专业ID，班级ID
-			let depId = data.departmentId;
-			let maId = data.majorId;
-			let claId = data.claId;
-
-			//存入隐藏域
-			$("#saveStuId").val(data.id);
-			$("#saveStuStatus").val(data.status);
-			$("#saveStuUserId").val(data.userId);
-
-			//三级联动
-			$.ajax({
-				type: "POST",
-				url: "/getMajorsByDep",
-				data: {
-					departmentId : depId
-				},
-				dataType: "json",
-				success: function (data) {
-					$("#selectMajor").empty();
-					$("#selectCla").empty();
-					let majors = "<option value=''>专业</option>";
-					layui.each(data, function(index, obj) {
-
-						if (maId == obj.id) {
-							majors += "<option value='"+obj.id+"' selected>"+obj.major+"</option>"
-						} else {
-							majors += "<option value='"+obj.id+"'>"+obj.major+"</option>"
-						}
-
-					});
-					$("#selectMajor").append(majors);
-					form.render();
-					$.ajax({
-						type: "POST",
-						url: "/getClasByMaj",
-						data: {
-							majorId : maId
-						},
-						dataType: "json",
-						success: function (data) {
-							$("#selectCla").empty();
-							let clas = "<option value=''>班级</option>";
-							layui.each(data, function(index, obj) {
-								if (claId == obj.id) {
-									clas += "<option value='"+obj.id+"' selected>"+obj.cla+"</option>"
-								} else {
-									clas += "<option value='"+obj.id+"'>"+obj.cla+"</option>"
-								}
-
-							});
-							$("#selectCla").append(clas);
-							form.render();
-						}
-					});
-				}
-			});
-
-		} else if(obj.event === 'stop' ||obj.event === 'use') {			//状态变更
-			layer.confirm(obj.event === 'stop'?'确认停用？':'确认启用？', function(index) {
-				//改变状态
-				$.ajax({
-					type: "POST",
-					url: "/admin/student/changeStatus",
-					data: JSON.stringify(data),
-					dataType: "json",
-					contentType:'application/json;charset=UTF-8',
-					success: function (data) {
-						if (data.code === 200) {
-							//刷新table
-							$(".layui-laypage-btn")[0].click();
-							layer.msg(data.msg,{icon: 1});
-						} else {
-							layer.msg(data.msg,{icon: 2});
-						}
-					}
-				});
-				//关闭弹出层
-				layer.closeAll();
-			});
-		}
-	});
-
-
-	/**
 	 * @todo 院系专业班级三级联动
 	 */
 	form.on('select(department)', function(data) {
@@ -420,107 +235,5 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 		});
 		return false;
 	});
-
-    /**
-     * @todo 批量导入学生
-     */
-/*    upload.render({
-        elem: '#addStus'
-        ,url: '/admin/addStudent'
-        ,method: 'POST'
-        ,accept: 'file'
-        ,exts: 'xls'
-        ,before: function(){
-            layer.load(1, {shade: false});
-        }
-        ,done: function(res){
-            //关闭loading
-            layer.closeAll();
-            //刷新table
-            table.reload('stuListAdm',{});
-            if (res.code === 200) {
-                //打印msg
-                layer.msg(res.msg,{icon: 1});
-				//刷新table
-				$(".layui-laypage-btn")[0].click();
-            } else {
-                layer.msg(res.msg,{icon: 2});
-            }
-        }
-        ,error: function(){
-            layer.closeAll('loading'); //关闭loading
-        }
-        ,response: {
-            statusCode: 200   //设置返回码为200，默认0
-        }
-    });*/
-    $("#addStusBtn").on("click",function () {
-        $('#addStus').click();
-
-    });
-    $("#addStus").change(function () {
-        if($(this).val() != ""){
-            let addForm=document.querySelector("#addStusForm");
-            let formdata=new FormData(addForm);
-
-			layer.load(1, {shade: false});
-
-            $.ajax({
-                url: '/admin/addStudent',
-                type: 'POST',
-                data: formdata,
-                async: false,
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function (res) {
-                      //关闭loading
-                      layer.closeAll();
-                      form.render();
-                      $("#addStusForm")[0].reset();
-                      //清空弹出层的数据
-                      //$("#addStusForm")[0].reset();
-                      if (res.code === 200) {
-						  //刷新table
-						  $(".layui-laypage-btn")[0].click();
-                          //打印msg
-                          layer.msg(res.msg,{icon: 1});
-                      } else {
-                          layer.msg(res.msg,{icon: 2});
-                      }
-                }
-            });
-        }
-    });
-
-
-
-	/**
-	 * @todo 学生更新
-	 */
-	form.on('submit(editStu)', function(data) {
-		$.ajax({
-			type: "POST",
-			url: "/admin/editStudent",
-			data: JSON.stringify(data.field),
-			dataType: "json",
-			contentType:'application/json;charset=UTF-8',
-			success: function (data) {
-				//关闭弹出层
-				layer.closeAll();
-				if (data.code === 200) {
-					//刷新table
-					$(".layui-laypage-btn")[0].click();
-					layer.msg(data.msg,{icon: 1});
-				} else {
-					layer.msg(data.msg,{icon: 2});
-				}
-				//清空弹出层的数据
-				$("#editForm")[0].reset();
-			}
-		});
-		return false;
-	});
-
 
 });

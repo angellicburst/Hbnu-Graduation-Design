@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.hbnu.gradesign.entity.dto.GradeDto;
 import com.hbnu.gradesign.entity.pojo.PackData;
 import com.hbnu.gradesign.service.GradeService;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +16,7 @@ public class GradeController {
 	private GradeService gs;
 
 	/**
+	 * admin
 	 * 获取某一考试中某一班级的所有学生成绩
 	 * @param pageIndex
 	 * @param pageSize
@@ -22,6 +24,7 @@ public class GradeController {
 	 * @param claId
 	 * @return
 	 */
+	@RequiresRoles("admin")
 	@RequestMapping(value = "/admin/getGradesExamCla",method = RequestMethod.GET)
 	public PackData getGradesByExamIdAndClaIdAdmin(@RequestParam(value = "page", defaultValue = "1") String pageIndex,
 								  @RequestParam(value = "limit", defaultValue = "10") String pageSize,
@@ -36,12 +39,14 @@ public class GradeController {
 	}
 
 	/**
+	 * admin
 	 * 获取学生ID获取该学生的所有成绩
 	 * @param pageIndex
 	 * @param pageSize
 	 * @param studentId
 	 * @return
 	 */
+	@RequiresRoles("admin")
 	@RequestMapping(value = "/admin/getGraByStudentId",method = RequestMethod.GET)
 	public PackData getGradeByStudentId(@RequestParam(value = "page", defaultValue = "1") String pageIndex,
 										@RequestParam(value = "limit", defaultValue = "10") String pageSize,
@@ -56,20 +61,24 @@ public class GradeController {
 	}
 
 	/**
+	 * admin
 	 * 成绩修改，有校验
 	 * @param gradeDto
 	 * @return
 	 */
+	@RequiresRoles("admin")
 	@RequestMapping(value = "/admin/editGrade",method = RequestMethod.POST)
 	public PackData editGrade(@RequestBody GradeDto gradeDto) {
 		return gs.updateGrade(gradeDto);
 	}
 
 	/**
+	 * admin
 	 * 成绩修改，无校验
 	 * @param gradeDto
 	 * @return
 	 */
+	@RequiresRoles("admin")
 	@RequestMapping(value = "/admin/editGradeNC",method = RequestMethod.POST)
 	public PackData editGradeNoCheck(@RequestBody GradeDto gradeDto) {
 		return gs.updateGradeNC(gradeDto);

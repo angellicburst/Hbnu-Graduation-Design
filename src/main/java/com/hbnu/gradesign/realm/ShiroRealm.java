@@ -1,7 +1,6 @@
 package com.hbnu.gradesign.realm;
 
 import com.hbnu.gradesign.entity.User;
-import com.hbnu.gradesign.service.PermService;
 import com.hbnu.gradesign.service.RoleService;
 import com.hbnu.gradesign.service.UserService;
 import org.apache.shiro.authc.*;
@@ -25,8 +24,6 @@ public class ShiroRealm extends AuthorizingRealm {
 	private UserService userService;
 	@Autowired
 	private RoleService roleService;
-	@Autowired
-	private PermService permService;
 
 	/**
 	 * 告诉shiro如何根据获取到的用户信息中的密码和盐值来校验密码
@@ -60,9 +57,9 @@ public class ShiroRealm extends AuthorizingRealm {
 		System.out.println(user);
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 		System.out.println("获取角色信息："+roleService.getRolesByUsername(user.getUsername()));
-		System.out.println("获取权限信息："+permService.getPermsByUserId(user.getId()));
+		//System.out.println("获取权限信息："+permService.getPermsByUserId(user.getId()));
 		info.setRoles(roleService.getRolesByUsername(user.getUsername()));
-		info.setStringPermissions(permService.getPermsByUserId(user.getId()));
+		//info.setStringPermissions(permService.getPermsByUserId(user.getId()));
 		return info;
 	}
 

@@ -7,6 +7,7 @@ import com.hbnu.gradesign.entity.Course;
 import com.hbnu.gradesign.entity.dto.ArrangeCourseDto;
 import com.hbnu.gradesign.entity.pojo.PackData;
 import com.hbnu.gradesign.service.ArrangeCourseService;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +28,7 @@ public class ArrangeCourseController {
 	 * @param arrangeCourse
 	 * @return
 	 */
+	@RequiresRoles("admin")
 	@RequestMapping(value = "/admin/getArrangeCourses",method = RequestMethod.GET)
 	public PackData getStuAdmin(@RequestParam(value = "page", defaultValue = "1") String pageIndex,
 								@RequestParam(value = "limit", defaultValue = "10") String pageSize,
@@ -46,6 +48,7 @@ public class ArrangeCourseController {
 	 * @param arrangeCourseDto
 	 * @return
 	 */
+	@RequiresRoles("admin")
 	@RequestMapping(value = "/admin/addCourseArrange",method = RequestMethod.POST)
 	public PackData addCourseArrange(ArrangeCourseDto arrangeCourseDto) {
 		return acs.addCourseArrange(arrangeCourseDto);
@@ -57,6 +60,7 @@ public class ArrangeCourseController {
 	 * @param courses
 	 * @return
 	 */
+	@RequiresRoles("admin")
 	@RequestMapping(value = "/admin/delCourseArranges",method = RequestMethod.POST)
 	public PackData delCourseArranges(@RequestBody List<Course> courses) {
 		return acs.delCourseArrange(courses);
@@ -68,6 +72,7 @@ public class ArrangeCourseController {
 	 * @param course
 	 * @return
 	 */
+	@RequiresRoles("admin")
 	@RequestMapping(value = "/admin/delCourseArrange",method = RequestMethod.POST)
 	public PackData delCourseArrange(Course course) {
 		List<Course> courses = new ArrayList<>();
@@ -76,10 +81,12 @@ public class ArrangeCourseController {
 	}
 
 	/**
+	 * admin
 	 * 菜单更新
 	 * @param arrangeCourseDto
 	 * @return
 	 */
+	@RequiresRoles("admin")
 	@RequestMapping(value = "/admin/editCourseArrange",method = RequestMethod.POST)
 	public PackData editMenu(ArrangeCourseDto arrangeCourseDto) {
 		return acs.editCourseArrange(arrangeCourseDto);

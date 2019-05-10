@@ -37,7 +37,7 @@ layui.use(['jquery','form'], function() {
             success: function (data) {
                 if (data.code === 200) {
                     $("#tabName").append("<li>我的桌面</li>");
-                    $(".layui-show").append("<iframe src='/welcome' frameborder='0' scrolling='yes' class='weIframe'></iframe>")
+                    $(".layui-tab-content").append("<div class='layui-tab-item layui-show'><iframe src='/welcome' frameborder='0' scrolling='yes' class='weIframe'></iframe></div>")
                     form.render();
                 }
             }

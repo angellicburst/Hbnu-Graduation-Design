@@ -6,6 +6,7 @@ import com.hbnu.gradesign.entity.Menu;
 import com.hbnu.gradesign.entity.dto.MenuDto;
 import com.hbnu.gradesign.entity.pojo.PackData;
 import com.hbnu.gradesign.service.MenuService;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,11 +41,23 @@ public class MenuController {
 	}
 
 	/**
+	 * 获取当前菜单
+	 *
+	 * @return
+	 */
+	@RequestMapping(value = "/getCurMenu", method = RequestMethod.POST)
+	public MenuDto getCurMenu(Integer id, Integer level) {
+		return ms.getCurMenu(id, level);
+	}
+
+	/**
+	 * admin
 	 * 获取全部菜单(单纯获取全部菜单)
 	 * @param pageIndex
 	 * @param pageSize
 	 * @return
 	 */
+	@RequiresRoles("admin")
 	@RequestMapping(value = "/menus", method = RequestMethod.GET)
 	public PackData getAllMenus(@RequestParam(value = "page", defaultValue = "1") String pageIndex,
 								 @RequestParam(value = "limit", defaultValue = "10") String pageSize) {
@@ -58,40 +71,36 @@ public class MenuController {
 	}
 
 	/**
-	 * 获取当前菜单
-	 *
-	 * @return
-	 */
-	@RequestMapping(value = "/getCurMenu", method = RequestMethod.POST)
-	public MenuDto getCurMenu(Integer id, Integer level) {
-		return ms.getCurMenu(id, level);
-	}
-
-	/**
+	 * admin
 	 * 添加菜单
 	 * @param menuDto
 	 * @return
 	 */
+	@RequiresRoles("admin")
 	@RequestMapping(value = "/addMenu", method = RequestMethod.POST)
 	public PackData addMenu(MenuDto menuDto) {
 		return ms.addMenu(menuDto);
 	}
 
 	/**
+	 * admin
 	 * 菜单删除（多个）
 	 * @param menus
 	 * @return
 	 */
+	@RequiresRoles("admin")
 	@RequestMapping(value = "/delMenus",method = RequestMethod.POST)
 	public PackData delMenus(@RequestBody List<Menu> menus) {
 		return ms.delMenu(menus);
 	}
 
 	/**
+	 * admin
 	 * 菜单删除(单个)
 	 * @param menu
 	 * @return
 	 */
+	@RequiresRoles("admin")
 	@RequestMapping(value = "/delMenu",method = RequestMethod.POST)
 	public PackData delMenu(Menu menu) {
 		List<Menu> menus = new ArrayList<>();
@@ -100,10 +109,12 @@ public class MenuController {
 	}
 
 	/**
+	 * admin
 	 * 菜单更新
 	 * @param menuDto
 	 * @return
 	 */
+	@RequiresRoles("admin")
 	@RequestMapping(value = "/editMenu",method = RequestMethod.POST)
 	public PackData editMenu(MenuDto menuDto) {
 		return ms.editMenu(menuDto);
