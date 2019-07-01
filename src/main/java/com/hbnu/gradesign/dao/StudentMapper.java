@@ -3,6 +3,7 @@ package com.hbnu.gradesign.dao;
 import com.hbnu.gradesign.entity.Student;
 import com.hbnu.gradesign.entity.dto.StudentDto;
 import com.hbnu.gradesign.entity.excel.StudentExcel;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public interface StudentMapper {
 
     List<StudentDto> getStudentsAdm(StudentDto studentDto);
 
-    List<StudentDto> getStudentsTea(StudentDto studentDto);
+    List<StudentDto> getStudentsTea(@Param("teacherId") String teacherId);
 
     List<StudentDto> getStudentsToGradeAdm(StudentDto studentDto);
 

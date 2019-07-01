@@ -12,6 +12,8 @@ public interface ExamMapper {
 
     List<ExamDto> getExams(ExamDto examDto);
 
+    List<ExamDto> getExamsByTeacherId(ExamDto examDto);
+
     List<ExamDto> getEndExams(ExamDto examDto);
 
     Exam getExam(Integer id);

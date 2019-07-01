@@ -122,7 +122,7 @@
     WHERE
         student_id = #{studentId,jdbcType=VARCHAR}
   </select>
-  <select id="getGradeByStudentId" parameterType="java.lang.Integer" resultMap="GradeIncStuExaCla">
+  <select id="getGradeByStudentId" parameterType="java.lang.String" resultMap="GradeIncStuExaCla">
     SELECT
         t1.id,
         t1.course_id,

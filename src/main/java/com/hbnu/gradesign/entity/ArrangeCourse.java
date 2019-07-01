@@ -30,7 +30,7 @@ public class ArrangeCourse implements Serializable {
      * 任课老师ID
      * teacher_id
      */
-    private Integer teacherId;
+    private String teacherId;
 
     /**
      * 上课地点

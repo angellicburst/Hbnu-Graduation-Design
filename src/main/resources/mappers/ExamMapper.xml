@@ -98,6 +98,38 @@
       </if>
     </where>
   </select>
+  <select id="getExamsByTeacherId" parameterType="com.hbnu.gradesign.entity.dto.ExamDto" resultMap="ExamIncCouTea">
+      SELECT
+      t1.id,
+      t1.exam_name,
+      t1.info,
+      t1.total,
+      t2.course,
+      t1.course_id,
+      t1.address,
+      t1.start_time,
+      t1.end_time,
+      t3.NAME AS teacher,
+      t1.teacher_id,
+      t1.create_date,
+      t1.STATUS
+      FROM
+      exam t1
+      LEFT JOIN course t2 ON ( t1.course_id = t2.id )
+      LEFT JOIN teacher t3 ON ( t1.teacher_id = t3.id )
+      WHERE
+      t1.teacher_id = #{teacherId,jdbcType=VARCHAR}
+      <if test="examName != null and examName != ''">
+          <bind name="pattern" value="examName + '%'" ></bind>
+          AND t1.exam_name LIKE #{pattern}
+      </if>
+      <if test="courseId != null and courseId != ''">
+          AND t1.course_id = #{courseId}
+      </if>
+      <if test="teacherId != null and teacherId != ''">
+          AND t1.teacher_id = #{teacherId}
+      </if>
+  </select>
   <select id="getEndExams" parameterType="com.hbnu.gradesign.entity.dto.ExamDto" resultMap="ExamIncCouTea">
       SELECT
           t1.id,

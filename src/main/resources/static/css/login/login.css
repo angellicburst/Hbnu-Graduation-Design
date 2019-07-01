@@ -33,7 +33,18 @@
 .login-logo {
 	height: 150px;
 	width: 420px;
+	text-align: center;
+	line-height: 150px;
 }
+
+#logo {
+	border: none;
+	width: 150px;
+	text-align: center;
+	margin-right: 80px;
+	margin-bottom: 30px;
+}
+
 .login a.logo {
 	display: block;
 	height: 58px;

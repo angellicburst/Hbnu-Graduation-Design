@@ -88,7 +88,7 @@ public class PagesController {
 	@RequiresRoles("admin")
 	@RequestMapping(value = "/admin/examManage")
 	public String examManageByAdm() {
-		return "exam/examManage";
+		return "exam/examManageAdm";
 	}
 
 	/**
@@ -102,16 +102,16 @@ public class PagesController {
 		return "grade/gradeManageAdm";
 	}
 
-	/**
-	 * teacher
-	 * 跳转学生管理页面
-	 * @return
-	 */
-	@RequiresRoles("teacher")
-	@RequestMapping(value = "/teacher/stuManage")
-	public String stuManageByTea() {
-		return "student/stuManageTea";
-	}
+//	/**
+//	 * teacher
+//	 * 跳转学生管理页面
+//	 * @return
+//	 */
+//	@RequiresRoles("teacher")
+//	@RequestMapping(value = "/teacher/stuManage")
+//	public String stuManageByTea() {
+//		return "student/stuManageTea";
+//	}
 
 	/**
 	 * teacher
@@ -122,5 +122,38 @@ public class PagesController {
 	@RequestMapping(value = "/teacher/couManage")
 	public String couManageByTea() {
 		return "course/couManageTea";
+	}
+
+	/**
+	 * admin
+	 * 跳转考试管理页面
+	 * @return
+	 */
+	@RequiresRoles("teacher")
+	@RequestMapping(value = "/teacher/examManage")
+	public String examManageByTea() {
+		return "exam/examManageTea";
+	}
+
+	/**
+	 * student
+	 * 跳转课程查询页面
+	 * @return
+	 */
+	@RequiresRoles("student")
+	@RequestMapping(value = "/student/couManage")
+	public String couManageByStu() {
+		return "course/couManageStu";
+	}
+
+	/**
+	 * student
+	 * 跳转成绩查询页面
+	 * @return
+	 */
+	@RequiresRoles("student")
+	@RequestMapping(value = "/student/graManage")
+	public String graManageByStu() {
+		return "grade/gradeManageStu";
 	}
 }

@@ -31,6 +31,6 @@ public class StudentDto extends Student {
 	/**
 	 * 教师ID
 	 */
-	private Integer teacherId;
+	private String teacherId;
 
 }

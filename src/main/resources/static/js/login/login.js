@@ -14,7 +14,7 @@ layui.use(['form'], function() {
             idecode: data.field.idecode
         };
         
-        // if(logininfo.idecode === num) {
+        if(logininfo.idecode === num) {
             $.ajax({
                 type: "GET",
                 url: "/dologin",
@@ -33,11 +33,11 @@ layui.use(['form'], function() {
 
             $(".input-val").val('');
             draw(show_num);
-        // } else {
-        //     layer.msg('验证码错误！请重新输入！');
-        //     $(".input-val").val('');
-        //     draw(show_num);
-        // }
+        } else {
+            layer.msg('验证码错误！请重新输入！');
+            $(".input-val").val('');
+            draw(show_num);
+        }
 
         return false;
     });

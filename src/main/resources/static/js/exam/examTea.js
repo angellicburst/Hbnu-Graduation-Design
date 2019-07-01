@@ -31,10 +31,10 @@ layui.use(['laydate','jquery', 'admin', 'table','form'], function() {
          * @todo 定义table
          */
         table.render({
-            elem : '#examListAdm',
-            url : '/admin/getExams',
+            elem : '#examListTea',
+            url : '/teacher/getExams',
             toolbar : '#toolbar',
-            id: 'examListAdm',
+            id: 'examListTea',
             cellMinWidth : 80,
             page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
                 layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
@@ -275,7 +275,7 @@ layui.use(['laydate','jquery', 'admin', 'table','form'], function() {
      * @todo 模糊查询表单
      */
     form.on('submit(searchBtn)', function(){
-        table.reload('examListAdm',{
+        table.reload('examListTea',{
             where: {
                 examName:$("#searchExamName").val(),
                 courseId:$(".course .layui-this").attr("lay-value") == undefined?'':$(".course .layui-this").attr("lay-value"),

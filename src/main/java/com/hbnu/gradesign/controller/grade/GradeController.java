@@ -31,7 +31,7 @@ public class GradeController {
 	 * @param claId
 	 * @return
 	 */
-	@RequiresRoles("admin")
+	@RequiresRoles("teacher")
 	@RequestMapping(value = "/admin/getGradesExamCla",method = RequestMethod.GET)
 	public PackData getGradesByExamIdAndClaIdAdmin(@RequestParam(value = "page", defaultValue = "1") String pageIndex,
 								  @RequestParam(value = "limit", defaultValue = "10") String pageSize,
@@ -97,7 +97,7 @@ public class GradeController {
 	 * @param gradeDto
 	 * @return
 	 */
-	@RequiresRoles("admin")
+	@RequiresRoles("teacher")
 	@RequestMapping(value = "/admin/editGrade",method = RequestMethod.POST)
 	public PackData editGrade(@RequestBody GradeDto gradeDto) {
 		return gs.updateGrade(gradeDto);

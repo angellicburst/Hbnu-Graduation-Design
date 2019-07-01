@@ -26,7 +26,7 @@ public class ExamClaController {
 	 * @param examId
 	 * @return
 	 */
-	@RequiresRoles("admin")
+	@RequiresRoles("teacher")
 	@RequestMapping(value = "/admin/getExamClas",method = RequestMethod.GET)
 	public PackData getExamsAdmin(@RequestParam(value = "page", defaultValue = "1") String pageIndex,
 								  @RequestParam(value = "limit", defaultValue = "10") String pageSize,
@@ -46,7 +46,7 @@ public class ExamClaController {
 	 * @param examCla
 	 * @return
 	 */
-	@RequiresRoles("admin")
+	@RequiresRoles("teacher")
 	@RequestMapping(value = "/admin/addExamCla",method = RequestMethod.POST)
 	public PackData addExam(ExamCla examCla) {
 		return ecs.addExamCla(examCla);
@@ -59,7 +59,7 @@ public class ExamClaController {
 	 * @param examCla
 	 * @return
 	 */
-	@RequiresRoles("admin")
+	@RequiresRoles("teacher")
 	@RequestMapping(value = "/admin/delExamCla",method = RequestMethod.POST)
 	public PackData delExam(ExamCla examCla) {
 		return ecs.delExamCla(examCla);

@@ -104,27 +104,8 @@
         </if>
     </where>
   </select>
-  <select id="getStudentsTea" parameterType="com.hbnu.gradesign.entity.dto.StudentDto" resultMap="StuIncDeMaCl">
-      SELECT
-      t1.id,
-      t1.NAME,
-      t1.gender,
-      t1.phone,
-      t1.email,
-      t1.department_id,
-      t1.major_id,
-      t1.cla_id,
-      t2.department,
-      t3.major,
-      t4.cla
-      FROM
-      student t1
-      LEFT JOIN department t2 ON ( t1.department_id = t2.id )
-      LEFT JOIN major t3 ON ( t1.major_id = t3.id )
-      LEFT JOIN cla t4 ON ( t1.cla_id = t4.id )
-      WHERE
-      t1.cla_id IN ( SELECT DISTINCT cla_id FROM arrange_course WHERE teacher_id = #{teacherId,jdbcType=INTEGER} )
---       SELECT DISTINCT
+  <select id="getStudentsTea" parameterType="java.lang.String" resultMap="StuIncDeMaCl">
+--       SELECT
 --       t1.id,
 --       t1.NAME,
 --       t1.gender,
@@ -141,25 +122,28 @@
 --       LEFT JOIN department t2 ON ( t1.department_id = t2.id )
 --       LEFT JOIN major t3 ON ( t1.major_id = t3.id )
 --       LEFT JOIN cla t4 ON ( t1.cla_id = t4.id )
---       LEFT JOIN arrange_course t5 ON ( t5.cla_id = t1.cla_id )
 --       WHERE
---       t5.teacher_id = #{teacherId,jdbcType=INTEGER}
-      <if test="id != null and id != ''">
-          AND t1.id = #{id}
-      </if>
-      <if test="name != null and name != ''">
-          <bind name="pattern" value="name + '%'" ></bind>
-          AND t1.name LIKE #{pattern}
-      </if>
-      <if test="departmentId != null and departmentId != ''">
-          AND t1.department_id = #{departmentId}
-      </if>
-      <if test="majorId != null and majorId != ''">
-          AND t1.major_id = #{majorId}
-      </if>
-      <if test="claId != null and claId != ''">
-          AND t1.cla_id = #{claId}
-      </if>
+--       t1.cla_id IN ( SELECT DISTINCT cla_id FROM arrange_course WHERE teacher_id = #{teacherId,jdbcType=VARCHAR} )
+      SELECT DISTINCT
+      t1.id,
+      t1.NAME,
+      t1.gender,
+      t1.phone,
+      t1.email,
+      t1.department_id,
+      t1.major_id,
+      t1.cla_id,
+      t2.department,
+      t3.major,
+      t4.cla
+      FROM
+      student t1
+      LEFT JOIN department t2 ON ( t1.department_id = t2.id )
+      LEFT JOIN major t3 ON ( t1.major_id = t3.id )
+      LEFT JOIN cla t4 ON ( t1.cla_id = t4.id )
+      LEFT JOIN arrange_course t5 ON ( t5.cla_id = t1.cla_id )
+      WHERE
+      teacher_id = "${teacherId}"
   </select>
   <select id="getStudentsToGradeAdm" parameterType="com.hbnu.gradesign.entity.dto.StudentDto" resultMap="StuIncDeMaCl">
       SELECT
@@ -224,6 +208,6 @@
     FROM
         student
     WHERE
-        user_id = #{userId,jdbcType=VARCHAR}
+        user_id = #{userId,jdbcType=INTEGER}
   </select>
 </mapper>

@@ -76,7 +76,7 @@ public class StudentController {
 		Subject sub = SecurityUtils.getSubject();
 		User user = (User) sub.getPrincipal();
 
-		studentDto.setTeacherId(Integer.parseInt(ts.getTeahcerByUserId(user.getId()).getId()));
+		studentDto.setTeacherId(ts.getTeahcerByUserId(user.getId()).getId());
 
 		PageHelper.startPage(Integer.parseInt(pageIndex), Integer.parseInt(pageSize));
 		PackData packData = ss.getStusTea(studentDto);

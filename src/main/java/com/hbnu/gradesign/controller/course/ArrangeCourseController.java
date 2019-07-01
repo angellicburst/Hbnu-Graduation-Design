@@ -71,7 +71,7 @@ public class ArrangeCourseController {
 		Subject sub = SecurityUtils.getSubject();
 		User user = (User) sub.getPrincipal();
 
-		arrangeCourseDto.setTeacherId(Integer.parseInt(ts.getTeahcerByUserId(user.getId()).getId()));
+		arrangeCourseDto.setTeacherId(ts.getTeahcerByUserId(user.getId()).getId());
 
 		PageHelper.startPage(Integer.parseInt(pageIndex), Integer.parseInt(pageSize));
 		PackData packData = acs.getArrangeCoursesByTea(arrangeCourseDto);
@@ -102,7 +102,7 @@ public class ArrangeCourseController {
 		arrangeCourseDto.setStudentId(ss.getStuByUserId(user.getId()).getId());
 
 		PageHelper.startPage(Integer.parseInt(pageIndex), Integer.parseInt(pageSize));
-		PackData packData = acs.getArrangeCoursesByTea(arrangeCourseDto);
+		PackData packData = acs.getArrangeCoursesByStu(arrangeCourseDto);
 		PageInfo pageInfo = new PageInfo(packData.getObjs());
 
 		packData.setCount((int) pageInfo.getTotal());

@@ -26,27 +26,12 @@
 							<option value="">课程</option>
 						</select>
 					</div>
-					<div class="layui-inline department">
-						<select name="department" lay-search="" lay-filter="department" id="searchDepartment">
-							<option value="">院系</option>
-						</select>
-					</div>
-					<div class="layui-inline major">
-						<select name="major" lay-search="" lay-filter="major" id="searchMajor">
-							<option value="">专业</option>
-						</select>
-					</div>
-					<div class="layui-inline cla">
-						<select name="cla" lay-search="" lay-filter="cla" id="searchCla">
-							<option value="">班级</option>
-						</select>
-					</div>
 				</form>
 				<button class="layui-btn" lay-submit="" lay-filter="searchBtn" style="float: left;margin-left: 10px">
 					<i class="layui-icon">&#xe615;</i>
 				</button>
 			</div>
-			<table class="layui-table" id="arrCouListTea" lay-filter="arrCouTea">
+			<table class="layui-table" id="arrCouListStu" lay-filter="arrCouStu">
 			</table>
 		</div>
 
@@ -58,7 +43,7 @@
 
 		<script type="text/javascript" src="/js/common/common.js" charset="utf-8"></script>
 
-		<script type="text/javascript" src="/js/course/arrCouTea.js" charset="utf-8"></script>
+		<script type="text/javascript" src="/js/course/arrCouStu.js" charset="utf-8"></script>
 
 		<script type="text/html" id="methodTpl">
 			{{#  if(d.method == 0){ }}

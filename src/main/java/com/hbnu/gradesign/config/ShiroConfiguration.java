@@ -89,6 +89,7 @@ public class ShiroConfiguration {
 		//可以匿名访问
 		filterChainMap.put("/js/**", "anon");
 		filterChainMap.put("/css/**", "anon");
+		filterChainMap.put("/images/**", "anon");
 		filterChainMap.put("/lib/**", "anon");
 		filterChainMap.put("/dologin", "anon");
 		filterChainMap.put("/logout", "logout");

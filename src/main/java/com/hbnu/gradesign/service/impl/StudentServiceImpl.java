@@ -77,7 +77,7 @@ public class StudentServiceImpl implements StudentService {
 	public PackData getStusTea(StudentDto studentDto) {
 		PackData packData = new PackData();
 
-		List<StudentDto> studentDtos = sm.getStudentsTea(studentDto);
+		List<StudentDto> studentDtos = sm.getStudentsTea(studentDto.getTeacherId());
 		if (studentDtos.isEmpty()) {
 			packData.setCode(404);
 			packData.setMsg("学生查询为空");

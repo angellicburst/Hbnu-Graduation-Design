@@ -58,6 +58,28 @@ public class ExamServiceImpl implements ExamService {
 	}
 
 	/**
+	 * 根据教师ID获取所有的考试信息
+	 * @param examDto
+	 * @return
+	 */
+	@Override
+	public PackData getExamsByTeacherId(ExamDto examDto) {
+		PackData packData = new PackData();
+
+		List<ExamDto> examDtos = em.getExamsByTeacherId(examDto);
+		if (examDtos.isEmpty()) {
+			packData.setCode(404);
+			packData.setMsg("考试查询为空");
+			log.error("考试查询为空");
+		} else {
+			packData.setCode(200);
+			packData.setObjs(examDtos);
+			packData.setMsg("考试查询成功");
+		}
+		return packData;
+	}
+
+	/**
 	 * 获取所有已经结束的考试信息
 	 * @param examDto
 	 * @return

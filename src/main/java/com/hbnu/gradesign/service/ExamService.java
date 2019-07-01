@@ -10,6 +10,8 @@ public interface ExamService {
 
 	PackData getExamsAdm(ExamDto examDto);
 
+	PackData getExamsByTeacherId(ExamDto examDto);
+
 	PackData getEndExamsAdm(ExamDto examDto);
 
 	PackData addExam(ExamDto examDto);
