@@ -28,4 +28,9 @@ public class StudentDto extends Student {
 	 */
 	private String cla;
 
+	/**
+	 * 教师ID
+	 */
+	private Integer teacherId;
+
 }

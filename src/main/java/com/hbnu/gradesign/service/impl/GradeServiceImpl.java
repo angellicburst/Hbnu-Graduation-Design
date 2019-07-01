@@ -75,6 +75,29 @@ public class GradeServiceImpl implements GradeService {
 	}
 
 	/**
+	 * 根据学生ID查询学生各个课程的考试成绩（字段不同）
+	 * @param studentId
+	 * @return
+	 */
+	@Override
+	public PackData getGradeByStuId(String studentId) {
+		PackData packData = new PackData();
+
+		List<GradeDto> gradeDtos = gm.getGradeByStudentId(studentId);
+
+		if (gradeDtos.isEmpty()) {
+			packData.setCode(404);
+			packData.setMsg("学生成绩查询为空");
+			log.error("学生成绩查询为空");
+		} else {
+			packData.setCode(200);
+			packData.setObjs(gradeDtos);
+			packData.setMsg("学生成绩查询成功");
+		}
+		return packData;
+	}
+
+	/**
 	 * 考试管理
 	 * 成绩更新，需要对批改状态进行校验
 	 * @param gradeDto

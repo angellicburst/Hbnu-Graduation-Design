@@ -12,6 +12,10 @@ public interface ArrangeCourseMapper {
 
 	List<ArrangeCourseDto> getArrangeCourses(ArrangeCourse arrangeCourse);
 
+	List<ArrangeCourseDto> getArrangeCoursesByTea(ArrangeCourseDto arrangeCourseDto);
+
+	List<ArrangeCourseDto> getArrangeCoursesByStu(ArrangeCourseDto arrangeCourseDto);
+
 	Integer addCourseArrange(ArrangeCourseDto arrangeCourseDto);
 
 	Integer deleteCourseArrange(@Param("ids")List<Integer> ids);

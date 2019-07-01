@@ -13,6 +13,8 @@ public interface TeacherService {
 
 	PackData getTeachersAdm(TeacherDto teacherDto);
 
+	Teacher getTeahcerByUserId(Integer userId);
+
 	PackData templateDownLoad(HttpServletResponse response) throws UnsupportedEncodingException;
 
 	PackData addTeachersByExcel(MultipartFile file) throws Exception;

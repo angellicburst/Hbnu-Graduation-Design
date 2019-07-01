@@ -50,6 +50,50 @@ public class ArrangeCourseServiceImpl implements ArrangeCourseService {
 	}
 
 	/**
+	 * 根据教师Id查询该教师所带课程
+	 * @param arrangeCourseDto
+	 * @return
+	 */
+	@Override
+	public PackData getArrangeCoursesByTea(ArrangeCourseDto arrangeCourseDto) {
+		PackData packData = new PackData();
+
+		List<ArrangeCourseDto> arrangeCourseDtos = acm.getArrangeCoursesByTea(arrangeCourseDto);
+		if (arrangeCourseDtos.isEmpty()) {
+			packData.setCode(404);
+			packData.setMsg("课程安排查询为空");
+			log.error("课程安排查询为空");
+		} else {
+			packData.setCode(200);
+			packData.setObjs(arrangeCourseDtos);
+			packData.setMsg("课程安排查询成功");
+		}
+		return packData;
+	}
+
+	/**
+	 * 根据学生id查询该学生的课程
+	 * @param arrangeCourseDto
+	 * @return
+	 */
+	@Override
+	public PackData getArrangeCoursesByStu(ArrangeCourseDto arrangeCourseDto) {
+		PackData packData = new PackData();
+
+		List<ArrangeCourseDto> arrangeCourseDtos = acm.getArrangeCoursesByStu(arrangeCourseDto);
+		if (arrangeCourseDtos.isEmpty()) {
+			packData.setCode(404);
+			packData.setMsg("课程安排查询为空");
+			log.error("课程安排查询为空");
+		} else {
+			packData.setCode(200);
+			packData.setObjs(arrangeCourseDtos);
+			packData.setMsg("课程安排查询成功");
+		}
+		return packData;
+	}
+
+	/**
 	 * 添加课程安排
 	 * @param arrangeCourseDto
 	 * @return

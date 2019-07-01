@@ -19,4 +19,6 @@ public class ArrangeCourseDto extends ArrangeCourse {
 	private String cla;
 
 	private String dateScope;
+
+	private String studentId;
 }

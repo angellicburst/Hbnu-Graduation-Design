@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<link rel="stylesheet" href="/css/common/common.css" />
+		<link rel="stylesheet" href="/css/font/font.css">
+	</head>
+
+	<body>
+		<div style="display: none" disabled="true" id="graManage">
+			<table class="layui-table" id="graManageList" lay-filter="gradeManage">
+			</table>
+		</div>
+
+
+		<div class="page-nav">
+			<span class="layui-breadcrumb">
+				<a href="">首页</a>
+			</span>
+			<a class="layui-btn layui-btn-sm" style="line-height:1.6em;margin-top:5px;float:right" href="javascript:location.replace(location.href);" title="刷新"><i class="layui-icon" style="line-height:30px">&#xe669;</i></a>
+		</div>
+		<div class="page-body" style="width: auto">
+			<div class="layui-row">
+				<form class="layui-form" style="float: left;">
+					<div class="layui-inline">
+						<input type="text" name="id" placeholder="ID" autocomplete="off" class="layui-input" id="searchId">
+					</div>
+					<div class="layui-inline">
+						<input type="text" name="name" placeholder="姓名" autocomplete="off" class="layui-input" id="searchName">
+					</div>
+					<div class="layui-inline department">
+						<select name="department" lay-search="" lay-filter="department" id="searchDepartment">
+							<option value="">院系</option>
+						</select>
+					</div>
+					<div class="layui-inline major">
+						<select name="major" lay-search="" lay-filter="major" id="searchMajor">
+							<option value="">专业</option>
+						</select>
+					</div>
+					<div class="layui-inline cla">
+						<select name="cla" lay-search="" lay-filter="cla" id="searchCla">
+							<option value="">班级</option>
+						</select>
+					</div>
+				</form>
+				<button class="layui-btn" lay-submit="" lay-filter="searchBtn" style="float: left;margin-left: 10px">
+					<i class="layui-icon">&#xe615;</i>
+				</button>
+			</div>
+			<table class="layui-table" id="stuGraListAdm" lay-filter="grade">
+			</table>
+		</div>
+
+		<!-- layui -->
+		<script type="text/javascript" src="/lib/layui/layui.js" charset="utf-8"></script>
+		<!-- 首字母模糊查询 -->
+		<script type="text/javascript" src="/lib/pingyin/pinyin.js" charset="utf-8"></script>
+		<script type="text/javascript" src="/lib/pingyin/initials.js" charset="utf-8"></script>
+
+		<script type="text/javascript" src="/js/common/common.js" charset="utf-8"></script>
+
+		<script type="text/javascript" src="/js/grade/gradeAdm.js" charset="utf-8"></script>
+
+
+		<script type="text/html" id="barStuMange">
+			<a class="layui-btn layui-btn-sm" lay-event="gradeManage">成绩管理</a>
+		</script>
+
+		<script type="text/html" id="barGradeMange">
+			<a class="layui-btn layui-btn-sm" lay-event="edit">修改</a>
+		</script>
+
+		<script type="text/html" id="typeTpl">
+			{{#  if(d.type == 0){ }}
+			必修
+			{{#  } else if(d.type == 1) { }}
+			选修
+			{{#  } }}
+		</script>
+
+	</body>
+
+</html>

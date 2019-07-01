@@ -11,6 +11,10 @@ public interface ArrangeCourseService {
 
 	PackData getArrangeCourses(ArrangeCourse arrangeCourse);
 
+	PackData getArrangeCoursesByTea(ArrangeCourseDto arrangeCourseDto);
+
+	PackData getArrangeCoursesByStu(ArrangeCourseDto arrangeCourseDto);
+
 	PackData addCourseArrange(ArrangeCourseDto arrangeCourseDto);
 
 	PackData delCourseArrange(List<Course> courses);

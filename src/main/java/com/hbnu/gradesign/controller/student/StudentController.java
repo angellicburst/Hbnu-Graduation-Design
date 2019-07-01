@@ -7,10 +7,13 @@ import com.hbnu.gradesign.entity.User;
 import com.hbnu.gradesign.entity.dto.StudentDto;
 import com.hbnu.gradesign.entity.pojo.PackData;
 import com.hbnu.gradesign.service.StudentService;
+import com.hbnu.gradesign.service.TeacherService;
 import com.hbnu.gradesign.service.UserService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,6 +33,9 @@ public class StudentController {
 
 	@Autowired
 	private UserService us;
+
+	@Autowired
+	private TeacherService ts;
 
 	/**
 	 * admin
@@ -66,8 +72,14 @@ public class StudentController {
 	public PackData getStuTeacher(@RequestParam(value = "page", defaultValue = "1") String pageIndex,
 								@RequestParam(value = "limit", defaultValue = "10") String pageSize,
 								StudentDto studentDto) {
+		//获取登陆用户
+		Subject sub = SecurityUtils.getSubject();
+		User user = (User) sub.getPrincipal();
+
+		studentDto.setTeacherId(Integer.parseInt(ts.getTeahcerByUserId(user.getId()).getId()));
+
 		PageHelper.startPage(Integer.parseInt(pageIndex), Integer.parseInt(pageSize));
-		PackData packData = ss.getStusAdm(studentDto);
+		PackData packData = ss.getStusTea(studentDto);
 		PageInfo pageInfo = new PageInfo(packData.getObjs());
 
 		packData.setCount((int) pageInfo.getTotal());

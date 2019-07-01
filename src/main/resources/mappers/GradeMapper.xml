@@ -122,5 +122,19 @@
     WHERE
         student_id = #{studentId,jdbcType=VARCHAR}
   </select>
+  <select id="getGradeByStudentId" parameterType="java.lang.Integer" resultMap="GradeIncStuExaCla">
+    SELECT
+        t1.id,
+        t1.course_id,
+        t2.course,
+        t2.num,
+        t2.type,
+        t1.score
+    FROM
+        grade t1
+        LEFT JOIN course t2 ON ( t1.course_id = t2.id )
+    WHERE
+        t1.student_id = #{studentId,jdbcType=VARCHAR}
+  </select>
 
 </mapper>

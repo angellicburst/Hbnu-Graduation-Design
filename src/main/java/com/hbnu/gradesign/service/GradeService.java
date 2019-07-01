@@ -10,6 +10,8 @@ public interface GradeService {
 
 	PackData getGradeByStu(String studentId);
 
+	PackData getGradeByStuId(String studentId);
+
 	PackData updateGrade(GradeDto gradeDto);
 
 	PackData updateGradeNC(GradeDto gradeDto);

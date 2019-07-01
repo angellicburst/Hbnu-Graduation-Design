@@ -15,6 +15,8 @@ public interface TeacherMapper {
 
     List<TeacherDto> selectTeachers(TeacherDto teacherDto);
 
+    Teacher getTeacherByUserId(Integer userId);
+
     Integer updateTeacher(Teacher teacher);
 
     List<Teacher> getAllTeachers();

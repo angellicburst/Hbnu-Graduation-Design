@@ -17,6 +17,8 @@ public interface StudentService {
 
 	PackData getStuToGrade(StudentDto studentDto);
 
+	Student getStuByUserId(Integer userId);
+
 	PackData addStudentsByExcel(MultipartFile file) throws Exception;
 
 	PackData templateDownLoad(HttpServletResponse response) throws UnsupportedEncodingException;

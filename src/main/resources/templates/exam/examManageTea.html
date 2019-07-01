@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<link rel="stylesheet" href="/css/common/common.css" />
+		<link rel="stylesheet" href="/css/font/font.css">
+		<link rel="stylesheet" href="/css/exam/exam.css">
+	</head>
+
+	<body>
+		<!-- 添加弹出层 -->
+		<div style="display: none" disabled="true" id="addFrame">
+			<form class="layui-form" action="" lay-filter="menuFilter" id="addForm">
+				<div class="layui-form-item">
+					<label class="layui-form-label">考试名称</label>
+					<div class="layui-input-inline">
+						<input type="text" name="examName" lay-verify="required" autocomplete="off" placeholder="请输入考试名称" class="layui-input">
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">考试描述</label>
+					<div class="layui-input-block">
+						<textarea placeholder="请输入内容" class="layui-textarea" autocomplete="off" name="info"></textarea>
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">课程</label>
+					<div class="layui-input-inline">
+						<select class="selectCourse" name="courseId" lay-search="" lay-verify="required" id="addCourse">
+							<option value="">课程</option>
+						</select>
+					</div>
+					<label class="layui-form-label">考试总分</label>
+					<div class="layui-input-inline">
+						<input type="number" name="total" lay-verify="required" autocomplete="off" placeholder="请输入考试总分" class="layui-input">
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">考试地点</label>
+					<div class="layui-input-inline">
+						<input type="text" name="address" lay-verify="required" autocomplete="off" placeholder="请输入考试地点" class="layui-input">
+					</div>
+					<label class="layui-form-label">时间范围</label>
+					<div class="layui-input-inline">
+						<input type="text" class="layui-input" name="timeScope" autocomplete="off" id="addTimeScope" placeholder="请输入时间范围">
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">教师</label>
+					<div class="layui-input-inline">
+						<select class="selectTeacher" name="teacherId" lay-search="" lay-verify="required" id="addTeacher">
+							<option value="">教师</option>
+						</select>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-input-block">
+						<button class="layui-btn" lay-submit="" lay-filter="addExam">立即提交</button>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<!-- 修改弹出层 -->
+		<div style="display: none" disabled="true" id="editFrame">
+			<form class="layui-form" action="" lay-filter="examFilter" id="editForm" >
+				<input type="hidden" name="id" id="saveExamId" />
+				<input type="hidden" name="createDate" id="saveCreateDate" />
+				<input type="hidden" name="status" id="saveStatus" />
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">考试名称</label>
+					<div class="layui-input-inline">
+						<input type="text" name="examName" lay-verify="required" autocomplete="off" placeholder="请输入考试名称" class="layui-input">
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">考试描述</label>
+					<div class="layui-input-block">
+						<textarea placeholder="请输入内容" class="layui-textarea" autocomplete="off" name="info"></textarea>
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">课程</label>
+					<div class="layui-input-inline">
+						<select class="selectCourse" name="courseId" lay-search="" lay-verify="required" id="editCourse" disabled="true">
+							<option value="">课程</option>
+						</select>
+					</div>
+					<label class="layui-form-label">考试总分</label>
+					<div class="layui-input-inline">
+						<input type="number" name="total" lay-verify="required" autocomplete="off" placeholder="请输入考试总分" class="layui-input">
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">考试地点</label>
+					<div class="layui-input-inline">
+						<input type="text" name="address" lay-verify="required" autocomplete="off" placeholder="请输入考试地点" class="layui-input">
+					</div>
+					<label class="layui-form-label">时间范围</label>
+					<div class="layui-input-inline">
+						<input type="text" class="layui-input" name="timeScope" autocomplete="off" id="editTimeScope" placeholder="请输入时间范围">
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">教师</label>
+					<div class="layui-input-inline">
+						<select class="selectTeacher" name="teacherId" lay-search="" lay-verify="required" id="editTeacher" disabled="true">
+							<option value="">教师</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<div class="layui-input-block">
+						<button class="layui-btn" lay-submit="" lay-filter="editExam">立即提交</button>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<!-- 班级管理弹出层 -->
+		<div style="display: none" disabled="true" id="claManage">
+			<div class="layui-row" id="addClaFrame">
+				<form class="layui-form addCla" id="addClaForm">
+					<input type="hidden" name="examId" id="examId" />
+
+					<div class="layui-form-item">
+						<div class="layui-inline Dep">
+							<select name="departmentId" lay-verify="required" lay-search="" lay-filter="department" id="addDepartment">
+								<option value="">院系</option>
+							</select>
+						</div>
+						<div class="layui-inline Ma">
+							<select name="majorId" lay-verify="required" lay-search="" lay-filter="major" id="addMajor">
+								<option value="">专业</option>
+							</select>
+						</div>
+						<div class="layui-inline Cla">
+							<select name="claId" lay-verify="required" lay-search="" lay-filter="cla" id="addCla">
+								<option value="">班级</option>
+							</select>
+						</div>
+						<button class="layui-btn" lay-submit="" lay-filter="addCla">
+							<i class="layui-icon">&#xe654;</i>
+						</button>
+					</div>
+				</form>
+			</div>
+			<input type="hidden" id="saveEndTime" />
+			<input type="hidden" id="courseId" />
+			<table class="layui-table" id="claManageList" lay-filter="examCla">
+			</table>
+		</div>
+
+		<!-- 成绩管弹出层 -->
+		<div style="display: none" disabled="true" id="gradeManage">
+			<table class="layui-table" id="gradeManageList" lay-filter="examClaGrade">
+			</table>
+		</div>
+
+
+
+		<div class="page-nav">
+			<span class="layui-breadcrumb">
+				<a href="">首页</a>
+			</span>
+			<a class="layui-btn layui-btn-sm" style="line-height:1.6em;margin-top:5px;float:right" href="javascript:location.replace(location.href);" title="刷新"><i class="layui-icon" style="line-height:30px">&#xe669;</i></a>
+		</div>
+		<div class="page-body" style="width: auto">
+			<div class="layui-row">
+				<form class="layui-form" style="float: left;">
+					<div class="layui-inline">
+						<input type="text" name="examName" placeholder="考试名称" autocomplete="off" class="layui-input" id="searchExamName">
+					</div>
+					<div class="layui-inline course">
+						<select name="level" lay-search="" lay-filter="course" id="searchCourse">
+							<option value="">课程</option>
+						</select>
+					</div>
+					<div class="layui-inline teacher">
+						<select name="teacher" lay-search="" lay-filter="teacher" id="searchTeacher">
+							<option value="">教师</option>
+						</select>
+					</div>
+				</form>
+				<button class="layui-btn" lay-submit="" lay-filter="searchBtn" style="float: left;margin-left: 10px">
+					<i class="layui-icon">&#xe615;</i>
+				</button>
+			</div>
+			<table class="layui-table" id="examListAdm" lay-filter="exam">
+			</table>
+		</div>
+
+		<!-- layui -->
+		<script type="text/javascript" src="/lib/layui/layui.js" charset="utf-8"></script>
+		<!-- 首字母模糊查询 -->
+		<script type="text/javascript" src="/lib/pingyin/pinyin.js" charset="utf-8"></script>
+		<script type="text/javascript" src="/lib/pingyin/initials.js" charset="utf-8"></script>
+
+		<script type="text/javascript" src="/js/common/common.js" charset="utf-8"></script>
+
+		<script type="text/javascript" src="/js/exam/examAdm.js" charset="utf-8"></script>
+
+
+
+		<script type="text/html" id="barExamMange">
+			<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+			<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+			<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="claManage">班级管理</a>
+		</script>
+
+		<script type="text/html" id="barClaMange">
+			<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+			<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="grade">成绩上传</a>
+		</script>
+
+		<script type="text/html" id="barGradeMange">
+			<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="addGrade">上传成绩</a>
+		</script>
+
+		<script type="text/html" id="toolbar">
+			<div class="layui-btn-container">
+				<button class="layui-btn layui-btn-sm" lay-event="add">添加</button>
+				<button class="layui-btn layui-btn-sm" lay-event="delMult">批量删除</button>
+			</div>
+		</script>
+
+		<script type="text/html" id="statusTpl">
+			{{#  if(d.status == 0){ }}
+			未批改
+			{{#  } else if(d.status == 1) { }}
+			已批改
+			{{#  }  }}
+		</script>
+
+	</body>
+
+</html>

@@ -2,10 +2,14 @@ package com.hbnu.gradesign.controller.grade;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.hbnu.gradesign.entity.User;
 import com.hbnu.gradesign.entity.dto.GradeDto;
 import com.hbnu.gradesign.entity.pojo.PackData;
 import com.hbnu.gradesign.service.GradeService;
+import com.hbnu.gradesign.service.StudentService;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +18,9 @@ public class GradeController {
 
 	@Autowired
 	private GradeService gs;
+
+	@Autowired
+	private StudentService ss;
 
 	/**
 	 * admin
@@ -53,6 +60,30 @@ public class GradeController {
 										@RequestParam(value = "studentId") String studentId) {
 		PageHelper.startPage(Integer.parseInt(pageIndex), Integer.parseInt(pageSize));
 		PackData packData = gs.getGradeByStu(studentId);
+		PageInfo pageInfo = new PageInfo(packData.getObjs());
+
+		packData.setCount((int) pageInfo.getTotal());
+
+		return packData;
+	}
+
+	/**
+	 * student
+	 * 获取学生ID获取该学生的所有成绩
+	 * @param pageIndex
+	 * @param pageSize
+	 * @return
+	 */
+	@RequiresRoles("student")
+	@RequestMapping(value = "/student/getGraByStudentId",method = RequestMethod.GET)
+	public PackData getGradeByStudentId(@RequestParam(value = "page", defaultValue = "1") String pageIndex,
+									  @RequestParam(value = "limit", defaultValue = "10") String pageSize) {
+		//获取登陆用户
+		Subject sub = SecurityUtils.getSubject();
+		User user = (User) sub.getPrincipal();
+
+		PageHelper.startPage(Integer.parseInt(pageIndex), Integer.parseInt(pageSize));
+		PackData packData = gs.getGradeByStuId(ss.getStuByUserId(user.getId()).getId());
 		PageInfo pageInfo = new PageInfo(packData.getObjs());
 
 		packData.setCount((int) pageInfo.getTotal());

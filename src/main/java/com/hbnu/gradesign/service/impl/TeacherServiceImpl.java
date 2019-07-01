@@ -68,6 +68,16 @@ public class TeacherServiceImpl implements TeacherService {
 	}
 
 	/**
+	 * 通过user_id查询老师
+	 * @param userId
+	 * @return
+	 */
+	@Override
+	public Teacher getTeahcerByUserId(Integer userId) {
+		return tm.getTeacherByUserId(userId);
+	}
+
+	/**
 	 * 教师批量导入模板下载
 	 * @param response
 	 * @return

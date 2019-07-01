@@ -81,6 +81,7 @@ public class UserServiceImpl implements UserService {
 		//获取登陆用户
 		Subject sub = SecurityUtils.getSubject();
 		User user = (User) sub.getPrincipal();
+
 		if (!SaltUtil.saltEncrypt(passwordInfo.getOldPassWord(),1024,"md5",user.getSalt()).equals(user.getPassword())) {
 			log.error("原密码输入错误");
 			packData.setMsg("原密码输入错误");

@@ -112,4 +112,15 @@ public class PagesController {
 	public String stuManageByTea() {
 		return "student/stuManageTea";
 	}
+
+	/**
+	 * teacher
+	 * 跳转课程管理页面
+	 * @return
+	 */
+	@RequiresRoles("teacher")
+	@RequestMapping(value = "/teacher/couManage")
+	public String couManageByTea() {
+		return "course/couManageTea";
+	}
 }

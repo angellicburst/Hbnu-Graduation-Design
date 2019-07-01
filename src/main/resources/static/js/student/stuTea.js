@@ -20,7 +20,7 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 			url : '/teacher/getStudents',
 			toolbar : '#toolbar',
 			id: 'stuListTea',
-			cellMinWidth : 80,
+			width: 1200,
 			page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
 				layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
 				,groups: 1 //只显示 1 个连续页码
@@ -53,18 +53,10 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 			}, {
 				field : 'email',
 				title : '邮箱',
-				width : 200,
 				align : 'center'
-			}, {
-				field : 'status',
-				title : '状态',
-				align : 'center',
-				width : 80,
-				templet: '#statusTpl'
 			}, {
 				field : 'department',
 				title :'院系',
-				width : 210,
 				align : 'center'
 			}, {
 				field : 'departmentId',
@@ -75,7 +67,6 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 			}, {
 				field : 'major',
 				title : '专业',
-				width : 180,
 				align : 'center'
 			}, {
 				field : 'majorId',
@@ -93,12 +84,6 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 				width : 80,
 				align : 'center',
 				hide: true
-			}, {
-				fixed : 'right',
-				title :'操作',
-				toolbar : '#barStuMange',
-				width : 180,
-				align : 'center'
 			} ] ],
 			page : true,
 			response: {
@@ -119,7 +104,6 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 				layui.each(data.objs, function(index, obj) {
 					departments += "<option value='"+obj.id+"'>"+obj.department+"</option>"
 				});
-				$("#selectDepartment").append(departments);
 				$("#searchDepartment").append(departments);
 				form.render();
 			}
@@ -137,7 +121,6 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 				layui.each(data.objs, function(index, obj) {
 					majors += "<option value='"+obj.id+"'>"+obj.major+"</option>"
 				});
-				$("#selectMajor").append(majors);
 				$("#searchMajor").append(majors);
 				form.render();
 			}
@@ -155,7 +138,6 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 				layui.each(data.objs, function(index, obj) {
 					clas += "<option value='"+obj.id+"'>"+obj.cla+"</option>"
 				});
-				$("#selectCla").append(clas);
 				$("#searchCla").append(clas);
 				form.render();
 			}
@@ -172,65 +154,13 @@ layui.use(['laydate', 'jquery', 'admin', 'table', 'upload'], function() {
 	 * @todo 模糊查询表单
 	 */
 	form.on('submit(searchBtn)', function(){
-		table.reload('stuListAdm',{
+		table.reload('stuListTea',{
 			where: {
 				id:$("#searchId").val(),
 				name:$("#searchName").val(),
-				dateStr:$("#searchCreateDate").val(),
-				status:$(".status .layui-this").attr("lay-value") == undefined?'':$(".status .layui-this").attr("lay-value"),
 				departmentId:$(".department .layui-this").attr("lay-value") == undefined?'':$(".department .layui-this").attr("lay-value"),
 				majorId:$(".major .layui-this").attr("lay-value") == undefined?'':$(".major .layui-this").attr("lay-value"),
 				claId:$(".cla .layui-this").attr("lay-value") == undefined?'':$(".cla .layui-this").attr("lay-value")
-			}
-		});
-		return false;
-	});
-
-	/**
-	 * @todo 院系专业班级三级联动
-	 */
-	form.on('select(department)', function(data) {
-		$.ajax({
-			type: "POST",
-			url: "/getMajorsByDep",
-			data: {
-				departmentId : data.value
-			},
-			dataType: "json",
-			success: function (data) {
-
-				$("#selectMajor").empty();
-				$("#selectCla").empty();
-				let majors = "<option value=''>专业</option>";
-				let clas = "<option value=''>班级</option>";
-				layui.each(data, function(index, obj) {
-					majors += "<option value='"+obj.id+"'>"+obj.major+"</option>"
-				});
-				$("#selectMajor").append(majors);
-				$("#selectCla").append(clas);
-				form.render();
-			}
-		});
-		return false;
-	});
-	form.on('select(major)', function(data) {
-		$.ajax({
-			type: "POST",
-			url: "/getClasByMaj",
-			data: {
-				majorId : data.value
-			},
-			dataType: "json",
-			success: function (data) {
-
-				$("#selectCla").empty();
-				let clas = "<option value=''>班级</option>";
-				layui.each(data, function(index, obj) {
-					clas += "<option value='"+obj.id+"'>"+obj.cla+"</option>"
-				});
-				$("#selectCla").append(clas);
-
-				form.render();
 			}
 		});
 		return false;

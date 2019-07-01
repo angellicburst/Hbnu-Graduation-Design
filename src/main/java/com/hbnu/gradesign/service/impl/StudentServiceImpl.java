@@ -69,7 +69,7 @@ public class StudentServiceImpl implements StudentService {
 
 	/**
 	 * teacher
-	 * 获取学生列表
+	 * 根据teacherID获取该教师所带的所有学生
 	 * @param studentDto
 	 * @return
 	 */
@@ -111,6 +111,16 @@ public class StudentServiceImpl implements StudentService {
 			packData.setMsg("学生查询成功");
 		}
 		return packData;
+	}
+
+	/**
+	 * 根据user_id获取学生
+	 * @param userId
+	 * @return
+	 */
+	@Override
+	public Student getStuByUserId(Integer userId) {
+		return sm.getStudentByUserId(userId);
 	}
 
 	/**

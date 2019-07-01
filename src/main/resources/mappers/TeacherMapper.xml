@@ -92,4 +92,12 @@
     FROM
         teacher
   </select>
+  <select id="getTeacherByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT
+        *
+    FROM
+        teacher
+    WHERE
+        user_id = #{userId,jdbcType=VARCHAR}
+  </select>
 </mapper>
